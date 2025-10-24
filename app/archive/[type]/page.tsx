@@ -146,7 +146,7 @@ export default async function ArchivePage({ params, searchParams }: Props) {
               return (
                 <Link
                   key={listing.id}
-                  href={`/${type}/${listing.id}`}
+                  href={`/${type}/${listing.slug}`}
                   className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
                 >
                   <div className="relative h-56 overflow-hidden">

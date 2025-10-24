@@ -9,13 +9,13 @@ import ImageGallery from '../../components/ImageGallery';
 export const dynamic = 'force-dynamic';
 
 type Props = {
-  params: Promise<{ type: string; id: string }>;
+  params: Promise<{ type: string; slug: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  const { type, id } = resolvedParams;
-  const listing = await wordpressAPI.getListingById(type, id);
+  const { type, slug } = resolvedParams;
+  const listing = await wordpressAPI.getListingBySlug(type, slug);
 
   if (!listing) {
     return {
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get('host') || '';
   const protocol = host.includes('localhost') ? 'http' : 'https';
-  const currentUrl = `${protocol}://${host}/${type}/${id}`;
+  const currentUrl = `${protocol}://${host}/${type}/${slug}`;
 
   const seoData = await fetchRankMathSEO(listing.link);
 
@@ -54,8 +54,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ListingPage({ params }: Props) {
   const resolvedParams = await params;
-  const { type, id } = resolvedParams;
-  const listing = await wordpressAPI.getListingById(type, id);
+  const { type, slug } = resolvedParams;
+  const listing = await wordpressAPI.getListingBySlug(type, slug);
 
   if (!listing) {
     return (

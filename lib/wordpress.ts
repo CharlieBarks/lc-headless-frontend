@@ -9,6 +9,7 @@ export interface Category {
 
 export interface Listing {
   id: number | string;
+  slug: string;
   title: {
     rendered: string;
   };
@@ -408,6 +409,18 @@ export const wordpressAPI = {
     } catch (error) {
       console.error('Error searching listings:', error);
       return [];
+    }
+  },
+
+  async getListingBySlug(type: string, slug: string): Promise<Listing | null> {
+    try {
+      const response = await fetch(`${WP_API_BASE}/${type}?slug=${slug}&_embed`, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Failed to fetch listing');
+      const listings = await response.json();
+      return listings.length > 0 ? listings[0] : null;
+    } catch (error) {
+      console.error('Error fetching listing:', error);
+      return null;
     }
   },
 
