@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { UtensilsCrossed, Building2, Bed, Landmark, ChevronRight } from 'lucide-react';
+import { UtensilsCrossed, Building2, Bed, Landmark, ChevronRight, Search } from 'lucide-react';
 import { wordpressAPI, getListingImage, type Category } from '../../../lib/wordpress';
 import type { Metadata } from 'next';
+import { ArchiveFilters } from '../../components/ArchiveFilters';
 
 export const dynamic = 'force-dynamic';
 
@@ -133,22 +134,7 @@ export default async function ArchivePage({ params }: Props) {
 
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          {categories.length > 0 && (
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-slate-900 mb-6">Browse by Category</h2>
-              <div className="flex flex-wrap gap-3">
-                {categories.map((category) => (
-                  <Link
-                    key={category.id}
-                    href={`/archive/${type}?category=${category.id}`}
-                    className="px-4 py-2 bg-white border-2 border-slate-200 rounded-lg hover:border-emerald-500 hover:text-emerald-600 transition-all font-medium text-slate-700"
-                  >
-                    {category.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
+          <ArchiveFilters categories={categories} type={type} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {listings.map((listing) => {
