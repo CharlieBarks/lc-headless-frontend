@@ -8,7 +8,7 @@ export interface Category {
 }
 
 export interface Listing {
-  id: number;
+  id: number | string;
   title: {
     rendered: string;
   };
@@ -64,7 +64,7 @@ export interface Listing {
     raw?: string;
     rendered?: string;
   };
-  business_hours?: string;
+  business_hours?: string | { raw?: string; rendered?: any };
   takeout?: boolean;
   drive_thru?: boolean;
   facebook?: string;

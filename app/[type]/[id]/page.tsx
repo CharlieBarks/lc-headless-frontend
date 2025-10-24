@@ -66,6 +66,27 @@ export default async function ListingPage({ params }: Props) {
   const images = getAllListingImages(listing, type as any);
   const content = listing.content?.rendered || listing.post_content || '';
 
+  const getBusinessHours = (): string => {
+    if (!listing.business_hours) return '';
+    if (typeof listing.business_hours === 'string') return listing.business_hours;
+    if (typeof listing.business_hours === 'object' && listing.business_hours.rendered) {
+      const hoursData = listing.business_hours.rendered;
+      if (hoursData.days) {
+        return Object.entries(hoursData.days)
+          .map(([day, info]: [string, any]) => {
+            const dayName = info.day || day;
+            const slots = info.slots || [];
+            const range = slots[0]?.range || 'Closed';
+            return `${dayName}: ${range}`;
+          })
+          .join('\n');
+      }
+    }
+    return '';
+  };
+
+  const businessHours = getBusinessHours();
+
   return (
     <>
       <nav className="bg-white border-b border-slate-200 py-4">
@@ -147,12 +168,12 @@ export default async function ListingPage({ params }: Props) {
               </div>
             )}
 
-            {listing.business_hours && (
+            {businessHours && (
               <div className="bg-white rounded-2xl shadow-lg p-8">
                 <h2 className="text-3xl font-bold text-slate-900 mb-6">Hours</h2>
                 <div className="flex items-start space-x-3">
                   <Clock className="w-5 h-5 text-emerald-600 mt-1" />
-                  <div className="text-slate-700 whitespace-pre-line">{listing.business_hours}</div>
+                  <div className="text-slate-700 whitespace-pre-line">{businessHours}</div>
                 </div>
               </div>
             )}
