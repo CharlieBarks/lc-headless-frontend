@@ -181,9 +181,9 @@ export default async function ArchivePage({ params }: Props) {
                         {listing.city}, {listing.region}
                       </p>
                     )}
-                    {listing.default_category && (
+                    {(listing.post_category && listing.post_category.length > 0) && (
                       <span className="inline-block px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-xs font-semibold">
-                        {listing.default_category}
+                        {listing.post_category[0].name.replace(/&amp;/g, '&')}
                       </span>
                     )}
                   </div>
