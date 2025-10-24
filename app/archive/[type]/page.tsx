@@ -8,6 +8,7 @@ export const dynamic = 'force-dynamic';
 
 type Props = {
   params: Promise<{ type: string }>;
+  searchParams: Promise<{ search?: string; category?: string }>;
 };
 
 const typeConfig: Record<string, { title: string; icon: any; description: string }> = {
@@ -54,9 +55,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ArchivePage({ params }: Props) {
+export default async function ArchivePage({ params, searchParams }: Props) {
   const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
   const { type } = resolvedParams;
+  const { search, category } = resolvedSearchParams;
   const config = typeConfig[type];
 
   if (!config) {
@@ -99,6 +102,27 @@ export default async function ArchivePage({ params }: Props) {
     console.error(`Error fetching ${type}:`, error);
   }
 
+  let filteredListings = listings;
+
+  if (search) {
+    const searchLower = search.toLowerCase();
+    filteredListings = filteredListings.filter(listing =>
+      listing.title.rendered.toLowerCase().includes(searchLower) ||
+      (listing.city && listing.city.toLowerCase().includes(searchLower)) ||
+      (listing.post_category && listing.post_category.some((cat: any) =>
+        cat.name.toLowerCase().includes(searchLower)
+      ))
+    );
+  }
+
+  if (category) {
+    filteredListings = filteredListings.filter(listing =>
+      listing.post_category && listing.post_category.some((cat: any) =>
+        cat.term_id.toString() === category
+      )
+    );
+  }
+
   return (
     <>
       <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 py-24">
@@ -123,7 +147,7 @@ export default async function ArchivePage({ params }: Props) {
 
           <div className="flex items-center space-x-4 text-slate-300">
             <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
-              {listings.length} listings
+              {filteredListings.length} listings
             </span>
             <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
               {categories.length} categories
@@ -137,7 +161,7 @@ export default async function ArchivePage({ params }: Props) {
           <ArchiveFilters categories={categories} type={type} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {listings.map((listing) => {
+            {filteredListings.map((listing) => {
               const imageUrl = getListingImage(listing, type as any);
 
               return (
@@ -178,7 +202,7 @@ export default async function ArchivePage({ params }: Props) {
             })}
           </div>
 
-          {listings.length === 0 && (
+          {filteredListings.length === 0 && (
             <div className="text-center py-16">
               <Icon className="w-16 h-16 text-slate-300 mx-auto mb-4" />
               <h3 className="text-2xl font-bold text-slate-900 mb-2">No listings found</h3>
