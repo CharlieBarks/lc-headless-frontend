@@ -151,26 +151,26 @@ function proxyImageUrl(url: string): string {
 }
 
 export function getAllListingImages(listing: Listing, defaultType: keyof typeof DEFAULT_IMAGES = 'business'): string[] {
-  const images: string[] = [];
+  const imageSet = new Set<string>();
 
   if (listing.featured_image && typeof listing.featured_image === 'object' && listing.featured_image.src) {
-    images.push(proxyImageUrl(listing.featured_image.src));
+    imageSet.add(proxyImageUrl(listing.featured_image.src));
   }
 
   if (Array.isArray(listing.images) && listing.images.length > 0) {
     listing.images.forEach(img => {
       if (img?.src) {
-        images.push(proxyImageUrl(img.src));
+        imageSet.add(proxyImageUrl(img.src));
       }
     });
   }
 
   if (listing._embedded?.['wp:featuredmedia']?.[0]?.source_url) {
     const url = listing._embedded['wp:featuredmedia'][0].source_url;
-    if (!images.includes(proxyImageUrl(url))) {
-      images.push(proxyImageUrl(url));
-    }
+    imageSet.add(proxyImageUrl(url));
   }
+
+  const images = Array.from(imageSet);
 
   if (images.length === 0) {
     images.push(DEFAULT_IMAGES[defaultType]);
