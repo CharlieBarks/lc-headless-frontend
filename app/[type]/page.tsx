@@ -140,7 +140,11 @@ export default async function ArchivePage({ params, searchParams }: Props) {
         <div className="max-w-7xl mx-auto">
           <ArchiveFilters categories={categories} type={type} />
 
-          <ListingsGrid listings={listings} type={type} config={config} />
+          <ListingsGrid
+            listings={listings}
+            type={type}
+            config={{ title: config.title, description: config.description }}
+          />
         </div>
       </section>
     </>
