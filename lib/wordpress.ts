@@ -373,21 +373,17 @@ export const wordpressAPI = {
 
   async getFeaturedListings(limit = 3): Promise<Listing[]> {
     try {
-      const [restaurants, businesses, accommodations, places] = await Promise.all([
+      const [restaurants, businesses] = await Promise.all([
         fetch(`${WP_API_BASE}/restaurant?per_page=100&_embed`, { cache: 'no-store' }),
-        fetch(`${WP_API_BASE}/business?per_page=100&_embed`, { cache: 'no-store' }),
-        fetch(`${WP_API_BASE}/accommodation?per_page=100&_embed`, { cache: 'no-store' }),
-        fetch(`${WP_API_BASE}/places?per_page=100&_embed`, { cache: 'no-store' })
+        fetch(`${WP_API_BASE}/business?per_page=100&_embed`, { cache: 'no-store' })
       ]);
 
       const results = await Promise.all([
         restaurants.ok ? restaurants.json() : [],
-        businesses.ok ? businesses.json() : [],
-        accommodations.ok ? accommodations.json() : [],
-        places.ok ? places.json() : []
+        businesses.ok ? businesses.json() : []
       ]);
 
-      const allListings = [...results[0], ...results[1], ...results[2], ...results[3]];
+      const allListings = [...results[0], ...results[1]];
 
       // Filter only listings that have a featured image
       const withFeaturedImages = allListings.filter((listing: Listing) =>
