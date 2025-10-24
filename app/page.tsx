@@ -1,4 +1,4 @@
-import { Search, UtensilsCrossed, Building2, Bed, Landmark, Calendar, BookOpen } from 'lucide-react';
+import { Search, UtensilsCrossed, Building2, Bed, Landmark, Calendar, BookOpen, CheckCircle, Star } from 'lucide-react';
 import Link from 'next/link';
 import { wordpressAPI, getListingImage, getBlogPostImage, decodeHtmlEntities } from '../lib/wordpress';
 import type { Metadata } from 'next';
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const [featuredListings, blogPosts, categoryCounts] = await Promise.all([
-    wordpressAPI.getFeaturedListings(3),
+    wordpressAPI.getFeaturedListings(6),
     wordpressAPI.getBlogPosts(3),
     wordpressAPI.getCategoryCounts()
   ]);
@@ -163,6 +163,20 @@ export default async function HomePage() {
                       alt={decodeHtmlEntities(listing.title.rendered)}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
+                    <div className="absolute top-4 left-4 flex gap-2">
+                      {(listing.verified === true || listing.verified === 1 || listing.verified === '1') && (
+                        <div className="px-3 py-1 bg-blue-500/90 backdrop-blur-sm rounded-full text-sm font-semibold text-white flex items-center gap-1.5 shadow-lg">
+                          <CheckCircle className="w-4 h-4" />
+                          Claimed
+                        </div>
+                      )}
+                      {(listing.is_featured === true || listing.is_featured === 1 || listing.is_featured === '1') && (
+                        <div className="px-3 py-1 bg-amber-500/90 backdrop-blur-sm rounded-full text-sm font-semibold text-white flex items-center gap-1.5 shadow-lg">
+                          <Star className="w-4 h-4 fill-white" />
+                          Featured
+                        </div>
+                      )}
+                    </div>
                     <div className="absolute top-4 right-4">
                       <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-semibold text-emerald-600">
                         {categoryLabel}

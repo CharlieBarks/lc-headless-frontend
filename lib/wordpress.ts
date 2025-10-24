@@ -88,6 +88,8 @@ export interface Listing {
   facebook?: string;
   instagram?: string;
   twitter?: string;
+  is_featured?: boolean | number | string;
+  verified?: boolean | number | string;
 }
 
 export interface BlogPost {
@@ -357,12 +359,24 @@ export const wordpressAPI = {
     }
   },
 
-  async getFeaturedListings(limit = 3): Promise<Listing[]> {
+  async getFeaturedListings(limit = 12): Promise<Listing[]> {
     try {
-      const restaurants = await this.getRestaurants(1);
-      const businesses = await this.getBusinesses(1);
-      const accommodations = await this.getAccommodations(1);
-      return [...restaurants, ...businesses, ...accommodations].slice(0, limit);
+      const [restaurants, businesses, accommodations, places] = await Promise.all([
+        fetch(`${WP_API_BASE}/restaurant?per_page=50&is_featured=1&_embed`, { cache: 'no-store' }),
+        fetch(`${WP_API_BASE}/business?per_page=50&is_featured=1&_embed`, { cache: 'no-store' }),
+        fetch(`${WP_API_BASE}/accommodation?per_page=50&is_featured=1&_embed`, { cache: 'no-store' }),
+        fetch(`${WP_API_BASE}/places?per_page=50&is_featured=1&_embed`, { cache: 'no-store' })
+      ]);
+
+      const results = await Promise.all([
+        restaurants.ok ? restaurants.json() : [],
+        businesses.ok ? businesses.json() : [],
+        accommodations.ok ? accommodations.json() : [],
+        places.ok ? places.json() : []
+      ]);
+
+      const allFeatured = [...results[0], ...results[1], ...results[2], ...results[3]];
+      return allFeatured.slice(0, limit);
     } catch (error) {
       console.error('Error fetching featured listings:', error);
       return [];
