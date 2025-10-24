@@ -117,7 +117,7 @@ export default async function HomePage() {
             {categories.map((category) => (
               <Link
                 key={category.id}
-                href={`/archive/${category.id}`}
+                href={`/${category.id}`}
                 className="group relative overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 transition-opacity`}></div>

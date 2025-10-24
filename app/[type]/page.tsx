@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { UtensilsCrossed, Building2, Bed, Landmark, ChevronRight, Search } from 'lucide-react';
-import { wordpressAPI, getListingImage, type Category } from '../../../lib/wordpress';
+import { wordpressAPI, getListingImage, type Category } from '../../lib/wordpress';
 import type { Metadata } from 'next';
-import { ArchiveFilters } from '../../components/ArchiveFilters';
+import { ArchiveFilters } from '../components/ArchiveFilters';
 
 export const dynamic = 'force-dynamic';
 

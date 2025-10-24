@@ -25,7 +25,7 @@ export function ArchiveFilters({ categories, type }: ArchiveFiltersProps) {
     } else {
       params.delete('search');
     }
-    router.push(`/archive/${type}?${params.toString()}`);
+    router.push(`/${type}?${params.toString()}`);
   };
 
   const handleCategoryClick = (categoryId: string) => {
@@ -35,12 +35,12 @@ export function ArchiveFilters({ categories, type }: ArchiveFiltersProps) {
     } else {
       params.set('category', categoryId.toString());
     }
-    router.push(`/archive/${type}?${params.toString()}`);
+    router.push(`/${type}?${params.toString()}`);
   };
 
   const clearFilters = () => {
     setSearchTerm('');
-    router.push(`/archive/${type}`);
+    router.push(`/${type}`);
   };
 
   return (

@@ -49,28 +49,28 @@ export default function RootLayout({
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300"></span>
                   </Link>
                   <Link
-                    href="/archive/restaurant"
+                    href="/restaurant"
                     className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group"
                   >
                     Restaurants
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300"></span>
                   </Link>
                   <Link
-                    href="/archive/business"
+                    href="/business"
                     className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group"
                   >
                     Businesses
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300"></span>
                   </Link>
                   <Link
-                    href="/archive/accommodation"
+                    href="/accommodation"
                     className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group"
                   >
                     Accommodations
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300"></span>
                   </Link>
                   <Link
-                    href="/archive/places"
+                    href="/places"
                     className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group"
                   >
                     Places
@@ -117,22 +117,22 @@ export default function RootLayout({
                   <h3 className="font-bold text-lg mb-4">Explore</h3>
                   <ul className="space-y-3">
                     <li>
-                      <Link href="/archive/restaurant" className="text-slate-400 hover:text-white transition-colors">
+                      <Link href="/restaurant" className="text-slate-400 hover:text-white transition-colors">
                         Restaurants
                       </Link>
                     </li>
                     <li>
-                      <Link href="/archive/business" className="text-slate-400 hover:text-white transition-colors">
+                      <Link href="/business" className="text-slate-400 hover:text-white transition-colors">
                         Businesses
                       </Link>
                     </li>
                     <li>
-                      <Link href="/archive/accommodation" className="text-slate-400 hover:text-white transition-colors">
+                      <Link href="/accommodation" className="text-slate-400 hover:text-white transition-colors">
                         Accommodations
                       </Link>
                     </li>
                     <li>
-                      <Link href="/archive/places" className="text-slate-400 hover:text-white transition-colors">
+                      <Link href="/places" className="text-slate-400 hover:text-white transition-colors">
                         Places
                       </Link>
                     </li>

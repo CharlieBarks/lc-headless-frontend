@@ -103,7 +103,7 @@ export default async function ListingPage({ params }: Props) {
               Home
             </Link>
             <ChevronRight className="w-4 h-4" />
-            <Link href={`/archive/${type}`} className="hover:text-emerald-600 transition-colors capitalize">
+            <Link href={`/${type}`} className="hover:text-emerald-600 transition-colors capitalize">
               {type}
             </Link>
             <ChevronRight className="w-4 h-4" />
