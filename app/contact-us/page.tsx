@@ -1,4 +1,4 @@
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin } from 'lucide-react';
 
 export default function ContactPage() {
   return (
@@ -36,19 +36,6 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="flex items-start space-x-4 p-6 bg-slate-50 rounded-xl">
-            <div className="flex-shrink-0">
-              <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
-                <Phone className="w-6 h-6 text-emerald-600" />
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 mb-1">Phone</h3>
-              <a href="tel:+15055551234" className="text-emerald-600 hover:text-emerald-700">
-                (505) 555-1234
-              </a>
-            </div>
-          </div>
         </div>
 
         <div className="mt-12 p-6 bg-emerald-50 rounded-xl border border-emerald-100">
