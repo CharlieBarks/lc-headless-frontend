@@ -98,7 +98,7 @@ export default async function ListingPage({ params }: Props) {
                 </div>
               )}
 
-              {listing.rating && (
+              {listing.rating && typeof listing.rating === 'number' && !isNaN(listing.rating) && (
                 <div className="flex items-center space-x-2 mb-6">
                   <div className="flex items-center space-x-1">
                     {Array.from({ length: 5 }).map((_, i) => (

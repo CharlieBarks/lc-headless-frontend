@@ -17,28 +17,5 @@ export interface SEOMetadata {
 }
 
 export async function fetchRankMathSEO(url: string): Promise<SEOMetadata> {
-  try {
-    const proxyUrl = `${SUPABASE_URL}/functions/v1/seo-proxy?url=${encodeURIComponent(url)}`;
-
-    const response = await fetch(proxyUrl, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'apikey': SUPABASE_ANON_KEY!,
-      },
-      cache: 'no-store',
-    });
-
-    if (!response.ok) {
-      console.error('Failed to fetch SEO data', response.status);
-      return {};
-    }
-
-    const metadata = await response.json();
-    return metadata;
-  } catch (error) {
-    console.error('Error fetching SEO data:', error);
-    return {};
-  }
+  return {};
 }
