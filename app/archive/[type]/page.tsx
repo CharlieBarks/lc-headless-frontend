@@ -168,7 +168,7 @@ export default async function ArchivePage({ params }: Props) {
                     />
                     {listing.rating && (
                       <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-bold text-slate-900">
-                        ⭐ {listing.rating.toFixed(1)}
+                        ⭐ {typeof listing.rating === 'number' ? listing.rating.toFixed(1) : parseFloat(listing.rating).toFixed(1)}
                       </div>
                     )}
                   </div>
