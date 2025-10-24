@@ -27,11 +27,8 @@ export default function RootLayout({
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center h-20">
                 <Link href="/" className="flex items-center space-x-3 group">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></div>
-                    <div className="relative bg-gradient-to-br from-emerald-500 to-emerald-600 p-2.5 rounded-xl shadow-lg group-hover:shadow-xl transition-all transform group-hover:scale-105">
-                      <MapPin className="w-7 h-7 text-white" />
-                    </div>
+                  <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 p-2.5 rounded-xl shadow-lg group-hover:shadow-xl transition-all transform group-hover:scale-105">
+                    <MapPin className="w-7 h-7 text-white" />
                   </div>
                   <div className="flex flex-col">
                     <span className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
@@ -86,12 +83,14 @@ export default function RootLayout({
                   >
                     Blog
                   </Link>
-                  <Link
-                    href="#newsletter"
+                  <a
+                    href="https://livelovelascruces.beehiiv.com/subscribe"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all transform hover:scale-105 font-medium"
                   >
                     Subscribe
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
