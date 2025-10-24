@@ -141,16 +141,7 @@ const DEFAULT_IMAGES = {
 };
 
 function proxyImageUrl(url: string): string {
-  if (url.startsWith('https://images.pexels.com/')) {
-    return url;
-  }
-
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  if (!supabaseUrl) {
-    console.warn('NEXT_PUBLIC_SUPABASE_URL not configured, using direct image URL');
-    return url;
-  }
-  return `${supabaseUrl}/functions/v1/image-proxy?url=${encodeURIComponent(url)}`;
+  return url;
 }
 
 export function getAllListingImages(listing: Listing, defaultType: keyof typeof DEFAULT_IMAGES = 'business'): string[] {
