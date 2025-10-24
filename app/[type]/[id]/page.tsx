@@ -11,7 +11,8 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { type, id } = await params;
+  const resolvedParams = await params;
+  const { type, id } = resolvedParams;
   const listing = await wordpressAPI.getListingById(type, id);
 
   if (!listing) {
@@ -45,7 +46,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ListingPage({ params }: Props) {
-  const { type, id } = await params;
+  const resolvedParams = await params;
+  const { type, id } = resolvedParams;
   const listing = await wordpressAPI.getListingById(type, id);
 
   if (!listing) {

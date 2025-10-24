@@ -54,7 +54,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ArchivePage({ params }: Props) {
-  const { type } = await params;
+  const resolvedParams = await params;
+  const { type } = resolvedParams;
   const config = typeConfig[type];
 
   if (!config) {

@@ -11,7 +11,8 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
   const post = await wordpressAPI.getBlogPostBySlug(slug);
 
   if (!post) {
@@ -51,7 +52,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params;
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
   const post = await wordpressAPI.getBlogPostBySlug(slug);
 
   if (!post) {
