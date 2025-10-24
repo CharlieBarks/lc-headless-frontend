@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { headers } from 'next/headers';
 import { MapPin, Phone, Mail, Globe, Clock, Star, ChevronRight, Facebook, Instagram, Twitter } from 'lucide-react';
 import { wordpressAPI, getAllListingImages } from '../../../lib/wordpress';
 import { fetchRankMathSEO } from '../../../lib/seo';
@@ -22,6 +23,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const protocol = host.includes('localhost') ? 'http' : 'https';
+  const currentUrl = `${protocol}://${host}/${type}/${id}`;
+
   const seoData = await fetchRankMathSEO(listing.link);
 
   return {
@@ -40,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: seoData.twitterImage ? [seoData.twitterImage] : undefined,
     },
     alternates: {
-      canonical: seoData.canonical,
+      canonical: seoData.canonical || currentUrl,
     },
     robots: seoData.robots,
   };

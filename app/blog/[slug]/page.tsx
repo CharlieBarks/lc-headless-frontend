@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { headers } from 'next/headers';
 import { Calendar, ChevronRight, Clock } from 'lucide-react';
 import { wordpressAPI, getBlogPostImage } from '../../../lib/wordpress';
 import { fetchRankMathSEO } from '../../../lib/seo';
@@ -20,6 +21,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: 'Not Found',
     };
   }
+
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const protocol = host.includes('localhost') ? 'http' : 'https';
+  const currentUrl = `${protocol}://${host}/blog/${slug}`;
 
   const seoData = await fetchRankMathSEO(post.link);
 
@@ -45,7 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: seoData.twitterImage ? [seoData.twitterImage] : undefined,
     },
     alternates: {
-      canonical: seoData.canonical,
+      canonical: seoData.canonical || currentUrl,
     },
     robots: seoData.robots,
   };
