@@ -231,7 +231,7 @@ export default async function ListingPage({ params }: Props) {
                     <a
                       href={listing.website}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="nofollow noopener noreferrer"
                       className="text-slate-700 hover:text-emerald-600 transition-colors break-all"
                     >
                       Visit Website
