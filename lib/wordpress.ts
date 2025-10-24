@@ -389,11 +389,13 @@ export const wordpressAPI = {
 
       const allListings = [...results[0], ...results[1], ...results[2], ...results[3]];
 
-      // Filter only featured listings
-      const featuredOnly = allListings.filter((listing: Listing) => listing.featured === true);
+      // Filter only listings that have a featured image
+      const withFeaturedImages = allListings.filter((listing: Listing) =>
+        listing.featured_image && listing.featured_image.src
+      );
 
       // Randomly shuffle and select the specified limit
-      const shuffled = featuredOnly.sort(() => Math.random() - 0.5);
+      const shuffled = withFeaturedImages.sort(() => Math.random() - 0.5);
       return shuffled.slice(0, limit);
     } catch (error) {
       console.error('Error fetching featured listings:', error);

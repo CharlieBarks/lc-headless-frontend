@@ -61,14 +61,18 @@ export default async function HomePage() {
     return 'business';
   };
 
-  const getCategoryLabel = (type: string): string => {
-    const labels: Record<string, string> = {
-      restaurant: 'Restaurant',
-      business: 'Business',
-      accommodation: 'Accommodation',
-      places: 'Place'
-    };
-    return labels[type] || 'Listing';
+  const getDefaultCategoryName = (listing: any): string => {
+    if (listing.post_category && listing.post_category.length > 0) {
+      const defaultCatId = listing.default_category;
+      if (defaultCatId) {
+        const defaultCat = listing.post_category.find((cat: any) => cat.id === parseInt(defaultCatId));
+        if (defaultCat) {
+          return decodeHtmlEntities(defaultCat.name);
+        }
+      }
+      return decodeHtmlEntities(listing.post_category[0].name);
+    }
+    return 'Listing';
   };
 
   const stripHtml = (html: string): string => {
@@ -148,7 +152,7 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredListings.map((listing) => {
               const type = getCategoryType(listing);
-              const categoryLabel = getCategoryLabel(type);
+              const categoryLabel = getDefaultCategoryName(listing);
               const imageUrl = getListingImage(listing, type as any);
 
               return (
