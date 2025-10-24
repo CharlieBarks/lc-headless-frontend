@@ -26,8 +26,8 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Validate it's from the WordPress site
-    if (!imageUrl.startsWith('https://dir.lascrucesdirectory.com/')) {
+    // Validate it's from the WordPress site or Pexels
+    if (!imageUrl.startsWith('https://dir.lascrucesdirectory.com/') && !imageUrl.startsWith('https://images.pexels.com/')) {
       return new Response(
         JSON.stringify({ error: 'Invalid image URL' }),
         {
@@ -37,7 +37,7 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Fetch the image from WordPress
+    // Fetch the image from WordPress or Pexels
     const imageResponse = await fetch(imageUrl);
 
     if (!imageResponse.ok) {
@@ -59,7 +59,7 @@ Deno.serve(async (req: Request) => {
       headers: {
         ...corsHeaders,
         'Content-Type': contentType,
-        'Cache-Control': 'public, max-age=86400', // Cache for 24 hours
+        'Cache-Control': 'public, max-age=86400',
       },
     });
   } catch (error) {
