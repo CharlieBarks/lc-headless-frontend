@@ -67,8 +67,6 @@ export default async function ArchivePage({ params, searchParams }: Props) {
     return <div>Type not found</div>;
   }
 
-  const Icon = config.icon;
-
   let listings: any[] = [];
   let categories: Category[] = [];
 
@@ -103,6 +101,8 @@ export default async function ArchivePage({ params, searchParams }: Props) {
     console.error(`Error fetching ${type}:`, error);
   }
 
+  const IconComponent = config.icon;
+
   return (
     <>
       <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 py-24">
@@ -117,7 +117,7 @@ export default async function ArchivePage({ params, searchParams }: Props) {
 
           <div className="flex items-center space-x-6 mb-6">
             <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-2xl">
-              <Icon className="w-10 h-10 text-white" />
+              <IconComponent className="w-10 h-10 text-white" />
             </div>
             <div>
               <h1 className="text-5xl font-bold text-white mb-2">{config.title}</h1>
