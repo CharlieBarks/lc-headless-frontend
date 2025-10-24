@@ -75,52 +75,31 @@ export default async function ArchivePage({ params, searchParams }: Props) {
     switch (type) {
       case 'restaurant':
         [listings, categories] = await Promise.all([
-          wordpressAPI.getRestaurants(50),
+          wordpressAPI.getRestaurants(100, category, search),
           wordpressAPI.getRestaurantCategories()
         ]);
         break;
       case 'business':
         [listings, categories] = await Promise.all([
-          wordpressAPI.getBusinesses(50),
+          wordpressAPI.getBusinesses(100, category, search),
           wordpressAPI.getBusinessCategories()
         ]);
         break;
       case 'accommodation':
         [listings, categories] = await Promise.all([
-          wordpressAPI.getAccommodations(50),
+          wordpressAPI.getAccommodations(100, category, search),
           wordpressAPI.getAccommodationCategories()
         ]);
         break;
       case 'places':
         [listings, categories] = await Promise.all([
-          wordpressAPI.getPlaces(50),
+          wordpressAPI.getPlaces(100, category, search),
           wordpressAPI.getPlaceCategories()
         ]);
         break;
     }
   } catch (error) {
     console.error(`Error fetching ${type}:`, error);
-  }
-
-  let filteredListings = listings;
-
-  if (search) {
-    const searchLower = search.toLowerCase();
-    filteredListings = filteredListings.filter(listing =>
-      listing.title.rendered.toLowerCase().includes(searchLower) ||
-      (listing.city && listing.city.toLowerCase().includes(searchLower)) ||
-      (listing.post_category && listing.post_category.some((cat: any) =>
-        cat.name.toLowerCase().includes(searchLower)
-      ))
-    );
-  }
-
-  if (category) {
-    filteredListings = filteredListings.filter(listing =>
-      listing.post_category && listing.post_category.some((cat: any) =>
-        cat.term_id.toString() === category
-      )
-    );
   }
 
   return (
@@ -147,7 +126,7 @@ export default async function ArchivePage({ params, searchParams }: Props) {
 
           <div className="flex items-center space-x-4 text-slate-300">
             <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
-              {filteredListings.length} listings
+              {listings.length} listings
             </span>
             <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
               {categories.length} categories
@@ -161,7 +140,7 @@ export default async function ArchivePage({ params, searchParams }: Props) {
           <ArchiveFilters categories={categories} type={type} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredListings.map((listing) => {
+            {listings.map((listing) => {
               const imageUrl = getListingImage(listing, type as any);
 
               return (
@@ -202,7 +181,7 @@ export default async function ArchivePage({ params, searchParams }: Props) {
             })}
           </div>
 
-          {filteredListings.length === 0 && (
+          {listings.length === 0 && (
             <div className="text-center py-16">
               <Icon className="w-16 h-16 text-slate-300 mx-auto mb-4" />
               <h3 className="text-2xl font-bold text-slate-900 mb-2">No listings found</h3>
