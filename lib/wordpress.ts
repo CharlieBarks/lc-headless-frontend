@@ -374,10 +374,10 @@ export const wordpressAPI = {
   async getFeaturedListings(limit = 3): Promise<Listing[]> {
     try {
       const [restaurants, businesses, accommodations, places] = await Promise.all([
-        fetch(`${WP_API_BASE}/restaurant?per_page=50&featured=1&_embed`, { cache: 'no-store' }),
-        fetch(`${WP_API_BASE}/business?per_page=50&featured=1&_embed`, { cache: 'no-store' }),
-        fetch(`${WP_API_BASE}/accommodation?per_page=50&featured=1&_embed`, { cache: 'no-store' }),
-        fetch(`${WP_API_BASE}/places?per_page=50&featured=1&_embed`, { cache: 'no-store' })
+        fetch(`${WP_API_BASE}/restaurant?per_page=100&_embed`, { cache: 'no-store' }),
+        fetch(`${WP_API_BASE}/business?per_page=100&_embed`, { cache: 'no-store' }),
+        fetch(`${WP_API_BASE}/accommodation?per_page=100&_embed`, { cache: 'no-store' }),
+        fetch(`${WP_API_BASE}/places?per_page=100&_embed`, { cache: 'no-store' })
       ]);
 
       const results = await Promise.all([
@@ -387,10 +387,13 @@ export const wordpressAPI = {
         places.ok ? places.json() : []
       ]);
 
-      const allFeatured = [...results[0], ...results[1], ...results[2], ...results[3]];
+      const allListings = [...results[0], ...results[1], ...results[2], ...results[3]];
+
+      // Filter only featured listings
+      const featuredOnly = allListings.filter((listing: Listing) => listing.featured === true);
 
       // Randomly shuffle and select the specified limit
-      const shuffled = allFeatured.sort(() => Math.random() - 0.5);
+      const shuffled = featuredOnly.sort(() => Math.random() - 0.5);
       return shuffled.slice(0, limit);
     } catch (error) {
       console.error('Error fetching featured listings:', error);
