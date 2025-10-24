@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { getListingImage } from '../../lib/wordpress';
+import { getListingImage, decodeHtmlEntities } from '../../lib/wordpress';
 
 interface ListingsGridProps {
   listings: any[];
@@ -47,7 +47,7 @@ export function ListingsGrid({ listings, type, config }: ListingsGridProps) {
               <div className="relative h-56 overflow-hidden">
                 <img
                   src={imageUrl}
-                  alt={listing.title.rendered}
+                  alt={decodeHtmlEntities(listing.title.rendered)}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 {listing.rating && (
@@ -58,7 +58,7 @@ export function ListingsGrid({ listings, type, config }: ListingsGridProps) {
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors">
-                  {listing.title.rendered}
+                  {decodeHtmlEntities(listing.title.rendered)}
                 </h3>
                 {listing.city && (
                   <p className="text-slate-600 text-sm mb-2">

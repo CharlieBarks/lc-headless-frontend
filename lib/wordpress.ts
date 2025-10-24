@@ -1,6 +1,23 @@
 const WP_API_BASE = 'https://dir.lascrucesdirectory.com/wp-json/geodir/v2';
 const WP_POSTS_API = 'https://dir.lascrucesdirectory.com/wp-json/wp/v2';
 
+export function decodeHtmlEntities(text: string): string {
+  const entities: Record<string, string> = {
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&quot;': '"',
+    '&#039;': "'",
+    '&#8217;': "'",
+    '&#8216;': "'",
+    '&#8220;': '"',
+    '&#8221;': '"',
+    '&#038;': '&',
+  };
+
+  return text.replace(/&[#a-z0-9]+;/gi, (match) => entities[match] || match);
+}
+
 export interface Category {
   id: number;
   name: string;

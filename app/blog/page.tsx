@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Calendar, BookOpen, ChevronRight } from 'lucide-react';
-import { wordpressAPI, getBlogPostImage } from '../../lib/wordpress';
+import { wordpressAPI, getBlogPostImage, decodeHtmlEntities } from '../../lib/wordpress';
 import type { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
@@ -76,7 +76,7 @@ export default async function BlogPage() {
                     <div className="relative h-56 overflow-hidden">
                       <img
                         src={imageUrl}
-                        alt={post.title.rendered}
+                        alt={decodeHtmlEntities(post.title.rendered)}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                     </div>
@@ -86,7 +86,7 @@ export default async function BlogPage() {
                         {formatDate(post.date)}
                       </div>
                       <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors">
-                        {post.title.rendered}
+                        {decodeHtmlEntities(post.title.rendered)}
                       </h3>
                       <p className="text-slate-600 line-clamp-3">{excerpt}</p>
                     </div>

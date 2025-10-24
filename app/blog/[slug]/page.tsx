@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { headers } from 'next/headers';
 import { Calendar, ChevronRight, Clock } from 'lucide-react';
-import { wordpressAPI, getBlogPostImage } from '../../../lib/wordpress';
+import { wordpressAPI, getBlogPostImage, decodeHtmlEntities } from '../../../lib/wordpress';
 import { fetchRankMathSEO } from '../../../lib/seo';
 import type { Metadata } from 'next';
 
@@ -102,7 +102,7 @@ export default async function BlogPostPage({ params }: Props) {
               Blog
             </Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-slate-900 font-medium truncate">{post.title.rendered}</span>
+            <span className="text-slate-900 font-medium truncate">{decodeHtmlEntities(post.title.rendered)}</span>
           </div>
         </div>
       </nav>
@@ -110,7 +110,7 @@ export default async function BlogPostPage({ params }: Props) {
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <header className="mb-12">
           <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-            {post.title.rendered}
+            {decodeHtmlEntities(post.title.rendered)}
           </h1>
 
           <div className="flex flex-wrap items-center gap-6 text-slate-600 mb-8">
@@ -128,7 +128,7 @@ export default async function BlogPostPage({ params }: Props) {
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl mb-8">
               <img
                 src={imageUrl}
-                alt={post.title.rendered}
+                alt={decodeHtmlEntities(post.title.rendered)}
                 className="w-full h-full object-cover"
               />
             </div>

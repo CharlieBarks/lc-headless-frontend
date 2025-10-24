@@ -1,6 +1,6 @@
 import { Search, UtensilsCrossed, Building2, Bed, Landmark, Calendar, BookOpen } from 'lucide-react';
 import Link from 'next/link';
-import { wordpressAPI, getListingImage, getBlogPostImage } from '../lib/wordpress';
+import { wordpressAPI, getListingImage, getBlogPostImage, decodeHtmlEntities } from '../lib/wordpress';
 import type { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
@@ -160,7 +160,7 @@ export default async function HomePage() {
                   <div className="relative h-56 overflow-hidden">
                     <img
                       src={imageUrl}
-                      alt={listing.title.rendered}
+                      alt={decodeHtmlEntities(listing.title.rendered)}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div className="absolute top-4 right-4">
@@ -171,7 +171,7 @@ export default async function HomePage() {
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors">
-                      {listing.title.rendered}
+                      {decodeHtmlEntities(listing.title.rendered)}
                     </h3>
                     {listing.city && (
                       <p className="text-slate-600 text-sm">
@@ -216,7 +216,7 @@ export default async function HomePage() {
                   <div className="relative h-48 overflow-hidden">
                     <img
                       src={imageUrl}
-                      alt={post.title.rendered}
+                      alt={decodeHtmlEntities(post.title.rendered)}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
@@ -226,7 +226,7 @@ export default async function HomePage() {
                       {formatDate(post.date)}
                     </div>
                     <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors">
-                      {post.title.rendered}
+                      {decodeHtmlEntities(post.title.rendered)}
                     </h3>
                     <p className="text-slate-600 line-clamp-2">{excerpt}</p>
                   </div>

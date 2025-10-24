@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { headers } from 'next/headers';
 import { MapPin, Phone, Mail, Globe, Clock, Star, ChevronRight, Facebook, Instagram, Twitter } from 'lucide-react';
-import { wordpressAPI, getAllListingImages } from '../../../lib/wordpress';
+import { wordpressAPI, getAllListingImages, decodeHtmlEntities } from '../../../lib/wordpress';
 import { fetchRankMathSEO } from '../../../lib/seo';
 import type { Metadata } from 'next';
 import ImageGallery from '../../components/ImageGallery';
@@ -107,7 +107,7 @@ export default async function ListingPage({ params }: Props) {
               {type}
             </Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-slate-900 font-medium">{listing.title.rendered}</span>
+            <span className="text-slate-900 font-medium">{decodeHtmlEntities(listing.title.rendered)}</span>
           </div>
         </div>
       </nav>
@@ -116,7 +116,7 @@ export default async function ListingPage({ params }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2 space-y-8">
             <div>
-              <h1 className="text-5xl font-bold text-slate-900 mb-4">{listing.title.rendered}</h1>
+              <h1 className="text-5xl font-bold text-slate-900 mb-4">{decodeHtmlEntities(listing.title.rendered)}</h1>
 
               {listing.post_category && listing.post_category.length > 0 && (
                 <div className="mb-4 flex flex-wrap gap-2">
