@@ -184,6 +184,9 @@ export default function RootLayout({
                     <Link href="/terms-and-conditions" className="hover:text-white transition-colors">
                       Terms of Service
                     </Link>
+                    <Link href="https://lascrucesdirectory.com/sitemap.xml" className="hover:text-white transition-colors">
+                      Sitemap
+                    </Link>
                   </div>
                 </div>
               </div>
