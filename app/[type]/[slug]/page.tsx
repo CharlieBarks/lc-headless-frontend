@@ -164,16 +164,6 @@ export default async function ListingPage({ params }: Props) {
                 />
               </div>
             )}
-
-            {businessHours && (
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-3xl font-bold text-slate-900 mb-6">Hours</h2>
-                <div className="flex items-start space-x-3">
-                  <Clock className="w-5 h-5 text-emerald-600 mt-1" />
-                  <div className="text-slate-700 whitespace-pre-line">{businessHours}</div>
-                </div>
-              </div>
-            )}
           </div>
 
           <div className="space-y-6">
@@ -268,6 +258,16 @@ export default async function ListingPage({ params }: Props) {
                         <Twitter className="w-5 h-5" />
                       </a>
                     )}
+                  </div>
+                </div>
+              )}
+
+              {businessHours && (
+                <div className="mt-6 pt-6 border-t border-slate-200">
+                  <h4 className="font-semibold text-slate-900 mb-4">Hours of Operation</h4>
+                  <div className="flex items-start space-x-3">
+                    <Clock className="w-5 h-5 text-emerald-600 mt-1 flex-shrink-0" />
+                    <div className="text-slate-700 text-sm whitespace-pre-line">{businessHours}</div>
                   </div>
                 </div>
               )}
