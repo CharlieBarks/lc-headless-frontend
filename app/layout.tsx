@@ -148,12 +148,12 @@ export default function RootLayout({
                       </Link>
                     </li>
                     <li>
-                      <Link href="/about" className="text-slate-400 hover:text-white transition-colors">
+                      <Link href="/about-us" className="text-slate-400 hover:text-white transition-colors">
                         About Us
                       </Link>
                     </li>
                     <li>
-                      <Link href="/contact" className="text-slate-400 hover:text-white transition-colors">
+                      <Link href="/contact-us" className="text-slate-400 hover:text-white transition-colors">
                         Contact
                       </Link>
                     </li>
@@ -172,10 +172,10 @@ export default function RootLayout({
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-sm">
                   <p>&copy; {new Date().getFullYear()} Las Cruces Directory. All rights reserved.</p>
                   <div className="flex items-center gap-6">
-                    <Link href="/privacy" className="hover:text-white transition-colors">
+                    <Link href="/privacy-policy" className="hover:text-white transition-colors">
                       Privacy Policy
                     </Link>
-                    <Link href="/terms" className="hover:text-white transition-colors">
+                    <Link href="/terms-and-conditions" className="hover:text-white transition-colors">
                       Terms of Service
                     </Link>
                   </div>
