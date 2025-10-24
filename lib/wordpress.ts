@@ -18,6 +18,18 @@ export function decodeHtmlEntities(text: string): string {
   return text.replace(/&[#a-z0-9]+;/gi, (match) => entities[match] || match);
 }
 
+export function isListingClaimed(listing: any): boolean {
+  if (typeof listing.claimed === 'boolean') return listing.claimed;
+  if (typeof listing.claimed === 'object' && listing.claimed?.raw) {
+    return listing.claimed.raw === '1' || listing.claimed.raw === 1 || listing.claimed.raw === true;
+  }
+  return listing.claimed === '1' || listing.claimed === 1 || listing.claimed === true;
+}
+
+export function isListingFeatured(listing: any): boolean {
+  return listing.featured === true || listing.featured === 1 || listing.featured === '1';
+}
+
 export interface Category {
   id: number;
   name: string;
@@ -88,8 +100,8 @@ export interface Listing {
   facebook?: string;
   instagram?: string;
   twitter?: string;
-  is_featured?: boolean | number | string;
-  verified?: boolean | number | string;
+  featured?: boolean;
+  claimed?: { raw?: string; rendered?: string } | boolean | number | string;
 }
 
 export interface BlogPost {
@@ -359,13 +371,13 @@ export const wordpressAPI = {
     }
   },
 
-  async getFeaturedListings(limit = 12): Promise<Listing[]> {
+  async getFeaturedListings(limit = 3): Promise<Listing[]> {
     try {
       const [restaurants, businesses, accommodations, places] = await Promise.all([
-        fetch(`${WP_API_BASE}/restaurant?per_page=50&is_featured=1&_embed`, { cache: 'no-store' }),
-        fetch(`${WP_API_BASE}/business?per_page=50&is_featured=1&_embed`, { cache: 'no-store' }),
-        fetch(`${WP_API_BASE}/accommodation?per_page=50&is_featured=1&_embed`, { cache: 'no-store' }),
-        fetch(`${WP_API_BASE}/places?per_page=50&is_featured=1&_embed`, { cache: 'no-store' })
+        fetch(`${WP_API_BASE}/restaurant?per_page=50&featured=1&_embed`, { cache: 'no-store' }),
+        fetch(`${WP_API_BASE}/business?per_page=50&featured=1&_embed`, { cache: 'no-store' }),
+        fetch(`${WP_API_BASE}/accommodation?per_page=50&featured=1&_embed`, { cache: 'no-store' }),
+        fetch(`${WP_API_BASE}/places?per_page=50&featured=1&_embed`, { cache: 'no-store' })
       ]);
 
       const results = await Promise.all([
@@ -376,7 +388,10 @@ export const wordpressAPI = {
       ]);
 
       const allFeatured = [...results[0], ...results[1], ...results[2], ...results[3]];
-      return allFeatured.slice(0, limit);
+
+      // Randomly shuffle and select the specified limit
+      const shuffled = allFeatured.sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, limit);
     } catch (error) {
       console.error('Error fetching featured listings:', error);
       return [];

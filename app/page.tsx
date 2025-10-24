@@ -1,6 +1,6 @@
 import { Search, UtensilsCrossed, Building2, Bed, Landmark, Calendar, BookOpen, CheckCircle, Star } from 'lucide-react';
 import Link from 'next/link';
-import { wordpressAPI, getListingImage, getBlogPostImage, decodeHtmlEntities } from '../lib/wordpress';
+import { wordpressAPI, getListingImage, getBlogPostImage, decodeHtmlEntities, isListingClaimed, isListingFeatured } from '../lib/wordpress';
 import type { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const [featuredListings, blogPosts, categoryCounts] = await Promise.all([
-    wordpressAPI.getFeaturedListings(6),
+    wordpressAPI.getFeaturedListings(3),
     wordpressAPI.getBlogPosts(3),
     wordpressAPI.getCategoryCounts()
   ]);
@@ -164,13 +164,13 @@ export default async function HomePage() {
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div className="absolute top-4 left-4 flex gap-2">
-                      {(listing.verified === true || listing.verified === 1 || listing.verified === '1') && (
+                      {isListingClaimed(listing) && (
                         <div className="px-3 py-1 bg-blue-500/90 backdrop-blur-sm rounded-full text-sm font-semibold text-white flex items-center gap-1.5 shadow-lg">
                           <CheckCircle className="w-4 h-4" />
                           Claimed
                         </div>
                       )}
-                      {(listing.is_featured === true || listing.is_featured === 1 || listing.is_featured === '1') && (
+                      {isListingFeatured(listing) && (
                         <div className="px-3 py-1 bg-amber-500/90 backdrop-blur-sm rounded-full text-sm font-semibold text-white flex items-center gap-1.5 shadow-lg">
                           <Star className="w-4 h-4 fill-white" />
                           Featured

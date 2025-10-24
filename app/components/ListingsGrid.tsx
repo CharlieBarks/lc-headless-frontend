@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { CheckCircle, Star } from 'lucide-react';
-import { getListingImage, decodeHtmlEntities } from '../../lib/wordpress';
+import { getListingImage, decodeHtmlEntities, isListingClaimed, isListingFeatured } from '../../lib/wordpress';
 
 interface ListingsGridProps {
   listings: any[];
@@ -52,13 +52,13 @@ export function ListingsGrid({ listings, type, config }: ListingsGridProps) {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4 flex gap-2">
-                  {(listing.verified === true || listing.verified === 1 || listing.verified === '1') && (
+                  {isListingClaimed(listing) && (
                     <div className="px-3 py-1 bg-blue-500/90 backdrop-blur-sm rounded-full text-sm font-semibold text-white flex items-center gap-1.5 shadow-lg">
                       <CheckCircle className="w-4 h-4" />
                       Claimed
                     </div>
                   )}
-                  {(listing.is_featured === true || listing.is_featured === 1 || listing.is_featured === '1') && (
+                  {isListingFeatured(listing) && (
                     <div className="px-3 py-1 bg-amber-500/90 backdrop-blur-sm rounded-full text-sm font-semibold text-white flex items-center gap-1.5 shadow-lg">
                       <Star className="w-4 h-4 fill-white" />
                       Featured
