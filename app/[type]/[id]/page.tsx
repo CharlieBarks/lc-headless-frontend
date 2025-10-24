@@ -3,6 +3,7 @@ import { MapPin, Phone, Mail, Globe, Clock, Star, ChevronRight, Facebook, Instag
 import { wordpressAPI, getAllListingImages } from '../../../lib/wordpress';
 import { fetchRankMathSEO } from '../../../lib/seo';
 import type { Metadata } from 'next';
+import ImageGallery from '../../components/ImageGallery';
 
 export const dynamic = 'force-dynamic';
 
@@ -150,22 +151,7 @@ export default async function ListingPage({ params }: Props) {
               )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {images.map((image, index) => (
-                <div
-                  key={index}
-                  className={`relative overflow-hidden rounded-2xl shadow-lg ${
-                    index === 0 ? 'md:col-span-2 h-96' : 'h-64'
-                  }`}
-                >
-                  <img
-                    src={image}
-                    alt={`${listing.title.rendered} - Image ${index + 1}`}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-              ))}
-            </div>
+            <ImageGallery images={images} altText={listing.title.rendered} />
 
             {content && (
               <div className="bg-white rounded-2xl shadow-lg p-8">
