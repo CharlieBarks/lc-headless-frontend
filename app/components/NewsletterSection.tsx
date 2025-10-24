@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Mail, Check } from 'lucide-react';
-import Image from 'next/image';
 
 export function NewsletterSection() {
   const [email, setEmail] = useState('');
@@ -43,11 +42,9 @@ export function NewsletterSection() {
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="p-12 lg:p-16 flex flex-col justify-center">
               <div className="mb-6">
-                <Image
+                <img
                   src="/2.png"
                   alt="Live Love Las Cruces"
-                  width={200}
-                  height={80}
                   className="h-16 w-auto"
                 />
               </div>
