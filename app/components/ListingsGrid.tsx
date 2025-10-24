@@ -7,14 +7,13 @@ import { getListingImage } from '../../lib/wordpress';
 interface ListingsGridProps {
   listings: any[];
   type: string;
-  Icon: any;
   config: {
     title: string;
     description: string;
   };
 }
 
-export function ListingsGrid({ listings, type, Icon, config }: ListingsGridProps) {
+export function ListingsGrid({ listings, type, config }: ListingsGridProps) {
   const [displayCount, setDisplayCount] = useState(12);
 
   const visibleListings = listings.slice(0, displayCount);
@@ -27,7 +26,6 @@ export function ListingsGrid({ listings, type, Icon, config }: ListingsGridProps
   if (listings.length === 0) {
     return (
       <div className="text-center py-16">
-        <Icon className="w-16 h-16 text-slate-300 mx-auto mb-4" />
         <h3 className="text-2xl font-bold text-slate-900 mb-2">No listings found</h3>
         <p className="text-slate-600">Check back soon for new {config.title.toLowerCase()}!</p>
       </div>
