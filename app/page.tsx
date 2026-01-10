@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { wordpressAPI, getListingImage, getBlogPostImage, decodeHtmlEntities, isListingClaimed, isListingFeatured } from '../lib/wordpress';
 import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Las Cruces Directory - Discover Local Businesses & Restaurants',
   description: 'Your complete guide to restaurants, businesses, accommodations, and places in Las Cruces, NM. Discover what makes our community special.',
