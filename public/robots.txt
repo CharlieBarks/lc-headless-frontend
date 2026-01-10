@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lascrucesdirectory.com/sitemap.xml
