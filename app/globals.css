@@ -145,6 +145,17 @@
   @apply float-left mr-6 mb-4;
 }
 
+/* Prevent images and embeds from overflowing container */
+.wp-content img,
+.wp-content iframe,
+.wp-content video {
+  @apply max-w-full h-auto;
+}
+
+.wp-content figure {
+  @apply max-w-full;
+}
+
 .wp-content .alignright {
   @apply float-right ml-6 mb-4;
 }
