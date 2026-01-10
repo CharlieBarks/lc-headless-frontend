@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { UtensilsCrossed, Building2, Bed, Landmark, ChevronRight } from 'lucide-react';
 import { wordpressAPI, type Category } from '../../lib/wordpress';
 import type { Metadata } from 'next';
@@ -64,8 +65,7 @@ export default async function ArchivePage({ params, searchParams }: Props) {
   const config = typeConfig[type];
 
   if (!config) {
-    return <div>Type not found</div>;
-  }
+    notFound();  }
 
   let listings: any[] = [];
   let categories: Category[] = [];
