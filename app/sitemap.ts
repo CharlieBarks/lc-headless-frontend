@@ -7,114 +7,144 @@ export const revalidate = 3600;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://lascrucesdirectory.com';
 
-  const staticRoutes = [
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'daily' as const,
+      changeFrequency: 'daily',
       priority: 1,
     },
     {
       url: `${baseUrl}/restaurant`,
       lastModified: new Date(),
-      changeFrequency: 'daily' as const,
+      changeFrequency: 'daily',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/business`,
       lastModified: new Date(),
-      changeFrequency: 'daily' as const,
+      changeFrequency: 'daily',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/accommodation`,
       lastModified: new Date(),
-      changeFrequency: 'daily' as const,
+      changeFrequency: 'daily',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/places`,
       lastModified: new Date(),
-      changeFrequency: 'daily' as const,
+      changeFrequency: 'daily',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/blog`,
       lastModified: new Date(),
-      changeFrequency: 'daily' as const,
+      changeFrequency: 'daily',
       priority: 0.8,
     },
     {
       url: `${baseUrl}/about-us`,
       lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
+      changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
       url: `${baseUrl}/contact-us`,
       lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
+      changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
       url: `${baseUrl}/privacy-policy`,
       lastModified: new Date(),
-      changeFrequency: 'yearly' as const,
+      changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${baseUrl}/terms-and-conditions`,
       lastModified: new Date(),
-      changeFrequency: 'yearly' as const,
+      changeFrequency: 'yearly',
       priority: 0.3,
     },
   ];
 
   try {
-    const [restaurants, businesses, accommodations, places, blogPosts] = await Promise.all([
-      wordpressAPI.getRestaurants(500),
-      wordpressAPI.getBusinesses(500),
-      wordpressAPI.getAccommodations(500),
-      wordpressAPI.getPlaces(500),
-      wordpressAPI.getBlogPosts(500),
+    console.log('Sitemap: Starting to fetch listings...');
+    
+    // Fetch with increased limits and individual error handling
+    const results = await Promise.allSettled([
+      wordpressAPI.getRestaurants(1000).catch(err => {
+        console.error('Error fetching restaurants:', err);
+        return [];
+      }),
+      wordpressAPI.getBusinesses(1000).catch(err => {
+        console.error('Error fetching businesses:', err);
+        return [];
+      }),
+      wordpressAPI.getAccommodations(1000).catch(err => {
+        console.error('Error fetching accommodations:', err);
+        return [];
+      }),
+      wordpressAPI.getPlaces(1000).catch(err => {
+        console.error('Error fetching places:', err);
+        return [];
+      }),
+      wordpressAPI.getBlogPosts(500).catch(err => {
+        console.error('Error fetching blog posts:', err);
+        return [];
+      }),
     ]);
 
-    const restaurantRoutes = restaurants.map((listing) => ({
+    const restaurants = results[0].status === 'fulfilled' ? results[0].value : [];
+    const businesses = results[1].status === 'fulfilled' ? results[1].value : [];
+    const accommodations = results[2].status === 'fulfilled' ? results[2].value : [];
+    const places = results[3].status === 'fulfilled' ? results[3].value : [];
+    const blogPosts = results[4].status === 'fulfilled' ? results[4].value : [];
+
+    console.log(`Sitemap: Fetched ${restaurants.length} restaurants`);
+    console.log(`Sitemap: Fetched ${businesses.length} businesses`);
+    console.log(`Sitemap: Fetched ${accommodations.length} accommodations`);
+    console.log(`Sitemap: Fetched ${places.length} places`);
+    console.log(`Sitemap: Fetched ${blogPosts.length} blog posts`);
+
+    const restaurantRoutes: MetadataRoute.Sitemap = restaurants.map((listing: any) => ({
       url: `${baseUrl}/restaurant/${listing.slug}`,
       lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
+      changeFrequency: 'weekly',
       priority: 0.7,
     }));
 
-    const businessRoutes = businesses.map((listing) => ({
+    const businessRoutes: MetadataRoute.Sitemap = businesses.map((listing: any) => ({
       url: `${baseUrl}/business/${listing.slug}`,
       lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
+      changeFrequency: 'weekly',
       priority: 0.7,
     }));
 
-    const accommodationRoutes = accommodations.map((listing) => ({
+    const accommodationRoutes: MetadataRoute.Sitemap = accommodations.map((listing: any) => ({
       url: `${baseUrl}/accommodation/${listing.slug}`,
       lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
+      changeFrequency: 'weekly',
       priority: 0.7,
     }));
 
-    const placeRoutes = places.map((listing) => ({
+    const placeRoutes: MetadataRoute.Sitemap = places.map((listing: any) => ({
       url: `${baseUrl}/places/${listing.slug}`,
       lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
+      changeFrequency: 'weekly',
       priority: 0.7,
     }));
 
-    const blogRoutes = blogPosts.map((post) => ({
+    const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post: any) => ({
       url: `${baseUrl}/blog/${post.slug}`,
       lastModified: new Date(post.date),
-      changeFrequency: 'monthly' as const,
+      changeFrequency: 'monthly',
       priority: 0.6,
     }));
 
-    return [
+    const allRoutes = [
       ...staticRoutes,
       ...restaurantRoutes,
       ...businessRoutes,
@@ -122,8 +152,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...placeRoutes,
       ...blogRoutes,
     ];
+
+    console.log(`Sitemap: Generated ${allRoutes.length} total URLs`);
+    
+    return allRoutes;
   } catch (error) {
-    console.error('Error generating sitemap:', error);
+    console.error('Sitemap: Critical error generating sitemap:', error);
+    console.log('Sitemap: Falling back to static routes only');
     return staticRoutes;
   }
 }
