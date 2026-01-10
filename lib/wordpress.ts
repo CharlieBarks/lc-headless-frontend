@@ -274,8 +274,7 @@ async function fetchGraphQL(query: string, variables: any = {}) {
 }
 
 export const wordpressAPI = {
-  getRestaurants:    async (limit = 3, category?: string | number, searchQuery?: string): Promise<Listing[]> {
-    try {
+  async getRestaurants(limit = 3, category?: string | number, searchQuery?: string): Promise<Listing[]> {    try {
       let url = `${WP_API_BASE}/restaurant?per_page=${limit}&_embed`;
       if (category) {
         url += `&gd_restaurantcategory=${category}`;
