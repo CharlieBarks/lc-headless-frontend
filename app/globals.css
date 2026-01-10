@@ -147,18 +147,16 @@
 
 /* Prevent images and embeds from overflowing container */
 .wp-content img,
+.wp-content video {
   @apply max-w-full h-auto;
 }
-.wp-content video {
-      @apply max-w-full h-auto;
-}
-.wp-content iframe {
-  aspect-ratio: 16 / 9;
-}
+
 .wp-content iframe {
   @apply w-full;
   min-height: 400px;
   aspect-ratio: 16 / 9;
-}.wp-content .alignright {
-  @apply float-right ml-6 mb-4;
+}
+  
+.wp-content .alignright {
+@apply float-right ml-6 mb-4;
 }
