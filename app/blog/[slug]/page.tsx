@@ -137,7 +137,7 @@ export default async function BlogPostPage({ params }: Props) {
 
         {post.content && (
           <div
-            className="wp-content prose prose-lg max-w-none"
+        className="wp-content"      
             dangerouslySetInnerHTML={{ __html: post.content.rendered }}
           />
         )}
