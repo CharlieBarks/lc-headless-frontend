@@ -71,6 +71,9 @@
 .wp-content figure {
   @apply my-10;
 }
+.wp-content iframe {
+  @apply my-10 mx-auto block w-[60%] aspect-video rounded-xl shadow-lg;
+}
 .wp-content figcaption {
   @apply text-center text-sm text-slate-600 mt-3 italic;
 }
@@ -137,9 +140,6 @@
   @apply relative my-10 w-[60%] max-w-[60%] mx-auto !important;}
 .wp-content .wp-block-embed__wrapper {
   @apply relative pb-[56.25%] h-0 overflow-hidden max-w-full !important;
-}
-.wp-content iframe {
-  @apply absolute top-0 left-0 w-full h-full !important;
 }
 .wp-content .alignleft img,
 .wp-content .alignright img,
