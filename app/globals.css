@@ -147,6 +147,7 @@
 
 /* Prevent images and embeds from overflowing container */
 .wp-content img,
+  @apply max-w-full h-auto;
 .wp-content video {
 }
 .wp-content iframe {
