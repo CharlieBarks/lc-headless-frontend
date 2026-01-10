@@ -3,31 +3,6 @@ import Link from 'next/link';
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Header Navigation */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div>
-                <div className="text-lg font-bold text-gray-900">Las Cruces</div>
-                <div className="text-xs text-gray-600">Directory</div>
-              </div>
-            </Link>
-            <nav className="hidden md:flex space-x-8">
-              <Link href="/restaurant" className="text-gray-700 hover:text-green-600 transition">Restaurants</Link>
-              <Link href="/business" className="text-gray-700 hover:text-green-600 transition">Businesses</Link>
-              <Link href="/accommodation" className="text-gray-700 hover:text-green-600 transition">Accommodations</Link>
-              <Link href="/places" className="text-gray-700 hover:text-green-600 transition">Places</Link>
-            </nav>
-          </div>
-        </div>
-      </header>
 
       {/* 404 Content */}
       <div className="max-w-4xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
