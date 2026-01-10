@@ -1,5 +1,6 @@
 const WP_API_BASE = 'https://dir.lascrucesdirectory.com/wp-json/geodir/v2';
 const WP_POSTS_API = 'https://dir.lascrucesdirectory.com/wp-json/wp/v2';
+const WP_GRAPHQL_API = 'https://dir.lascrucesdirectory.com/graphql';
 
 export function decodeHtmlEntities(text: string): string {
   const entities: Record<string, string> = {
@@ -250,8 +251,31 @@ export function getBlogPostImage(post: BlogPost): string {
   return DEFAULT_IMAGES.blog;
 }
 
+// GraphQL query helper
+async function fetchGraphQL(query: string, variables: any = {}) {
+  try {
+    const response = await fetch(WP_GRAPHQL_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, variables }),
+      next: { revalidate: 3600 }
+    });
+    if (!response.ok) throw new Error('GraphQL request failed');
+    const json = await response.json();
+    if (json.errors) {
+      console.error('GraphQL errors:', json.errors);
+      throw new Error(json.errors[0]?.message || 'GraphQL query failed');
+    }
+    return json.data;
+  } catch (error) {
+    console.error('GraphQL fetch error:', error);
+    throw error;
+  }
+}
+
 export const wordpressAPI = {
-  async getRestaurants(limit = 3, category?: string | number, searchQuery?: string): Promise<Listing[]> {
+  254
+    (limit = 3, category?: string | number, searchQuery?: string): Promise<Listing[]> {
     try {
       let url = `${WP_API_BASE}/restaurant?per_page=${limit}&_embed`;
       if (category) {
