@@ -150,11 +150,12 @@
 .wp-content video {
 }
 .wp-content iframe {
-    @apply w-full;
   aspect-ratio: 16 / 9;
-  @apply max-w-full;
 }
-
-.wp-content .alignright {
+.wp-content iframe {
+  @apply w-full;
+  min-height: 400px;
+  aspect-ratio: 16 / 9;
+}.wp-content .alignright {
   @apply float-right ml-6 mb-4;
 }
