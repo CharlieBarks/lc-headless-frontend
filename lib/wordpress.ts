@@ -2,15 +2,17 @@ const WP_API_BASE = 'https://dir.lascrucesdirectory.com/wp-json/geodir/v2';
 const WP_POSTS_API = 'https://dir.lascrucesdirectory.com/wp-json/wp/v2';
 const WP_GRAPHQL_API = 'https://dir.lascrucesdirectory.com/graphql';
 
-function proxyWpUrl(url: string): string {
-  // Extract the path from the full URL
+async function fetchWp(url: string, options: RequestInit = {}) {
+  // For server-side rendering, bypass the proxy and fetch directly
+  // The CORS restriction only applies to browser requests
+  if (typeof window === 'undefined') {
+    return fetch(url, options);
+  }
+
+  // For client-side requests, use the proxy to avoid CORS
   const urlObj = new URL(url);
   const pathAndQuery = urlObj.pathname + urlObj.search;
-  return `/api/wp-proxy?path=${encodeURIComponent(pathAndQuery)}`;
-}
-
-async function fetchWp(url: string, options: RequestInit = {}) {
-  const proxiedUrl = proxyWpUrl(url);
+  const proxiedUrl = `/api/wp-proxy?path=${encodeURIComponent(pathAndQuery)}`;
   return fetch(proxiedUrl, options);
 }
 
