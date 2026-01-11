@@ -2,6 +2,18 @@ const WP_API_BASE = 'https://dir.lascrucesdirectory.com/wp-json/geodir/v2';
 const WP_POSTS_API = 'https://dir.lascrucesdirectory.com/wp-json/wp/v2';
 const WP_GRAPHQL_API = 'https://dir.lascrucesdirectory.com/graphql';
 
+function proxyWpUrl(url: string): string {
+  // Extract the path from the full URL
+  const urlObj = new URL(url);
+  const pathAndQuery = urlObj.pathname + urlObj.search;
+  return `/api/wp-proxy?path=${encodeURIComponent(pathAndQuery)}`;
+}
+
+async function fetchWp(url: string, options: RequestInit = {}) {
+  const proxiedUrl = proxyWpUrl(url);
+  return fetch(proxiedUrl, options);
+}
+
 export function decodeHtmlEntities(text: string): string {
   const entities: Record<string, string> = {
     '&amp;': '&',
@@ -282,7 +294,7 @@ export const wordpressAPI = {
       if (searchQuery) {
         url += `&search=${encodeURIComponent(searchQuery)}`;
       }
-      const response = await fetch(url, { next: { revalidate: 3600 } });
+      const response = await fetchWp(url, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch restaurants');
       return await response.json();
     } catch (error) {
@@ -293,7 +305,7 @@ export const wordpressAPI = {
 
   async getRestaurantCategories(): Promise<Category[]> {
     try {
-      const response = await fetch(`${WP_API_BASE}/restaurant/categories?per_page=100`, { next: { revalidate: 3600 } });
+      const response = await fetchWp(`${WP_API_BASE}/restaurant/categories?per_page=100`, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch restaurant categories');
       const categories = await response.json();
       return categories.filter((cat: Category & { count: number }) => cat.count > 0);
@@ -312,7 +324,7 @@ export const wordpressAPI = {
       if (searchQuery) {
         url += `&search=${encodeURIComponent(searchQuery)}`;
       }
-      const response = await fetch(url, { next: { revalidate: 3600 } });
+      const response = await fetchWp(url, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch businesses');
       return await response.json();
     } catch (error) {
@@ -323,7 +335,7 @@ export const wordpressAPI = {
 
   async getBusinessCategories(): Promise<Category[]> {
     try {
-      const response = await fetch(`${WP_API_BASE}/business/categories?per_page=100`, { next: { revalidate: 3600 } });
+      const response = await fetchWp(`${WP_API_BASE}/business/categories?per_page=100`, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch business categories');
       const categories = await response.json();
       return categories.filter((cat: Category & { count: number }) => cat.count > 0);
@@ -342,7 +354,7 @@ export const wordpressAPI = {
       if (searchQuery) {
         url += `&search=${encodeURIComponent(searchQuery)}`;
       }
-      const response = await fetch(url, { next: { revalidate: 3600 } });
+      const response = await fetchWp(url, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch accommodations');
       return await response.json();
     } catch (error) {
@@ -353,7 +365,7 @@ export const wordpressAPI = {
 
   async getAccommodationCategories(): Promise<Category[]> {
     try {
-      const response = await fetch(`${WP_API_BASE}/accommodation/categories?per_page=100`, { next: { revalidate: 3600 } });
+      const response = await fetchWp(`${WP_API_BASE}/accommodation/categories?per_page=100`, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch accommodation categories');
       const categories = await response.json();
       return categories.filter((cat: Category & { count: number }) => cat.count > 0);
@@ -372,7 +384,7 @@ export const wordpressAPI = {
       if (searchQuery) {
         url += `&search=${encodeURIComponent(searchQuery)}`;
       }
-      const response = await fetch(url, { next: { revalidate: 3600 } });
+      const response = await fetchWp(url, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch places');
       return await response.json();
     } catch (error) {
@@ -383,7 +395,7 @@ export const wordpressAPI = {
 
   async getPlaceCategories(): Promise<Category[]> {
     try {
-      const response = await fetch(`${WP_API_BASE}/places/categories?per_page=100`, { next: { revalidate: 3600 } });
+      const response = await fetchWp(`${WP_API_BASE}/places/categories?per_page=100`, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch place categories');
       const categories = await response.json();
       return categories.filter((cat: Category & { count: number }) => cat.count > 0);
@@ -396,8 +408,8 @@ export const wordpressAPI = {
   async getFeaturedListings(limit = 3): Promise<Listing[]> {
     try {
       const [restaurants, businesses] = await Promise.all([
-        fetch(`${WP_API_BASE}/restaurant?per_page=100&_embed`, { next: { revalidate: 3600 } }),
-        fetch(`${WP_API_BASE}/business?per_page=100&_embed`, { next: { revalidate: 3600 } })
+        fetchWp(`${WP_API_BASE}/restaurant?per_page=100&_embed`, { next: { revalidate: 3600 } }),
+        fetchWp(`${WP_API_BASE}/business?per_page=100&_embed`, { next: { revalidate: 3600 } })
       ]);
 
       const results = await Promise.all([
@@ -423,7 +435,7 @@ export const wordpressAPI = {
 
   async getBlogPosts(limit = 3): Promise<BlogPost[]> {
     try {
-      const response = await fetch(`${WP_POSTS_API}/posts?per_page=${limit}&_embed`, { next: { revalidate: 3600 } });
+      const response = await fetchWp(`${WP_POSTS_API}/posts?per_page=${limit}&_embed`, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch blog posts');
       return await response.json();
     } catch (error) {
@@ -435,10 +447,10 @@ export const wordpressAPI = {
   async getCategoryCounts(): Promise<CategoryCount> {
     try {
       const [restaurants, businesses, accommodations, places] = await Promise.all([
-        fetch(`${WP_API_BASE}/restaurant?per_page=1`, { next: { revalidate: 3600 } }),
-        fetch(`${WP_API_BASE}/business?per_page=1`, { next: { revalidate: 3600 } }),
-        fetch(`${WP_API_BASE}/accommodation?per_page=1`, { next: { revalidate: 3600 } }),
-        fetch(`${WP_API_BASE}/places?per_page=1`, { next: { revalidate: 3600 } })
+        fetchWp(`${WP_API_BASE}/restaurant?per_page=1`, { next: { revalidate: 3600 } }),
+        fetchWp(`${WP_API_BASE}/business?per_page=1`, { next: { revalidate: 3600 } }),
+        fetchWp(`${WP_API_BASE}/accommodation?per_page=1`, { next: { revalidate: 3600 } }),
+        fetchWp(`${WP_API_BASE}/places?per_page=1`, { next: { revalidate: 3600 } })
       ]);
 
       return {
@@ -461,10 +473,10 @@ export const wordpressAPI = {
   async searchListings(query: string, limit = 10): Promise<Listing[]> {
     try {
       const [restaurants, businesses, accommodations, places] = await Promise.all([
-        fetch(`${WP_API_BASE}/restaurant?search=${encodeURIComponent(query)}&per_page=${limit}`, { next: { revalidate: 3600 } }),
-        fetch(`${WP_API_BASE}/business?search=${encodeURIComponent(query)}&per_page=${limit}`, { next: { revalidate: 3600 } }),
-        fetch(`${WP_API_BASE}/accommodation?search=${encodeURIComponent(query)}&per_page=${limit}`, { next: { revalidate: 3600 } }),
-        fetch(`${WP_API_BASE}/places?search=${encodeURIComponent(query)}&per_page=${limit}`, { next: { revalidate: 3600 } })
+        fetchWp(`${WP_API_BASE}/restaurant?search=${encodeURIComponent(query)}&per_page=${limit}`, { next: { revalidate: 3600 } }),
+        fetchWp(`${WP_API_BASE}/business?search=${encodeURIComponent(query)}&per_page=${limit}`, { next: { revalidate: 3600 } }),
+        fetchWp(`${WP_API_BASE}/accommodation?search=${encodeURIComponent(query)}&per_page=${limit}`, { next: { revalidate: 3600 } }),
+        fetchWp(`${WP_API_BASE}/places?search=${encodeURIComponent(query)}&per_page=${limit}`, { next: { revalidate: 3600 } })
       ]);
 
       const results = await Promise.all([
@@ -483,7 +495,7 @@ export const wordpressAPI = {
 
   async getListingBySlug(type: string, slug: string): Promise<Listing | null> {
     try {
-      const response = await fetch(`${WP_API_BASE}/${type}?slug=${slug}&_embed`, { next: { revalidate: 3600 } });
+      const response = await fetchWp(`${WP_API_BASE}/${type}?slug=${slug}&_embed`, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch listing');
       const listings = await response.json();
       return listings.length > 0 ? listings[0] : null;
@@ -495,7 +507,7 @@ export const wordpressAPI = {
 
   async getListingById(type: string, id: string): Promise<Listing | null> {
     try {
-      const response = await fetch(`${WP_API_BASE}/${type}/${id}?_embed`, { next: { revalidate: 3600 } });
+      const response = await fetchWp(`${WP_API_BASE}/${type}/${id}?_embed`, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch listing');
       return await response.json();
     } catch (error) {
@@ -506,7 +518,7 @@ export const wordpressAPI = {
 
   async getBlogPostById(id: string): Promise<BlogPost | null> {
     try {
-      const response = await fetch(`${WP_POSTS_API}/posts/${id}?_embed`, { next: { revalidate: 3600 } });
+      const response = await fetchWp(`${WP_POSTS_API}/posts/${id}?_embed`, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch blog post');
       return await response.json();
     } catch (error) {
@@ -517,7 +529,7 @@ export const wordpressAPI = {
 
   async getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
     try {
-      const response = await fetch(`${WP_POSTS_API}/posts?slug=${slug}&_embed`, { next: { revalidate: 3600 } });
+      const response = await fetchWp(`${WP_POSTS_API}/posts?slug=${slug}&_embed`, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch blog post');
       const posts = await response.json();
       return posts.length > 0 ? posts[0] : null;
@@ -529,7 +541,7 @@ export const wordpressAPI = {
 
   async getPageById(id: string): Promise<Page | null> {
     try {
-      const response = await fetch(`${WP_POSTS_API}/pages/${id}?_embed`, { next: { revalidate: 3600 } });
+      const response = await fetchWp(`${WP_POSTS_API}/pages/${id}?_embed`, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch page');
       return await response.json();
     } catch (error) {
@@ -540,7 +552,7 @@ export const wordpressAPI = {
 
   async getPageBySlug(slug: string): Promise<Page | null> {
     try {
-      const response = await fetch(`${WP_POSTS_API}/pages?slug=${slug}&_embed`, { next: { revalidate: 3600 } });
+      const response = await fetchWp(`${WP_POSTS_API}/pages?slug=${slug}&_embed`, { next: { revalidate: 3600 } });
       if (!response.ok) throw new Error('Failed to fetch page');
       const pages = await response.json();
       return pages.length > 0 ? pages[0] : null;
