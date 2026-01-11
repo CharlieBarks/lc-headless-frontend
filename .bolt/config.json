@@ -1,3 +1,6 @@
 {
-  "template": "bolt-vite-react-ts"
+  "runner": {
+    "command": "npm run dev",
+    "port": 3000
+  }
 }
