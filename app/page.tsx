@@ -11,10 +11,18 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
+  // Add timeout wrapper for API calls
+  const fetchWithTimeout = async <T,>(promise: Promise<T>, timeoutMs = 5000): Promise<T | null> => {
+    const timeout = new Promise<null>((resolve) =>
+      setTimeout(() => resolve(null), timeoutMs)
+    );
+    return Promise.race([promise, timeout]) as Promise<T | null>;
+  };
+
   const [featuredListings, blogPosts, categoryCounts] = await Promise.all([
-    wordpressAPI.getFeaturedListings(3),
-    wordpressAPI.getBlogPosts(3),
-    wordpressAPI.getCategoryCounts()
+    fetchWithTimeout(wordpressAPI.getFeaturedListings(3)).then(r => r || []),
+    fetchWithTimeout(wordpressAPI.getBlogPosts(3)).then(r => r || []),
+    fetchWithTimeout(wordpressAPI.getCategoryCounts()).then(r => r || { restaurants: 0, businesses: 0, accommodations: 0, places: 0 })
   ]);
 
   const categories = [
