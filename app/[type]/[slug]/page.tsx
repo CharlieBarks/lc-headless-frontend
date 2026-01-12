@@ -19,6 +19,17 @@ const TYPE_LABELS: Record<string, string> = {
   places: 'Places',
 };
 
+function addReferrer(url: string): string {
+  if (!url) return url;
+  try {
+    const urlObj = new URL(url);
+    urlObj.searchParams.set('referrer', 'lascrucesdirectory.com');
+    return urlObj.toString();
+  } catch {
+    return url;
+  }
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
   const { type, slug } = resolvedParams;
@@ -282,7 +293,7 @@ export default async function ListingPage({ params }: Props) {
                   <div className="flex items-center space-x-3">
                     <Globe className="w-5 h-5 text-emerald-600 flex-shrink-0" aria-hidden="true" />
                     <a
-                      href={listing.website}
+                      href={addReferrer(listing.website)}
                       target="_blank"
                       rel="nofollow noopener noreferrer"
                       className="text-slate-700 hover:text-emerald-600 transition-colors break-all"
@@ -299,7 +310,7 @@ export default async function ListingPage({ params }: Props) {
                   <div className="flex space-x-3">
                     {listing.facebook && (
                       <a
-                        href={listing.facebook}
+                        href={addReferrer(listing.facebook)}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Follow on Facebook"
@@ -310,7 +321,7 @@ export default async function ListingPage({ params }: Props) {
                     )}
                     {listing.instagram && (
                       <a
-                        href={listing.instagram}
+                        href={addReferrer(listing.instagram)}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Follow on Instagram"
@@ -321,7 +332,7 @@ export default async function ListingPage({ params }: Props) {
                     )}
                     {listing.twitter && (
                       <a
-                        href={listing.twitter}
+                        href={addReferrer(listing.twitter)}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Follow on Twitter"
