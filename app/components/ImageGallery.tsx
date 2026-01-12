@@ -11,6 +11,7 @@ interface ImageGalleryProps {
 
 export default function ImageGallery({ images, altText }: ImageGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set([0]));
 
   if (images.length === 0) return null;
 
@@ -26,6 +27,20 @@ export default function ImageGallery({ images, altText }: ImageGalleryProps) {
     setCurrentIndex(index);
   };
 
+  // Pre-load adjacent images for smoother navigation
+  useEffect(() => {
+    const toPreload = new Set(loadedImages);
+    toPreload.add(currentIndex);
+    // Pre-load next and previous images
+    if (images.length > 1) {
+      const nextIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
+      const prevIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
+      toPreload.add(nextIndex);
+      toPreload.add(prevIndex);
+    }
+    setLoadedImages(toPreload);
+  }, [currentIndex, images.length]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {
@@ -39,17 +54,43 @@ export default function ImageGallery({ images, altText }: ImageGalleryProps) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Preload adjacent images using link preload
+  useEffect(() => {
+    if (images.length <= 1) return;
+    
+    const nextIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
+    const prevIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
+    
+    [nextIndex, prevIndex].forEach(index => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = images[index];
+      document.head.appendChild(link);
+      
+      // Clean up after a delay
+      setTimeout(() => {
+        if (document.head.contains(link)) {
+          document.head.removeChild(link);
+        }
+      }, 10000);
+    });
+  }, [currentIndex, images]);
+
   return (
     <div className="space-y-4">
-      <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-slate-100 group">
+      <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-slate-200 group">
         <div className="relative h-[500px]">
+          {/* Render current image */}
           <Image
             src={images[currentIndex]}
             alt={`${altText} - Image ${currentIndex + 1}`}
             fill
             sizes="(max-width: 1024px) 100vw, 66vw"
             className="object-cover"
-            priority={currentIndex === 0}
+            priority
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAIhAAAQMDBAMBAAAAAAAAAAAAAQIDBAAFEQYSITETQVFh/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAZEQACAwEAAAAAAAAAAAAAAAABAgADESH/2gAMAwEAAhEDEEuF"
           />
 
           {images.length > 1 && (
@@ -98,6 +139,7 @@ export default function ImageGallery({ images, altText }: ImageGalleryProps) {
                 fill
                 sizes="100px"
                 className="object-cover"
+                loading={index < 8 ? 'eager' : 'lazy'}
               />
             </button>
           ))}
