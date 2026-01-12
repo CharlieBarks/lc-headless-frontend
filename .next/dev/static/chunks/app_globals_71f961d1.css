@@ -1642,7 +1642,8 @@ img, video {
 .wp-content img {
   --tw-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-  max-width: 60%;
+  width: 100%;
+  max-width: 100%;
   height: auto;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   border-radius: .75rem;
@@ -1651,15 +1652,22 @@ img, video {
 }
 
 .wp-content figure {
+  max-width: 100%;
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
+}
+
+.wp-content figure img {
+  width: 100%;
+  max-width: 100%;
 }
 
 .wp-content iframe {
   aspect-ratio: 16 / 9;
   --tw-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-  width: 60%;
+  width: 100%;
+  max-width: 100%;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   border-radius: .75rem;
   margin: 2.5rem auto;
@@ -1760,9 +1768,9 @@ img, video {
 }
 
 .wp-content .wp-block-image {
-  max-width: 100% !important;
-  margin-top: 2.5rem !important;
-  margin-bottom: 2.5rem !important;
+  max-width: 100%;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .wp-content .wp-block-quote {
@@ -1779,84 +1787,48 @@ img, video {
 }
 
 .wp-content .aligncenter {
-  max-width: 60% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  display: block !important;
-}
-
-@media (min-width: 768px) {
-  .wp-content .aligncenter {
-    max-width: 60% !important;
-  }
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 .wp-content .alignleft, .wp-content .wp-block-image.alignleft {
-  float: left !important;
-  width: auto !important;
-  max-width: 60% !important;
-  margin-bottom: 1rem !important;
-  margin-right: 1.5rem !important;
-}
-
-@media (min-width: 640px) {
-  .wp-content .alignleft, .wp-content .wp-block-image.alignleft {
-    max-width: 40% !important;
-  }
-}
-
-@media (min-width: 768px) {
-  .wp-content .alignleft, .wp-content .wp-block-image.alignleft {
-    max-width: 30% !important;
-  }
-}
-
-@media (min-width: 1024px) {
-  .wp-content .alignleft, .wp-content .wp-block-image.alignleft {
-    max-width: 25% !important;
-  }
+  float: left;
+  width: auto;
+  max-width: 50%;
+  margin-bottom: 1rem;
+  margin-right: 1.5rem;
 }
 
 .wp-content .alignright, .wp-content .wp-block-image.alignright {
-  float: right !important;
-  width: auto !important;
-  max-width: 60% !important;
-  margin-bottom: 1rem !important;
-  margin-left: 1.5rem !important;
-}
-
-@media (min-width: 640px) {
-  .wp-content .alignright, .wp-content .wp-block-image.alignright {
-    max-width: 40% !important;
-  }
-}
-
-@media (min-width: 768px) {
-  .wp-content .alignright, .wp-content .wp-block-image.alignright {
-    max-width: 30% !important;
-  }
-}
-
-@media (min-width: 1024px) {
-  .wp-content .alignright, .wp-content .wp-block-image.alignright {
-    max-width: 25% !important;
-  }
+  float: right;
+  width: auto;
+  max-width: 50%;
+  margin-bottom: 1rem;
+  margin-left: 1.5rem;
 }
 
 @media (max-width: 640px) {
   .wp-content img {
-    max-width: 50% !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    display: block !important;
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
   }
 
   .wp-content .alignleft, .wp-content .wp-block-image.alignleft, .wp-content .alignright, .wp-content .wp-block-image.alignright {
-    float: none !important;
-    max-width: 80% !important;
-    margin-bottom: 1rem !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    float: none;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .wp-content figure {
+    max-width: 100%;
   }
 }
 
@@ -1866,23 +1838,23 @@ img, video {
 }
 
 .wp-content .wp-block-embed {
-  width: 60% !important;
-  max-width: 60% !important;
-  margin: 2.5rem auto !important;
-  position: relative !important;
+  width: 100%;
+  max-width: 100%;
+  margin: 2.5rem auto;
+  position: relative;
 }
 
 .wp-content .wp-block-embed__wrapper {
-  max-width: 100% !important;
-  height: 0 !important;
-  padding-bottom: 56.25% !important;
-  position: relative !important;
-  overflow: hidden !important;
+  max-width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  position: relative;
+  overflow: hidden;
 }
 
 .wp-content .alignleft img, .wp-content .alignright img, .wp-content .wp-block-image.alignleft img, .wp-content .wp-block-image.alignright img {
-  max-width: 100% !important;
-  height: auto !important;
+  max-width: 100%;
+  height: auto;
 }
 
 .hover\:-translate-y-1:hover {

@@ -32,9 +32,9 @@ __turbopack_context__.s([
     "wordpressAPI",
     ()=>wordpressAPI
 ]);
-const WP_API_BASE = 'https://dir.lascrucesdirectory.com/wp-json/geodir/v2';
-const WP_POSTS_API = 'https://dir.lascrucesdirectory.com/wp-json/wp/v2';
-const WP_GRAPHQL_API = 'https://dir.lascrucesdirectory.com/graphql';
+const WP_API_BASE = "https://dir.lascrucesdirectory.com/wp-json/geodir/v2";
+const WP_POSTS_API = "https://dir.lascrucesdirectory.com/wp-json/wp/v2";
+const WP_GRAPHQL_API = "https://dir.lascrucesdirectory.com/graphql";
 async function fetchWp(url, options = {}) {
     // For server-side rendering, bypass the proxy and fetch directly
     // The CORS restriction only applies to browser requests
@@ -50,46 +50,46 @@ async function fetchWp(url, options = {}) {
 }
 function decodeHtmlEntities(text) {
     const entities = {
-        '&amp;': '&',
-        '&lt;': '<',
-        '&gt;': '>',
-        '&quot;': '"',
-        '&#039;': "'",
-        '&#8217;': "'",
-        '&#8216;': "'",
-        '&#8220;': '"',
-        '&#8221;': '"',
-        '&#038;': '&'
+        "&amp;": "&",
+        "&lt;": "<",
+        "&gt;": ">",
+        "&quot;": '"',
+        "&#039;": "'",
+        "&#8217;": "'",
+        "&#8216;": "'",
+        "&#8220;": '"',
+        "&#8221;": '"',
+        "&#038;": "&"
     };
     return text.replace(/&[#a-z0-9]+;/gi, (match)=>entities[match] || match);
 }
 function isListingClaimed(listing) {
-    if (typeof listing.claimed === 'boolean') return listing.claimed;
-    if (typeof listing.claimed === 'object' && listing.claimed?.raw) {
-        return listing.claimed.raw === '1' || listing.claimed.raw === 1 || listing.claimed.raw === true;
+    if (typeof listing.claimed === "boolean") return listing.claimed;
+    if (typeof listing.claimed === "object" && listing.claimed?.raw) {
+        return listing.claimed.raw === "1" || listing.claimed.raw === 1 || listing.claimed.raw === true;
     }
-    return listing.claimed === '1' || listing.claimed === 1 || listing.claimed === true;
+    return listing.claimed === "1" || listing.claimed === 1 || listing.claimed === true;
 }
 function isListingFeatured(listing) {
-    return listing.featured === true || listing.featured === 1 || listing.featured === '1';
+    return listing.featured === true || listing.featured === 1 || listing.featured === "1";
 }
 const DEFAULT_IMAGES = {
-    restaurant: 'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=800',
-    business: 'https://images.pexels.com/photos/380768/pexels-photo-380768.jpeg?auto=compress&cs=tinysrgb&w=800',
-    accommodation: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800',
-    places: 'https://images.pexels.com/photos/2739664/pexels-photo-2739664.jpeg?auto=compress&cs=tinysrgb&w=800',
-    blog: 'https://images.pexels.com/photos/261763/pexels-photo-261763.jpeg?auto=compress&cs=tinysrgb&w=800'
+    restaurant: "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=800",
+    business: "https://images.pexels.com/photos/380768/pexels-photo-380768.jpeg?auto=compress&cs=tinysrgb&w=800",
+    accommodation: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800",
+    places: "https://images.pexels.com/photos/2739664/pexels-photo-2739664.jpeg?auto=compress&cs=tinysrgb&w=800",
+    blog: "https://images.pexels.com/photos/261763/pexels-photo-261763.jpeg?auto=compress&cs=tinysrgb&w=800"
 };
 function proxyImageUrl(url) {
     if (!url) return url;
-    if (url.startsWith('https://dir.lascrucesdirectory.com/')) {
+    if (url.startsWith("https://dir.lascrucesdirectory.com/")) {
         return `/api/image-proxy?url=${encodeURIComponent(url)}`;
     }
     return url;
 }
-function getAllListingImages(listing, defaultType = 'business') {
+function getAllListingImages(listing, defaultType = "business") {
     const imageSet = new Set();
-    if (listing.featured_image && typeof listing.featured_image === 'object' && listing.featured_image.src) {
+    if (listing.featured_image && typeof listing.featured_image === "object" && listing.featured_image.src) {
         imageSet.add(proxyImageUrl(listing.featured_image.src));
     }
     if (Array.isArray(listing.images) && listing.images.length > 0) {
@@ -99,8 +99,8 @@ function getAllListingImages(listing, defaultType = 'business') {
             }
         });
     }
-    if (listing._embedded?.['wp:featuredmedia']?.[0]?.source_url) {
-        const url = listing._embedded['wp:featuredmedia'][0].source_url;
+    if (listing._embedded?.["wp:featuredmedia"]?.[0]?.source_url) {
+        const url = listing._embedded["wp:featuredmedia"][0].source_url;
         imageSet.add(proxyImageUrl(url));
     }
     const images = Array.from(imageSet);
@@ -109,9 +109,9 @@ function getAllListingImages(listing, defaultType = 'business') {
     }
     return images;
 }
-function getListingImage(listing, defaultType = 'business') {
+function getListingImage(listing, defaultType = "business") {
     let imageUrl;
-    if (listing.featured_image && typeof listing.featured_image === 'object' && listing.featured_image.src) {
+    if (listing.featured_image && typeof listing.featured_image === "object" && listing.featured_image.src) {
         imageUrl = listing.featured_image.src;
         return proxyImageUrl(imageUrl);
     }
@@ -119,23 +119,23 @@ function getListingImage(listing, defaultType = 'business') {
         imageUrl = listing.images[0].src;
         return proxyImageUrl(imageUrl);
     }
-    if (listing._embedded?.['wp:featuredmedia']?.[0]?.source_url) {
-        imageUrl = listing._embedded['wp:featuredmedia'][0].source_url;
+    if (listing._embedded?.["wp:featuredmedia"]?.[0]?.source_url) {
+        imageUrl = listing._embedded["wp:featuredmedia"][0].source_url;
         return proxyImageUrl(imageUrl);
     }
-    if (listing._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes?.medium?.source_url) {
-        imageUrl = listing._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
+    if (listing._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.medium?.source_url) {
+        imageUrl = listing._embedded["wp:featuredmedia"][0].media_details.sizes.medium.source_url;
         return proxyImageUrl(imageUrl);
     }
     imageUrl = DEFAULT_IMAGES[defaultType];
     return imageUrl;
 }
 function getBlogPostImage(post) {
-    if (post._embedded?.['wp:featuredmedia']?.[0]?.source_url) {
-        return proxyImageUrl(post._embedded['wp:featuredmedia'][0].source_url);
+    if (post._embedded?.["wp:featuredmedia"]?.[0]?.source_url) {
+        return proxyImageUrl(post._embedded["wp:featuredmedia"][0].source_url);
     }
-    if (post._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes?.medium?.source_url) {
-        return proxyImageUrl(post._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url);
+    if (post._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.medium?.source_url) {
+        return proxyImageUrl(post._embedded["wp:featuredmedia"][0].media_details.sizes.medium.source_url);
     }
     return DEFAULT_IMAGES.blog;
 }
@@ -143,9 +143,9 @@ function getBlogPostImage(post) {
 async function fetchGraphQL(query, variables = {}) {
     try {
         const response = await fetch(WP_GRAPHQL_API, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 query,
@@ -155,15 +155,15 @@ async function fetchGraphQL(query, variables = {}) {
                 revalidate: 3600
             }
         });
-        if (!response.ok) throw new Error('GraphQL request failed');
+        if (!response.ok) throw new Error("GraphQL request failed");
         const json = await response.json();
         if (json.errors) {
-            console.error('GraphQL errors:', json.errors);
-            throw new Error(json.errors[0]?.message || 'GraphQL query failed');
+            console.error("GraphQL errors:", json.errors);
+            throw new Error(json.errors[0]?.message || "GraphQL query failed");
         }
         return json.data;
     } catch (error) {
-        console.error('GraphQL fetch error:', error);
+        console.error("GraphQL fetch error:", error);
         throw error;
     }
 }
@@ -182,10 +182,10 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch restaurants');
+            if (!response.ok) throw new Error("Failed to fetch restaurants");
             return await response.json();
         } catch (error) {
-            console.error('Error fetching restaurants:', error);
+            console.error("Error fetching restaurants:", error);
             return [];
         }
     },
@@ -196,11 +196,11 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch restaurant categories');
+            if (!response.ok) throw new Error("Failed to fetch restaurant categories");
             const categories = await response.json();
             return categories.filter((cat)=>cat.count > 0);
         } catch (error) {
-            console.error('Error fetching restaurant categories:', error);
+            console.error("Error fetching restaurant categories:", error);
             return [];
         }
     },
@@ -218,10 +218,10 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch businesses');
+            if (!response.ok) throw new Error("Failed to fetch businesses");
             return await response.json();
         } catch (error) {
-            console.error('Error fetching businesses:', error);
+            console.error("Error fetching businesses:", error);
             return [];
         }
     },
@@ -232,11 +232,11 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch business categories');
+            if (!response.ok) throw new Error("Failed to fetch business categories");
             const categories = await response.json();
             return categories.filter((cat)=>cat.count > 0);
         } catch (error) {
-            console.error('Error fetching business categories:', error);
+            console.error("Error fetching business categories:", error);
             return [];
         }
     },
@@ -254,10 +254,10 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch accommodations');
+            if (!response.ok) throw new Error("Failed to fetch accommodations");
             return await response.json();
         } catch (error) {
-            console.error('Error fetching accommodations:', error);
+            console.error("Error fetching accommodations:", error);
             return [];
         }
     },
@@ -268,11 +268,11 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch accommodation categories');
+            if (!response.ok) throw new Error("Failed to fetch accommodation categories");
             const categories = await response.json();
             return categories.filter((cat)=>cat.count > 0);
         } catch (error) {
-            console.error('Error fetching accommodation categories:', error);
+            console.error("Error fetching accommodation categories:", error);
             return [];
         }
     },
@@ -290,10 +290,10 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch places');
+            if (!response.ok) throw new Error("Failed to fetch places");
             return await response.json();
         } catch (error) {
-            console.error('Error fetching places:', error);
+            console.error("Error fetching places:", error);
             return [];
         }
     },
@@ -304,11 +304,11 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch place categories');
+            if (!response.ok) throw new Error("Failed to fetch place categories");
             const categories = await response.json();
             return categories.filter((cat)=>cat.count > 0);
         } catch (error) {
-            console.error('Error fetching place categories:', error);
+            console.error("Error fetching place categories:", error);
             return [];
         }
     },
@@ -340,7 +340,7 @@ const wordpressAPI = {
             const shuffled = withFeaturedImages.sort(()=>Math.random() - 0.5);
             return shuffled.slice(0, limit);
         } catch (error) {
-            console.error('Error fetching featured listings:', error);
+            console.error("Error fetching featured listings:", error);
             return [];
         }
     },
@@ -351,10 +351,10 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch blog posts');
+            if (!response.ok) throw new Error("Failed to fetch blog posts");
             return await response.json();
         } catch (error) {
-            console.error('Error fetching blog posts:', error);
+            console.error("Error fetching blog posts:", error);
             return [];
         }
     },
@@ -383,13 +383,13 @@ const wordpressAPI = {
                 })
             ]);
             return {
-                restaurants: parseInt(restaurants.headers.get('X-WP-Total') || '0'),
-                businesses: parseInt(businesses.headers.get('X-WP-Total') || '0'),
-                accommodations: parseInt(accommodations.headers.get('X-WP-Total') || '0'),
-                places: parseInt(places.headers.get('X-WP-Total') || '0')
+                restaurants: parseInt(restaurants.headers.get("X-WP-Total") || "0"),
+                businesses: parseInt(businesses.headers.get("X-WP-Total") || "0"),
+                accommodations: parseInt(accommodations.headers.get("X-WP-Total") || "0"),
+                places: parseInt(places.headers.get("X-WP-Total") || "0")
             };
         } catch (error) {
-            console.error('Error fetching category counts:', error);
+            console.error("Error fetching category counts:", error);
             return {
                 restaurants: 0,
                 businesses: 0,
@@ -435,7 +435,7 @@ const wordpressAPI = {
                 ...results[3]
             ].slice(0, limit);
         } catch (error) {
-            console.error('Error searching listings:', error);
+            console.error("Error searching listings:", error);
             return [];
         }
     },
@@ -446,11 +446,11 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch listing');
+            if (!response.ok) throw new Error("Failed to fetch listing");
             const listings = await response.json();
             return listings.length > 0 ? listings[0] : null;
         } catch (error) {
-            console.error('Error fetching listing:', error);
+            console.error("Error fetching listing:", error);
             return null;
         }
     },
@@ -461,10 +461,10 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch listing');
+            if (!response.ok) throw new Error("Failed to fetch listing");
             return await response.json();
         } catch (error) {
-            console.error('Error fetching listing:', error);
+            console.error("Error fetching listing:", error);
             return null;
         }
     },
@@ -475,10 +475,10 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch blog post');
+            if (!response.ok) throw new Error("Failed to fetch blog post");
             return await response.json();
         } catch (error) {
-            console.error('Error fetching blog post:', error);
+            console.error("Error fetching blog post:", error);
             return null;
         }
     },
@@ -489,11 +489,11 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch blog post');
+            if (!response.ok) throw new Error("Failed to fetch blog post");
             const posts = await response.json();
             return posts.length > 0 ? posts[0] : null;
         } catch (error) {
-            console.error('Error fetching blog post:', error);
+            console.error("Error fetching blog post:", error);
             return null;
         }
     },
@@ -504,10 +504,10 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch page');
+            if (!response.ok) throw new Error("Failed to fetch page");
             return await response.json();
         } catch (error) {
-            console.error('Error fetching page:', error);
+            console.error("Error fetching page:", error);
             return null;
         }
     },
@@ -518,11 +518,11 @@ const wordpressAPI = {
                     revalidate: 3600
                 }
             });
-            if (!response.ok) throw new Error('Failed to fetch page');
+            if (!response.ok) throw new Error("Failed to fetch page");
             const pages = await response.json();
             return pages.length > 0 ? pages[0] : null;
         } catch (error) {
-            console.error('Error fetching page:', error);
+            console.error("Error fetching page:", error);
             return null;
         }
     }

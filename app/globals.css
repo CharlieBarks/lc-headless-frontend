@@ -67,12 +67,16 @@
   @apply mb-0;
 }
 .wp-content img {
-  @apply rounded-xl shadow-lg my-10 max-w-[60%] mx-auto block h-auto;}
+  @apply rounded-xl shadow-lg my-10 max-w-full w-full mx-auto block h-auto;
+}
 .wp-content figure {
-  @apply my-10;
+  @apply my-10 max-w-full;
+}
+.wp-content figure img {
+  @apply w-full max-w-full;
 }
 .wp-content iframe {
-  @apply my-10 mx-auto block w-[60%] aspect-video rounded-xl shadow-lg;
+  @apply my-10 mx-auto block w-full max-w-full aspect-video rounded-xl shadow-lg;
 }
 .wp-content figcaption {
   @apply text-center text-sm text-slate-600 mt-3 italic;
@@ -105,45 +109,52 @@
   @apply my-12 border-slate-300;
 }
 .wp-content .wp-block-image {
-  @apply my-10 max-w-full !important;
+  @apply my-10 max-w-full;
 }
 .wp-content .wp-block-quote {
   @apply my-10 border-l-4 border-emerald-600 bg-emerald-50 pl-6 py-4 pr-4 rounded-r-lg;
 }
 .wp-content .aligncenter {
-  @apply mx-auto block max-w-[60%] md:max-w-[60%] !important;}
+  @apply mx-auto block max-w-full;
+}
 .wp-content .alignleft,
 .wp-content .wp-block-image.alignleft {
-  @apply float-left mr-6 mb-4 max-w-[60%] sm:max-w-[40%] md:max-w-[30%] lg:max-w-[25%] w-auto !important;
+  @apply float-left mr-6 mb-4 max-w-[50%] w-auto;
 }
 .wp-content .alignright,
 .wp-content .wp-block-image.alignright {
-  @apply float-right ml-6 mb-4 max-w-[60%] sm:max-w-[40%] md:max-w-[30%] lg:max-w-[25%] w-auto !important;
+  @apply float-right ml-6 mb-4 max-w-[50%] w-auto;
 }
-/* Mobile overrides */
+/* Mobile overrides - stack images full width */
 @media (max-width: 640px) {
   .wp-content img {
-    @apply max-w-[50%] mx-auto block !important;  }
+    @apply max-w-full w-full mx-auto block;
+  }
   .wp-content .alignleft,
   .wp-content .wp-block-image.alignleft,
   .wp-content .alignright,
   .wp-content .wp-block-image.alignright {
-    @apply float-none mx-auto mb-4 max-w-[80%] !important;
+    @apply float-none mx-auto mb-4 max-w-full w-full;
+  }
+  .wp-content figure {
+    @apply max-w-full;
   }
 }
 /* Prevent images and embeds from overflowing container */
 .wp-content img,
 .wp-content video {
-  @apply max-w-full h-auto !important;
+  max-width: 100% !important;
+  height: auto !important;
 }
 .wp-content .wp-block-embed {
-  @apply relative my-10 w-[60%] max-w-[60%] mx-auto !important;}
+  @apply relative my-10 w-full max-w-full mx-auto;
+}
 .wp-content .wp-block-embed__wrapper {
-  @apply relative pb-[56.25%] h-0 overflow-hidden max-w-full !important;
+  @apply relative pb-[56.25%] h-0 overflow-hidden max-w-full;
 }
 .wp-content .alignleft img,
 .wp-content .alignright img,
 .wp-content .wp-block-image.alignleft img,
 .wp-content .wp-block-image.alignright img {
-  @apply max-w-full h-auto !important;
+  @apply max-w-full h-auto;
 }
