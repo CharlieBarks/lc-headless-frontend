@@ -32,6 +32,12 @@ All pages include these security headers (configured in `next.config.js`):
 - `Referrer-Policy: strict-origin-when-cross-origin` - Controls referrer data
 - `Permissions-Policy` - Disables camera, microphone, geolocation
 
+## API Security
+- **WordPress Proxy Allowlist**: The `/api/wp-proxy` route only permits access to specific WordPress REST API endpoints:
+  - GeoDirectory endpoints: `/wp-json/geodir/v2/restaurant`, `/business`, `/accommodation`, `/places`
+  - WordPress endpoints: `/wp-json/wp/v2/posts`, `/pages`, `/categories`, `/tags`
+- Requests to any other WordPress endpoints return a 403 Forbidden response
+
 ## Accessibility
 - **Semantic HTML**: Proper use of `<main>`, `<nav>`, `<article>`, `<section>`, `<footer>` elements
 - **ARIA Labels**: Navigation, breadcrumbs, interactive elements, and icon-only buttons have descriptive ARIA labels

@@ -1,11 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+const ALLOWED_PATH_PREFIXES = [
+  '/wp-json/geodir/v2/restaurant',
+  '/wp-json/geodir/v2/business',
+  '/wp-json/geodir/v2/accommodation',
+  '/wp-json/geodir/v2/places',
+  '/wp-json/wp/v2/posts',
+  '/wp-json/wp/v2/pages',
+  '/wp-json/wp/v2/categories',
+  '/wp-json/wp/v2/tags',
+];
+
+function isPathAllowed(path: string): boolean {
+  const normalizedPath = path.split('?')[0].toLowerCase();
+  return ALLOWED_PATH_PREFIXES.some(prefix => 
+    normalizedPath.startsWith(prefix.toLowerCase())
+  );
+}
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const path = searchParams.get('path');
 
   if (!path) {
     return NextResponse.json({ error: 'Missing path parameter' }, { status: 400 });
+  }
+
+  if (!isPathAllowed(path)) {
+    return NextResponse.json(
+      { error: 'Access to this endpoint is not permitted' }, 
+      { status: 403 }
+    );
   }
 
   try {
