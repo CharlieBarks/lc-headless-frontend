@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { headers } from 'next/headers';
-import { MapPin, Phone, Mail, Globe, Clock, Star, ChevronRight, Facebook, Instagram, Twitter, CheckCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Globe, Clock, Star, ChevronRight, Facebook, Instagram, Twitter, CheckCircle, Flag } from 'lucide-react';
 import { getAllListingImages, getListingImage, decodeHtmlEntities, isListingClaimed, isListingFeatured, getCachedListingBySlug } from '../../../lib/wordpress';
 import { getCachedListingSEO, generateLocalBusinessSchema, generateRestaurantSchema, generateLodgingSchema, generateBreadcrumbSchema, JsonLdScript } from '../../../lib/seo';
 import type { Metadata } from 'next';
@@ -343,6 +343,16 @@ export default async function ListingPage({ params }: Props) {
                   </div>
                 </div>
               )}
+
+              <div className="mt-6 pt-6 border-t border-slate-200">
+                <a
+                  href={`mailto:support@lascrucesdirectory.com?subject=Claim Listing: ${encodeURIComponent(title)}&body=I would like to claim this listing:%0A%0ABusiness: ${encodeURIComponent(title)}%0AURL: https://lascrucesdirectory.com/${type}/${slug}%0A%0APlease provide verification that you are the owner or authorized representative of this business.`}
+                  className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-medium transition-colors"
+                >
+                  <Flag className="w-4 h-4" aria-hidden="true" />
+                  Claim This Listing
+                </a>
+              </div>
             </div>
           </div>
         </div>

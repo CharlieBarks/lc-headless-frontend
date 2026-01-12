@@ -185,6 +185,14 @@ export default function RootLayout({
                         Contact
                       </Link>
                     </li>
+                    <li>
+                      <a 
+                        href="mailto:support@lascrucesdirectory.com?subject=New Business Listing Request" 
+                        className="text-slate-400 hover:text-white transition-colors"
+                      >
+                        Add Your Business
+                      </a>
+                    </li>
                   </ul>
                 </div>
 
