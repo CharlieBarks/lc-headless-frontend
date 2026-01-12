@@ -929,6 +929,10 @@ img, video {
   border-radius: .75rem;
 }
 
+.rounded-bl-xl {
+  border-bottom-left-radius: .75rem;
+}
+
 .border {
   border-width: 1px;
 }

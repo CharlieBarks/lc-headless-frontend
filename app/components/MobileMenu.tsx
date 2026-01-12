@@ -31,7 +31,7 @@ function MobileMenuContent({ isOpen, onClose }: { isOpen: boolean; onClose: () =
         aria-hidden="true"
       />
       <nav 
-        className="fixed top-20 right-0 bottom-0 w-72 bg-white shadow-2xl z-[9999] overflow-y-auto"
+        className="fixed top-20 right-0 w-72 bg-white shadow-2xl z-[9999] overflow-y-auto rounded-bl-xl"
         aria-label="Mobile navigation"
       >
 
