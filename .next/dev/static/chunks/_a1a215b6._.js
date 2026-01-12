@@ -254,7 +254,15 @@ function decodeHtmlEntities(text) {
         "&#8216;": "'",
         "&#8220;": '"',
         "&#8221;": '"',
-        "&#038;": "&"
+        "&#038;": "&",
+        "&nbsp;": " ",
+        "&#160;": " ",
+        "&hellip;": "…",
+        "&#8230;": "…",
+        "&ndash;": "–",
+        "&#8211;": "–",
+        "&mdash;": "—",
+        "&#8212;": "—"
     };
     return text.replace(/&[#a-z0-9]+;/gi, (match)=>entities[match] || match);
 }

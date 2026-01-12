@@ -92,7 +92,7 @@ export default async function BlogPage() {
                       <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors">
                         {decodeHtmlEntities(post.title.rendered)}
                       </h3>
-                      <p className="text-slate-600 line-clamp-3">{excerpt}</p>
+                      <p className="text-slate-600 line-clamp-3">{decodeHtmlEntities(excerpt)}</p>
                     </div>
                   </Link>
                   </article>
