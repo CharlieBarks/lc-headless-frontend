@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { headers } from 'next/headers';
 import { Calendar, ChevronRight, Clock } from 'lucide-react';
 import { getBlogPostImage, decodeHtmlEntities, getCachedBlogPostBySlug } from '../../../lib/wordpress';
-import { fetchRankMathSEO } from '../../../lib/seo';
+import { getCachedBlogPostSEO, generateArticleSchema, generateBreadcrumbSchema, JsonLdScript } from '../../../lib/seo';
 import type { Metadata } from 'next';
 
 export const revalidate = 3600;
@@ -28,33 +28,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const protocol = host.includes('localhost') ? 'http' : 'https';
   const currentUrl = `${protocol}://${host}/blog/${slug}`;
 
-  const seoData = await fetchRankMathSEO(post.link);
+  const seoData = await getCachedBlogPostSEO(slug);
 
   const stripHtml = (html: string): string => {
     return html.replace(/<[^>]*>/g, '').trim();
   };
 
   const excerpt = stripHtml(post.excerpt.rendered);
+  const title = decodeHtmlEntities(post.title.rendered);
 
   return {
-    title: seoData.title || post.title.rendered,
+    title: seoData.title || title,
     description: seoData.description || excerpt,
     openGraph: {
-      title: seoData.ogTitle || post.title.rendered,
+      title: seoData.ogTitle || title,
       description: seoData.ogDescription || excerpt,
-      images: seoData.ogImage ? [seoData.ogImage] : undefined,
+      images: seoData.ogImage ? [seoData.ogImage] : getBlogPostImage(post) ? [getBlogPostImage(post)] : undefined,
       type: 'article',
     },
     twitter: {
       card: 'summary_large_image',
-      title: seoData.twitterTitle || post.title.rendered,
+      title: seoData.twitterTitle || title,
       description: seoData.twitterDescription || excerpt,
-      images: seoData.twitterImage ? [seoData.twitterImage] : undefined,
+      images: seoData.twitterImage ? [seoData.twitterImage] : getBlogPostImage(post) ? [getBlogPostImage(post)] : undefined,
     },
     alternates: {
-      canonical: seoData.canonical || currentUrl,
+      canonical: currentUrl,
     },
-    robots: seoData.robots,
   };
 }
 
@@ -90,8 +90,23 @@ export default async function BlogPostPage({ params }: Props) {
 
   const readingTime = post.content ? estimateReadingTime(post.content.rendered) : 5;
 
+  const articleSchema = generateArticleSchema({
+    headline: decodeHtmlEntities(post.title.rendered),
+    description: post.excerpt?.rendered?.replace(/<[^>]*>/g, '').trim(),
+    image: imageUrl,
+    datePublished: post.date,
+    author: 'Las Cruces Directory',
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: 'https://lascrucesdirectory.com' },
+    { name: 'Blog', url: 'https://lascrucesdirectory.com/blog' },
+    { name: decodeHtmlEntities(post.title.rendered), url: `https://lascrucesdirectory.com/blog/${slug}` },
+  ]);
+
   return (
     <>
+      <JsonLdScript data={[articleSchema, breadcrumbSchema]} />
       <nav className="bg-white border-b border-slate-200 py-4">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-2 text-sm text-slate-600">

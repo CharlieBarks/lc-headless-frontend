@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { headers } from 'next/headers';
 import { MapPin, Phone, Mail, Globe, Clock, Star, ChevronRight, Facebook, Instagram, Twitter, CheckCircle } from 'lucide-react';
-import { getAllListingImages, decodeHtmlEntities, isListingClaimed, isListingFeatured, getCachedListingBySlug } from '../../../lib/wordpress';
-import { fetchRankMathSEO } from '../../../lib/seo';
+import { getAllListingImages, getListingImage, decodeHtmlEntities, isListingClaimed, isListingFeatured, getCachedListingBySlug } from '../../../lib/wordpress';
+import { getCachedListingSEO, generateLocalBusinessSchema, generateRestaurantSchema, generateLodgingSchema, generateBreadcrumbSchema, JsonLdScript } from '../../../lib/seo';
 import type { Metadata } from 'next';
 import ImageGallery from '../../components/ImageGallery';
 
@@ -10,6 +10,13 @@ export const revalidate = 3600;
 
 type Props = {
   params: Promise<{ type: string; slug: string }>;
+};
+
+const TYPE_LABELS: Record<string, string> = {
+  restaurant: 'Restaurants',
+  business: 'Businesses',
+  accommodation: 'Accommodations',
+  places: 'Places',
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -28,27 +35,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const protocol = host.includes('localhost') ? 'http' : 'https';
   const currentUrl = `${protocol}://${host}/${type}/${slug}`;
 
-  const seoData = await fetchRankMathSEO(listing.link);
+  const seoData = await getCachedListingSEO(type, slug);
+  const title = decodeHtmlEntities(listing.title.rendered);
+  const description = `Visit ${title} in Las Cruces, NM. Find contact info, hours, and reviews.`;
+  const image = getListingImage(listing, type as any);
 
   return {
-    title: seoData.title || listing.title.rendered,
-    description: seoData.description || `Visit ${listing.title.rendered} in Las Cruces, NM.`,
+    title: seoData.title || `${title} | Las Cruces Directory`,
+    description: seoData.description || description,
     openGraph: {
-      title: seoData.ogTitle || listing.title.rendered,
-      description: seoData.ogDescription || `Visit ${listing.title.rendered} in Las Cruces, NM.`,
-      images: seoData.ogImage ? [seoData.ogImage] : undefined,
+      title: seoData.ogTitle || title,
+      description: seoData.ogDescription || description,
+      images: seoData.ogImage ? [seoData.ogImage] : image ? [image] : undefined,
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: seoData.twitterTitle || listing.title.rendered,
-      description: seoData.twitterDescription || `Visit ${listing.title.rendered} in Las Cruces, NM.`,
-      images: seoData.twitterImage ? [seoData.twitterImage] : undefined,
+      title: seoData.twitterTitle || title,
+      description: seoData.twitterDescription || description,
+      images: seoData.twitterImage ? [seoData.twitterImage] : image ? [image] : undefined,
     },
     alternates: {
-      canonical: seoData.canonical || currentUrl,
+      canonical: currentUrl,
     },
-    robots: seoData.robots,
   };
 }
 
@@ -94,8 +103,52 @@ export default async function ListingPage({ params }: Props) {
 
   const businessHours = getBusinessHours();
 
+  const title = decodeHtmlEntities(listing.title.rendered);
+  const description = listing.content?.rendered?.replace(/<[^>]*>/g, '').slice(0, 200).trim() || '';
+  const image = images[0];
+
+  const schemaData = {
+    name: title,
+    description: description,
+    image: image,
+    address: {
+      streetAddress: listing.street,
+      addressLocality: listing.city || 'Las Cruces',
+      addressRegion: listing.region || 'NM',
+      postalCode: listing.zip,
+      addressCountry: 'US',
+    },
+    geo: listing.latitude && listing.longitude ? {
+      latitude: listing.latitude,
+      longitude: listing.longitude,
+    } : undefined,
+    telephone: listing.phone,
+    email: listing.email,
+    url: listing.website,
+    aggregateRating: listing.rating ? {
+      ratingValue: listing.rating,
+      reviewCount: listing.rating_count || 1,
+    } : undefined,
+  };
+
+  let businessSchema;
+  if (type === 'restaurant') {
+    businessSchema = generateRestaurantSchema(schemaData);
+  } else if (type === 'accommodation') {
+    businessSchema = generateLodgingSchema(schemaData);
+  } else {
+    businessSchema = generateLocalBusinessSchema(schemaData);
+  }
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: 'https://lascrucesdirectory.com' },
+    { name: TYPE_LABELS[type] || type, url: `https://lascrucesdirectory.com/${type}` },
+    { name: title, url: `https://lascrucesdirectory.com/${type}/${slug}` },
+  ]);
+
   return (
     <>
+      <JsonLdScript data={[businessSchema, breadcrumbSchema]} />
       <nav className="bg-white border-b border-slate-200 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-2 text-sm text-slate-600">

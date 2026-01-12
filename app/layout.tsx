@@ -3,15 +3,45 @@ import './globals.css';
 import Link from 'next/link';
 import { MapPin, Building2 } from 'lucide-react';
 import { NewsletterSection } from './components/NewsletterSection';
+import { generateWebsiteSchema, JsonLdScript } from '../lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Las Cruces Directory - Local Businesses, Restaurants & Services',
+  title: {
+    default: 'Las Cruces Directory - Local Businesses, Restaurants & Services',
+    template: '%s | Las Cruces Directory',
+  },
   description: 'Discover the best local businesses, restaurants, accommodations, and places in Las Cruces. Your complete guide to everything Las Cruces has to offer.',
+  keywords: ['Las Cruces', 'New Mexico', 'local businesses', 'restaurants', 'accommodations', 'directory', 'places'],
+  authors: [{ name: 'Las Cruces Directory' }],
+  creator: 'Las Cruces Directory',
+  publisher: 'Las Cruces Directory',
+  metadataBase: new URL('https://lascrucesdirectory.com'),
   openGraph: {
     title: 'Las Cruces Directory',
     description: 'Discover the best local businesses, restaurants, accommodations, and places in Las Cruces.',
+    url: 'https://lascrucesdirectory.com',
+    siteName: 'Las Cruces Directory',
+    locale: 'en_US',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Las Cruces Directory',
+    description: 'Discover the best local businesses, restaurants, accommodations, and places in Las Cruces.',
+    site: '@lascrucesbizdir',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {},
 };
 
 export default function RootLayout({
@@ -19,9 +49,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const websiteSchema = generateWebsiteSchema();
+
   return (
     <html lang="en">
       <body>
+        <JsonLdScript data={websiteSchema} />
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50">
           <nav className="bg-white/80 backdrop-blur-md border-b border-slate-200/50 sticky top-0 z-50 shadow-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

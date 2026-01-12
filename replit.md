@@ -13,6 +13,16 @@ A Next.js 16 community directory website for Las Cruces, featuring local busines
 - **Image Proxy**: WordPress images route through `/api/image-proxy` to handle CORS; configured in `next.config.js` via `localPatterns`
 - **Remote Patterns**: WordPress (`dir.lascrucesdirectory.com`) and Pexels domains are whitelisted for remote image optimization
 
+## SEO Implementation
+- **RankMath Integration**: SEO metadata (title, description, OG, Twitter) is fetched from WordPress pages with RankMath
+- **Next.js Metadata API**: All pages use `generateMetadata()` with proper titles, descriptions, OG tags, and Twitter cards
+- **JSON-LD Structured Data**:
+  - WebSite schema on all pages (global in layout)
+  - Article schema on blog posts with headline, author, datePublished
+  - LocalBusiness/Restaurant/LodgingBusiness schema on listings with address, geo, ratings
+  - BreadcrumbList schema for navigation context
+- **SEO Functions** (`lib/seo.ts`): Cached functions for fetching RankMath data and generating schema markup
+
 ## Project Structure
 - `app/` - Next.js App Router pages and components
   - `[type]/` - Dynamic routes for listing types (restaurants, businesses, etc.)
