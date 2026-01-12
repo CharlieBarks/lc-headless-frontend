@@ -26,24 +26,14 @@ function MobileMenuContent({ isOpen, onClose }: { isOpen: boolean; onClose: () =
   return createPortal(
     <>
       <div 
-        className="fixed inset-0 bg-black/50 z-[9998]"
+        className="fixed inset-x-0 top-20 bottom-0 bg-black/50 z-[9998]"
         onClick={onClose}
         aria-hidden="true"
       />
       <nav 
-        className="fixed top-0 right-0 bottom-0 w-72 bg-white shadow-2xl z-[9999] overflow-y-auto"
+        className="fixed top-20 right-0 bottom-0 w-72 bg-white shadow-2xl z-[9999] overflow-y-auto"
         aria-label="Mobile navigation"
       >
-        <div className="p-4 border-b border-slate-100 flex justify-between items-center">
-          <span className="font-bold text-lg text-slate-900">Menu</span>
-          <button
-            onClick={onClose}
-            className="p-2 text-slate-400 hover:text-slate-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg"
-            aria-label="Close menu"
-          >
-            <X className="w-5 h-5" aria-hidden="true" />
-          </button>
-        </div>
 
         <div className="py-4">
           {menuLinks.map((link) => {
