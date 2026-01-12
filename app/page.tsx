@@ -1,9 +1,9 @@
-import { Search, UtensilsCrossed, Building2, Bed, Landmark, Calendar, BookOpen, CheckCircle, Star } from 'lucide-react';
+import { UtensilsCrossed, Building2, Bed, Landmark, Calendar, CheckCircle, Star } from 'lucide-react';
 import Link from 'next/link';
-import { wordpressAPI, getListingImage, getBlogPostImage, decodeHtmlEntities, isListingClaimed, isListingFeatured } from '../lib/wordpress';
+import { getListingImage, getBlogPostImage, decodeHtmlEntities, isListingClaimed, isListingFeatured, getCachedHomePageData } from '../lib/wordpress';
 import type { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: 'Las Cruces Directory - Discover Local Businesses & Restaurants',
@@ -11,19 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  // Add timeout wrapper for API calls
-  const fetchWithTimeout = async <T,>(promise: Promise<T>, timeoutMs = 5000): Promise<T | null> => {
-    const timeout = new Promise<null>((resolve) =>
-      setTimeout(() => resolve(null), timeoutMs)
-    );
-    return Promise.race([promise, timeout]) as Promise<T | null>;
-  };
-
-  const [featuredListings, blogPosts, categoryCounts] = await Promise.all([
-    fetchWithTimeout(wordpressAPI.getFeaturedListings(3)).then(r => r || []),
-    fetchWithTimeout(wordpressAPI.getBlogPosts(3)).then(r => r || []),
-    fetchWithTimeout(wordpressAPI.getCategoryCounts()).then(r => r || { restaurants: 0, businesses: 0, accommodations: 0, places: 0 })
-  ]);
+  const { featuredListings, blogPosts, categoryCounts } = await getCachedHomePageData();
 
   const categories = [
     {

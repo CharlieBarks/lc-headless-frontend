@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { Calendar, BookOpen, ChevronRight } from 'lucide-react';
-import { wordpressAPI, getBlogPostImage, decodeHtmlEntities } from '../../lib/wordpress';
+import { getBlogPostImage, decodeHtmlEntities, getCachedBlogPosts } from '../../lib/wordpress';
 import type { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: 'Blog - Las Cruces Directory',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-  const blogPosts = await wordpressAPI.getBlogPosts(50);
+  const blogPosts = await getCachedBlogPosts(50);
 
   const stripHtml = (html: string): string => {
     return html.replace(/<[^>]*>/g, '').trim();

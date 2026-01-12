@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { UtensilsCrossed, Building2, Bed, Landmark, ChevronRight } from 'lucide-react';
-import { wordpressAPI, type Category } from '../../lib/wordpress';
+import { getCachedArchiveData } from '../../lib/wordpress';
 import type { Metadata } from 'next';
 import { ArchiveFilters } from '../components/ArchiveFilters';
 import { ListingsGrid } from '../components/ListingsGrid';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 type Props = {
   params: Promise<{ type: string }>;
@@ -65,41 +65,10 @@ export default async function ArchivePage({ params, searchParams }: Props) {
   const config = typeConfig[type];
 
   if (!config) {
-    notFound();  }
-
-  let listings: any[] = [];
-  let categories: Category[] = [];
-
-  try {
-    switch (type) {
-      case 'restaurant':
-        [listings, categories] = await Promise.all([
-          wordpressAPI.getRestaurants(100, category, search),
-          wordpressAPI.getRestaurantCategories()
-        ]);
-        break;
-      case 'business':
-        [listings, categories] = await Promise.all([
-          wordpressAPI.getBusinesses(100, category, search),
-          wordpressAPI.getBusinessCategories()
-        ]);
-        break;
-      case 'accommodation':
-        [listings, categories] = await Promise.all([
-          wordpressAPI.getAccommodations(100, category, search),
-          wordpressAPI.getAccommodationCategories()
-        ]);
-        break;
-      case 'places':
-        [listings, categories] = await Promise.all([
-          wordpressAPI.getPlaces(100, category, search),
-          wordpressAPI.getPlaceCategories()
-        ]);
-        break;
-    }
-  } catch (error) {
-    console.error(`Error fetching ${type}:`, error);
+    notFound();
   }
+
+  const { listings, categories } = await getCachedArchiveData(type, category, search);
 
   const IconComponent = config.icon;
 

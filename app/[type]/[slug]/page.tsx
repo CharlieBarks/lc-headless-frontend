@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { headers } from 'next/headers';
 import { MapPin, Phone, Mail, Globe, Clock, Star, ChevronRight, Facebook, Instagram, Twitter, CheckCircle } from 'lucide-react';
-import { wordpressAPI, getAllListingImages, decodeHtmlEntities, isListingClaimed, isListingFeatured } from '../../../lib/wordpress';
+import { getAllListingImages, decodeHtmlEntities, isListingClaimed, isListingFeatured, getCachedListingBySlug } from '../../../lib/wordpress';
 import { fetchRankMathSEO } from '../../../lib/seo';
 import type { Metadata } from 'next';
 import ImageGallery from '../../components/ImageGallery';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 type Props = {
   params: Promise<{ type: string; slug: string }>;
@@ -15,7 +15,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
   const { type, slug } = resolvedParams;
-  const listing = await wordpressAPI.getListingBySlug(type, slug);
+  const listing = await getCachedListingBySlug(type, slug);
 
   if (!listing) {
     return {
@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ListingPage({ params }: Props) {
   const resolvedParams = await params;
   const { type, slug } = resolvedParams;
-  const listing = await wordpressAPI.getListingBySlug(type, slug);
+  const listing = await getCachedListingBySlug(type, slug);
 
   if (!listing) {
     return (

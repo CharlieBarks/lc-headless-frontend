@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { headers } from 'next/headers';
 import { Calendar, ChevronRight, Clock } from 'lucide-react';
-import { wordpressAPI, getBlogPostImage, decodeHtmlEntities } from '../../../lib/wordpress';
+import { getBlogPostImage, decodeHtmlEntities, getCachedBlogPostBySlug } from '../../../lib/wordpress';
 import { fetchRankMathSEO } from '../../../lib/seo';
 import type { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -14,7 +14,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
   const { slug } = resolvedParams;
-  const post = await wordpressAPI.getBlogPostBySlug(slug);
+  const post = await getCachedBlogPostBySlug(slug);
 
   if (!post) {
     return {
@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function BlogPostPage({ params }: Props) {
   const resolvedParams = await params;
   const { slug } = resolvedParams;
-  const post = await wordpressAPI.getBlogPostBySlug(slug);
+  const post = await getCachedBlogPostBySlug(slug);
 
   if (!post) {
     return (
