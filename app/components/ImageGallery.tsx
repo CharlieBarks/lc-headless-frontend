@@ -56,18 +56,18 @@ export default function ImageGallery({ images, altText }: ImageGalleryProps) {
             <>
               <button
                 onClick={goToPrevious}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-900 hover:bg-white transition-all shadow-lg opacity-0 group-hover:opacity-100"
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-900 hover:bg-white transition-all shadow-lg opacity-0 group-hover:opacity-100 focus:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                 aria-label="Previous image"
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-6 h-6" aria-hidden="true" />
               </button>
 
               <button
                 onClick={goToNext}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-900 hover:bg-white transition-all shadow-lg opacity-0 group-hover:opacity-100"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-900 hover:bg-white transition-all shadow-lg opacity-0 group-hover:opacity-100 focus:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                 aria-label="Next image"
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-6 h-6" aria-hidden="true" />
               </button>
 
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full text-white text-sm font-medium">
@@ -84,7 +84,9 @@ export default function ImageGallery({ images, altText }: ImageGalleryProps) {
             <button
               key={index}
               onClick={() => goToImage(index)}
-              className={`relative overflow-hidden rounded-lg aspect-square transition-all ${
+              aria-label={`View image ${index + 1}`}
+              aria-current={index === currentIndex ? 'true' : undefined}
+              className={`relative overflow-hidden rounded-lg aspect-square transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
                 index === currentIndex
                   ? 'ring-4 ring-emerald-500 scale-95'
                   : 'hover:ring-2 hover:ring-slate-300 opacity-70 hover:opacity-100'

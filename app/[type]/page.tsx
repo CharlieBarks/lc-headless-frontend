@@ -76,11 +76,11 @@ export default async function ArchivePage({ params, searchParams }: Props) {
     <>
       <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex items-center space-x-2 text-sm text-slate-300 mb-8">
+          <nav aria-label="Breadcrumb" className="flex items-center space-x-2 text-sm text-slate-300 mb-8">
             <Link href="/" className="hover:text-white transition-colors">
               Home
             </Link>
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4" aria-hidden="true" />
             <span className="text-white">{config.title}</span>
           </nav>
 

@@ -56,12 +56,12 @@ export default function RootLayout({
       <body>
         <JsonLdScript data={websiteSchema} />
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50">
-          <nav className="bg-white/80 backdrop-blur-md border-b border-slate-200/50 sticky top-0 z-50 shadow-sm">
+          <nav aria-label="Main navigation" className="bg-white/80 backdrop-blur-md border-b border-slate-200/50 sticky top-0 z-50 shadow-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center h-20">
                 <Link href="/" className="flex items-center space-x-3 group">
                   <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 p-2.5 rounded-xl shadow-lg group-hover:shadow-xl transition-all transform group-hover:scale-105">
-                    <MapPin className="w-7 h-7 text-white" />
+                    <MapPin className="w-7 h-7 text-white" aria-hidden="true" />
                   </div>
                   <div className="flex flex-col">
                     <span className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
@@ -71,38 +71,38 @@ export default function RootLayout({
                   </div>
                 </Link>
 
-                <div className="hidden md:flex items-center space-x-8">
+                <div className="hidden md:flex items-center space-x-8" role="menubar">
                   <Link
                     href="/"
-                    className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group"
+                    className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded"
                   >
                     Home
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300"></span>
                   </Link>
                   <Link
                     href="/restaurant"
-                    className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group"
+                    className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded"
                   >
                     Restaurants
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300"></span>
                   </Link>
                   <Link
                     href="/business"
-                    className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group"
+                    className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded"
                   >
                     Businesses
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300"></span>
                   </Link>
                   <Link
                     href="/accommodation"
-                    className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group"
+                    className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded"
                   >
                     Accommodations
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300"></span>
                   </Link>
                   <Link
                     href="/places"
-                    className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group"
+                    className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded"
                   >
                     Places
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300"></span>
@@ -133,7 +133,7 @@ export default function RootLayout({
 
           <NewsletterSection />
 
-          <footer className="bg-slate-900 text-white mt-20">
+          <footer aria-label="Site footer" className="bg-slate-900 text-white mt-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
                 <div className="space-y-4">

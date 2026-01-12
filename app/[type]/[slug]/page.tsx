@@ -149,17 +149,17 @@ export default async function ListingPage({ params }: Props) {
   return (
     <>
       <JsonLdScript data={[businessSchema, breadcrumbSchema]} />
-      <nav className="bg-white border-b border-slate-200 py-4">
+      <nav aria-label="Breadcrumb" className="bg-white border-b border-slate-200 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-2 text-sm text-slate-600">
             <Link href="/" className="hover:text-emerald-600 transition-colors">
               Home
             </Link>
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4" aria-hidden="true" />
             <Link href={`/${type}`} className="hover:text-emerald-600 transition-colors capitalize">
               {type}
             </Link>
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4" aria-hidden="true" />
             <span className="text-slate-900 font-medium">{decodeHtmlEntities(listing.title.rendered)}</span>
           </div>
         </div>
@@ -174,13 +174,13 @@ export default async function ListingPage({ params }: Props) {
                 <div className="flex gap-2 pt-2">
                   {isListingClaimed(listing) && (
                     <div className="px-4 py-2 bg-blue-500 rounded-full text-sm font-semibold text-white flex items-center gap-2 shadow-lg">
-                      <CheckCircle className="w-5 h-5" />
+                      <CheckCircle className="w-5 h-5" aria-hidden="true" />
                       Claimed
                     </div>
                   )}
                   {isListingFeatured(listing) && (
                     <div className="px-4 py-2 bg-amber-500 rounded-full text-sm font-semibold text-white flex items-center gap-2 shadow-lg">
-                      <Star className="w-5 h-5 fill-white" />
+                      <Star className="w-5 h-5 fill-white" aria-hidden="true" />
                       Featured
                     </div>
                   )}
@@ -242,7 +242,7 @@ export default async function ListingPage({ params }: Props) {
               <div className="space-y-4">
                 {(listing.street || listing.city) && (
                   <div className="flex items-start space-x-3">
-                    <MapPin className="w-5 h-5 text-emerald-600 mt-1 flex-shrink-0" />
+                    <MapPin className="w-5 h-5 text-emerald-600 mt-1 flex-shrink-0" aria-hidden="true" />
                     <div className="text-slate-700">
                       {listing.street && <div>{listing.street}</div>}
                       {listing.city && (
@@ -256,7 +256,7 @@ export default async function ListingPage({ params }: Props) {
 
                 {listing.phone && (
                   <div className="flex items-center space-x-3">
-                    <Phone className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                    <Phone className="w-5 h-5 text-emerald-600 flex-shrink-0" aria-hidden="true" />
                     <a
                       href={`tel:${listing.phone}`}
                       className="text-slate-700 hover:text-emerald-600 transition-colors"
@@ -268,7 +268,7 @@ export default async function ListingPage({ params }: Props) {
 
                 {listing.email && (
                   <div className="flex items-center space-x-3">
-                    <Mail className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                    <Mail className="w-5 h-5 text-emerald-600 flex-shrink-0" aria-hidden="true" />
                     <a
                       href={`mailto:${listing.email}`}
                       className="text-slate-700 hover:text-emerald-600 transition-colors break-all"
@@ -280,7 +280,7 @@ export default async function ListingPage({ params }: Props) {
 
                 {listing.website && (
                   <div className="flex items-center space-x-3">
-                    <Globe className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                    <Globe className="w-5 h-5 text-emerald-600 flex-shrink-0" aria-hidden="true" />
                     <a
                       href={listing.website}
                       target="_blank"
@@ -302,9 +302,10 @@ export default async function ListingPage({ params }: Props) {
                         href={listing.facebook}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600 hover:bg-emerald-100 transition-colors"
+                        aria-label="Follow on Facebook"
+                        className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600 hover:bg-emerald-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                       >
-                        <Facebook className="w-5 h-5" />
+                        <Facebook className="w-5 h-5" aria-hidden="true" />
                       </a>
                     )}
                     {listing.instagram && (
@@ -312,9 +313,10 @@ export default async function ListingPage({ params }: Props) {
                         href={listing.instagram}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600 hover:bg-emerald-100 transition-colors"
+                        aria-label="Follow on Instagram"
+                        className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600 hover:bg-emerald-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                       >
-                        <Instagram className="w-5 h-5" />
+                        <Instagram className="w-5 h-5" aria-hidden="true" />
                       </a>
                     )}
                     {listing.twitter && (
@@ -322,9 +324,10 @@ export default async function ListingPage({ params }: Props) {
                         href={listing.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600 hover:bg-emerald-100 transition-colors"
+                        aria-label="Follow on Twitter"
+                        className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600 hover:bg-emerald-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                       >
-                        <Twitter className="w-5 h-5" />
+                        <Twitter className="w-5 h-5" aria-hidden="true" />
                       </a>
                     )}
                   </div>
@@ -335,7 +338,7 @@ export default async function ListingPage({ params }: Props) {
                 <div className="mt-6 pt-6 border-t border-slate-200">
                   <h4 className="font-semibold text-slate-900 mb-4">Hours of Operation</h4>
                   <div className="flex items-start space-x-3">
-                    <Clock className="w-5 h-5 text-emerald-600 mt-1 flex-shrink-0" />
+                    <Clock className="w-5 h-5 text-emerald-600 mt-1 flex-shrink-0" aria-hidden="true" />
                     <div className="text-slate-700 text-sm whitespace-pre-line">{businessHours}</div>
                   </div>
                 </div>

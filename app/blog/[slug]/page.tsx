@@ -107,17 +107,17 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <>
       <JsonLdScript data={[articleSchema, breadcrumbSchema]} />
-      <nav className="bg-white border-b border-slate-200 py-4">
+      <nav aria-label="Breadcrumb" className="bg-white border-b border-slate-200 py-4">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-2 text-sm text-slate-600">
             <Link href="/" className="hover:text-emerald-600 transition-colors">
               Home
             </Link>
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4" aria-hidden="true" />
             <Link href="/blog" className="hover:text-emerald-600 transition-colors">
               Blog
             </Link>
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4" aria-hidden="true" />
             <span className="text-slate-900 font-medium truncate">{decodeHtmlEntities(post.title.rendered)}</span>
           </div>
         </div>
@@ -131,11 +131,11 @@ export default async function BlogPostPage({ params }: Props) {
 
           <div className="flex flex-wrap items-center gap-6 text-slate-600 mb-8">
             <div className="flex items-center space-x-2">
-              <Calendar className="w-5 h-5 text-emerald-600" />
+              <Calendar className="w-5 h-5 text-emerald-600" aria-hidden="true" />
               <time dateTime={post.date}>{formatDate(post.date)}</time>
             </div>
             <div className="flex items-center space-x-2">
-              <Clock className="w-5 h-5 text-emerald-600" />
+              <Clock className="w-5 h-5 text-emerald-600" aria-hidden="true" />
               <span>{readingTime} min read</span>
             </div>
           </div>

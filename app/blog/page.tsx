@@ -32,17 +32,17 @@ export default async function BlogPage() {
     <>
       <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex items-center space-x-2 text-sm text-slate-300 mb-8">
+          <nav aria-label="Breadcrumb" className="flex items-center space-x-2 text-sm text-slate-300 mb-8">
             <Link href="/" className="hover:text-white transition-colors">
               Home
             </Link>
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4" aria-hidden="true" />
             <span className="text-white">Blog</span>
           </nav>
 
           <div className="flex items-center space-x-6 mb-6">
             <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-2xl">
-              <BookOpen className="w-10 h-10 text-white" />
+              <BookOpen className="w-10 h-10 text-white" aria-hidden="true" />
             </div>
             <div>
               <h1 className="text-5xl font-bold text-white mb-2">Blog</h1>
@@ -69,10 +69,11 @@ export default async function BlogPage() {
                 const excerpt = stripHtml(post.excerpt.rendered);
 
                 return (
-                  <Link
-                    key={post.id}
+                  <article key={post.id}>
+                <Link
                     href={`/blog/${post.slug}`}
-                    className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+                    aria-label={`Read article: ${decodeHtmlEntities(post.title.rendered)}`}
+                    className="group block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
                   >
                     <div className="relative h-56 overflow-hidden">
                       <Image
@@ -85,7 +86,7 @@ export default async function BlogPage() {
                     </div>
                     <div className="p-6">
                       <div className="flex items-center text-sm text-slate-500 mb-3">
-                        <Calendar className="w-4 h-4 mr-2" />
+                        <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
                         {formatDate(post.date)}
                       </div>
                       <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors">
@@ -94,12 +95,13 @@ export default async function BlogPage() {
                       <p className="text-slate-600 line-clamp-3">{excerpt}</p>
                     </div>
                   </Link>
+                  </article>
                 );
               })}
             </div>
           ) : (
             <div className="text-center py-16">
-              <BookOpen className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+              <BookOpen className="w-16 h-16 text-slate-300 mx-auto mb-4" aria-hidden="true" />
               <h3 className="text-2xl font-bold text-slate-900 mb-2">No posts yet</h3>
               <p className="text-slate-600">Check back soon for new articles!</p>
             </div>

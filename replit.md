@@ -32,6 +32,13 @@ All pages include these security headers (configured in `next.config.js`):
 - `Referrer-Policy: strict-origin-when-cross-origin` - Controls referrer data
 - `Permissions-Policy` - Disables camera, microphone, geolocation
 
+## Accessibility
+- **Semantic HTML**: Proper use of `<main>`, `<nav>`, `<article>`, `<section>`, `<footer>` elements
+- **ARIA Labels**: Navigation, breadcrumbs, interactive elements, and icon-only buttons have descriptive ARIA labels
+- **Focus States**: All interactive elements (links, buttons, cards) have visible focus indicators for keyboard navigation
+- **Screen Reader Support**: Decorative icons marked with `aria-hidden="true"`, meaningful alt text on images
+- **Keyboard Navigation**: Image gallery supports arrow keys, all interactive elements are focusable
+
 ## Project Structure
 - `app/` - Next.js App Router pages and components
   - `[type]/` - Dynamic routes for listing types (restaurants, businesses, etc.)

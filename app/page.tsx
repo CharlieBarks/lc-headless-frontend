@@ -117,10 +117,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-24 px-4 sm:px-6 lg:px-8">
+      <section aria-labelledby="categories-heading" className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Browse by Category</h2>
+            <h2 id="categories-heading" className="text-4xl font-bold text-slate-900 mb-4">Browse by Category</h2>
             <p className="text-xl text-slate-600">Explore what makes Las Cruces special</p>
           </div>
 
@@ -129,18 +129,19 @@ export default async function HomePage() {
               <Link
                 key={category.id}
                 href={`/${category.id}`}
-                className="group relative overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+                aria-label={`Browse ${category.name} - ${category.count} listings available`}
+                className="group relative overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 transition-opacity`}></div>
                 <div className="p-8 relative">
                   <div className={`w-16 h-16 bg-gradient-to-br ${category.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
-                    <category.icon className="w-8 h-8 text-white" />
+                    <category.icon className="w-8 h-8 text-white" aria-hidden="true" />
                   </div>
                   <h3 className="text-2xl font-bold text-slate-900 mb-2">{category.name}</h3>
                   <p className="text-slate-600 mb-4">{category.description}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-semibold text-emerald-600">{category.count} listings</span>
-                    <span className="text-emerald-600 group-hover:translate-x-2 transition-transform">→</span>
+                    <span className="text-emerald-600 group-hover:translate-x-2 transition-transform" aria-hidden="true">→</span>
                   </div>
                 </div>
               </Link>
@@ -149,10 +150,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-24 bg-white px-4 sm:px-6 lg:px-8">
+      <section aria-labelledby="featured-heading" className="py-24 bg-white px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Featured Listings</h2>
+            <h2 id="featured-heading" className="text-4xl font-bold text-slate-900 mb-4">Featured Listings</h2>
             <p className="text-xl text-slate-600">Discover popular local spots</p>
           </div>
 
@@ -163,10 +164,11 @@ export default async function HomePage() {
               const imageUrl = getListingImage(listing, type as any);
 
               return (
+                <article key={listing.id}>
                 <Link
-                  key={listing.id}
                   href={`/${type}/${listing.slug}`}
-                  className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+                  aria-label={`View ${decodeHtmlEntities(listing.title.rendered)} - ${categoryLabel}`}
+                  className="group block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
                 >
                   <div className="relative h-56 overflow-hidden">
                     <Image
@@ -179,13 +181,13 @@ export default async function HomePage() {
                     <div className="absolute top-4 left-4 flex gap-2">
                       {isListingClaimed(listing) && (
                         <div className="px-3 py-1 bg-blue-500/90 backdrop-blur-sm rounded-full text-sm font-semibold text-white flex items-center gap-1.5 shadow-lg">
-                          <CheckCircle className="w-4 h-4" />
+                          <CheckCircle className="w-4 h-4" aria-hidden="true" />
                           Claimed
                         </div>
                       )}
                       {isListingFeatured(listing) && (
                         <div className="px-3 py-1 bg-amber-500/90 backdrop-blur-sm rounded-full text-sm font-semibold text-white flex items-center gap-1.5 shadow-lg">
-                          <Star className="w-4 h-4 fill-white" />
+                          <Star className="w-4 h-4 fill-white" aria-hidden="true" />
                           Featured
                         </div>
                       )}
@@ -207,17 +209,18 @@ export default async function HomePage() {
                     )}
                   </div>
                 </Link>
+              </article>
               );
             })}
           </div>
         </div>
       </section>
 
-      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50">
+      <section aria-labelledby="articles-heading" className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-12">
             <div>
-              <h2 className="text-4xl font-bold text-slate-900 mb-4">Latest Articles</h2>
+              <h2 id="articles-heading" className="text-4xl font-bold text-slate-900 mb-4">Latest Articles</h2>
               <p className="text-xl text-slate-600">Stories and updates from our community</p>
             </div>
             <Link
@@ -235,10 +238,11 @@ export default async function HomePage() {
               const excerpt = stripHtml(post.excerpt.rendered);
 
               return (
+                <article key={post.id}>
                 <Link
-                  key={post.id}
                   href={`/blog/${post.slug}`}
-                  className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+                  aria-label={`Read article: ${decodeHtmlEntities(post.title.rendered)}`}
+                  className="group block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
                 >
                   <div className="relative h-48 overflow-hidden">
                     <Image
@@ -251,7 +255,7 @@ export default async function HomePage() {
                   </div>
                   <div className="p-6">
                     <div className="flex items-center text-sm text-slate-500 mb-3">
-                      <Calendar className="w-4 h-4 mr-2" />
+                      <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
                       {formatDate(post.date)}
                     </div>
                     <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors">
@@ -260,6 +264,7 @@ export default async function HomePage() {
                     <p className="text-slate-600 line-clamp-2">{excerpt}</p>
                   </div>
                 </Link>
+              </article>
               );
             })}
           </div>

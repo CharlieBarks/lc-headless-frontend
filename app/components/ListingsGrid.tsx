@@ -41,10 +41,11 @@ export function ListingsGrid({ listings, type, config }: ListingsGridProps) {
           const imageUrl = getListingImage(listing, type as any);
 
           return (
+            <article key={listing.id}>
             <Link
-              key={listing.id}
               href={`/${type}/${listing.slug}`}
-              className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+              aria-label={`View ${decodeHtmlEntities(listing.title.rendered)}`}
+              className="group block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
             >
               <div className="relative h-56 overflow-hidden">
                 <Image
@@ -57,13 +58,13 @@ export function ListingsGrid({ listings, type, config }: ListingsGridProps) {
                 <div className="absolute top-4 left-4 flex gap-2">
                   {isListingClaimed(listing) && (
                     <div className="px-3 py-1 bg-blue-500/90 backdrop-blur-sm rounded-full text-sm font-semibold text-white flex items-center gap-1.5 shadow-lg">
-                      <CheckCircle className="w-4 h-4" />
+                      <CheckCircle className="w-4 h-4" aria-hidden="true" />
                       Claimed
                     </div>
                   )}
                   {isListingFeatured(listing) && (
                     <div className="px-3 py-1 bg-amber-500/90 backdrop-blur-sm rounded-full text-sm font-semibold text-white flex items-center gap-1.5 shadow-lg">
-                      <Star className="w-4 h-4 fill-white" />
+                      <Star className="w-4 h-4 fill-white" aria-hidden="true" />
                       Featured
                     </div>
                   )}
@@ -90,6 +91,7 @@ export function ListingsGrid({ listings, type, config }: ListingsGridProps) {
                 )}
               </div>
             </Link>
+            </article>
           );
         })}
       </div>
@@ -98,7 +100,7 @@ export function ListingsGrid({ listings, type, config }: ListingsGridProps) {
         <div className="mt-12 text-center">
           <button
             onClick={showMore}
-            className="px-8 py-4 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="px-8 py-4 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
           >
             Show More ({listings.length - displayCount} remaining)
           </button>
