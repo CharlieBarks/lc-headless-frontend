@@ -103,12 +103,12 @@ export default async function HomePage() {
               Your Local Community Guide
             </div>
 
-            <h2 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
               Discover
               <span className="block bg-gradient-to-r from-emerald-400 to-emerald-200 bg-clip-text text-transparent">
                 Las Cruces
               </span>
-            </h2>
+            </h1>
 
             <p className="text-xl md:text-2xl text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed">
               Your complete guide to local businesses, restaurants, accommodations, and hidden gems in our community.
