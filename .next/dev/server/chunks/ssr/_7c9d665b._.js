@@ -126,8 +126,31 @@ function NewsletterSection() {
         className: "relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-100 via-slate-50 to-emerald-50",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-400"
-            }, void 0, false, {
+                className: "absolute top-0 left-1/2 -translate-x-1/2 flex items-center gap-3",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "w-16 h-1 bg-gradient-to-r from-transparent to-emerald-400 rounded-full"
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/NewsletterSection.tsx",
+                        lineNumber: 8,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "w-24 h-1.5 bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-400 rounded-full"
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/NewsletterSection.tsx",
+                        lineNumber: 9,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "w-16 h-1 bg-gradient-to-l from-transparent to-emerald-400 rounded-full"
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/NewsletterSection.tsx",
+                        lineNumber: 10,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
                 fileName: "[project]/app/components/NewsletterSection.tsx",
                 lineNumber: 7,
                 columnNumber: 7
@@ -155,12 +178,12 @@ function NewsletterSection() {
                                             className: "h-16 w-auto"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/NewsletterSection.tsx",
-                                            lineNumber: 18,
+                                            lineNumber: 22,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/NewsletterSection.tsx",
-                                        lineNumber: 17,
+                                        lineNumber: 21,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -168,7 +191,7 @@ function NewsletterSection() {
                                         children: "Stay in the Loop"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/NewsletterSection.tsx",
-                                        lineNumber: 26,
+                                        lineNumber: 30,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -176,7 +199,7 @@ function NewsletterSection() {
                                         children: "Subscribe to the Live Love Las Cruces newsletter and get the latest updates on local events, new businesses, and everything happening in our vibrant community."
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/NewsletterSection.tsx",
-                                        lineNumber: 29,
+                                        lineNumber: 33,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -186,26 +209,26 @@ function NewsletterSection() {
                                                 children: "Subscribe Now"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/NewsletterSection.tsx",
-                                                lineNumber: 34,
+                                                lineNumber: 38,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
                                                 className: "w-5 h-5 transform group-hover:translate-x-1 transition-transform"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/NewsletterSection.tsx",
-                                                lineNumber: 35,
+                                                lineNumber: 39,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/NewsletterSection.tsx",
-                                        lineNumber: 33,
+                                        lineNumber: 37,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/NewsletterSection.tsx",
-                                lineNumber: 16,
+                                lineNumber: 20,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -218,28 +241,28 @@ function NewsletterSection() {
                                     className: "object-cover"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/NewsletterSection.tsx",
-                                    lineNumber: 40,
+                                    lineNumber: 44,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/NewsletterSection.tsx",
-                                lineNumber: 39,
+                                lineNumber: 43,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/NewsletterSection.tsx",
-                        lineNumber: 15,
+                        lineNumber: 19,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/components/NewsletterSection.tsx",
-                    lineNumber: 9,
+                    lineNumber: 13,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/components/NewsletterSection.tsx",
-                lineNumber: 8,
+                lineNumber: 12,
                 columnNumber: 7
             }, this)
         ]
