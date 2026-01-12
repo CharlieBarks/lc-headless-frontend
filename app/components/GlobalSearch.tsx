@@ -104,7 +104,7 @@ export function GlobalSearch() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search listings..."
             aria-label="Search listings"
-            className="w-64 lg:w-80 pl-10 pr-10 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:bg-white transition-all text-sm"
+            className="w-48 lg:w-56 pl-10 pr-10 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:bg-white transition-all text-sm"
           />
           {query && (
             <button

@@ -3,6 +3,7 @@ import './globals.css';
 import Link from 'next/link';
 import { MapPin, Building2 } from 'lucide-react';
 import { GlobalSearch } from './components/GlobalSearch';
+import { ExploreDropdown } from './components/ExploreDropdown';
 import { NewsletterSection } from './components/NewsletterSection';
 import { generateWebsiteSchema, JsonLdScript } from '../lib/seo';
 
@@ -83,7 +84,7 @@ export default function RootLayout({
                   </div>
                 </Link>
 
-                <div className="hidden md:flex items-center space-x-8" role="menubar">
+                <div className="hidden md:flex items-center space-x-6" role="menubar">
                   <Link
                     href="/"
                     className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded"
@@ -91,49 +92,23 @@ export default function RootLayout({
                     Home
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300"></span>
                   </Link>
+                  <ExploreDropdown />
                   <Link
-                    href="/restaurant"
+                    href="/blog"
                     className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded"
                   >
-                    Restaurants
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300"></span>
-                  </Link>
-                  <Link
-                    href="/business"
-                    className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded"
-                  >
-                    Businesses
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300"></span>
-                  </Link>
-                  <Link
-                    href="/accommodation"
-                    className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded"
-                  >
-                    Accommodations
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300"></span>
-                  </Link>
-                  <Link
-                    href="/places"
-                    className="text-slate-600 hover:text-emerald-600 font-medium transition-colors relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded"
-                  >
-                    Places
+                    Blog
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 group-hover:w-full transition-all duration-300"></span>
                   </Link>
                 </div>
 
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-3">
                   <GlobalSearch />
-                  <Link
-                    href="/blog"
-                    className="hidden md:block px-4 py-2 text-slate-600 hover:text-emerald-600 font-medium transition-colors"
-                  >
-                    Blog
-                  </Link>
                   <a
                     href="https://livelovelascruces.beehiiv.com/subscribe"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all transform hover:scale-105 font-medium"
+                    className="hidden sm:block bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-5 py-2 rounded-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all transform hover:scale-105 font-medium text-sm"
                   >
                     Subscribe
                   </a>
