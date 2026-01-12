@@ -200,9 +200,15 @@ export default function RootLayout({
                         About Us
                       </Link>
                     </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="font-bold text-lg mb-4">Connect</h3>
+                  <ul className="space-y-3">
                     <li>
                       <Link href="/contact-us" className="text-slate-400 hover:text-white transition-colors">
-                        Contact
+                        Contact Us
                       </Link>
                     </li>
                     <li>
@@ -214,13 +220,6 @@ export default function RootLayout({
                       </a>
                     </li>
                   </ul>
-                </div>
-
-                <div>
-                  <h3 className="font-bold text-lg mb-4">Connect</h3>
-                  <p className="text-slate-400 text-sm mb-4">
-                    Stay updated with the latest listings and local news.
-                  </p>
                 </div>
               </div>
 
