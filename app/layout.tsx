@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Link from 'next/link';
 import { MapPin, Building2 } from 'lucide-react';
+import { GlobalSearch } from './components/GlobalSearch';
 import { NewsletterSection } from './components/NewsletterSection';
 import { generateWebsiteSchema, JsonLdScript } from '../lib/seo';
 
@@ -120,10 +121,11 @@ export default function RootLayout({
                   </Link>
                 </div>
 
-                <div className="hidden md:flex items-center space-x-4">
+                <div className="flex items-center space-x-4">
+                  <GlobalSearch />
                   <Link
                     href="/blog"
-                    className="px-4 py-2 text-slate-600 hover:text-emerald-600 font-medium transition-colors"
+                    className="hidden md:block px-4 py-2 text-slate-600 hover:text-emerald-600 font-medium transition-colors"
                   >
                     Blog
                   </Link>

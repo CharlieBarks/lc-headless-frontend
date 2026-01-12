@@ -52,7 +52,13 @@ export async function GET(request: NextRequest) {
       })
     );
 
-    const allResults: SearchResult[] = responses.flat();
+    const allResults: SearchResult[] = [];
+    const perTypeLimit = Math.ceil(limit / 4);
+    
+    responses.forEach((typeResults) => {
+      allResults.push(...typeResults.slice(0, perTypeLimit));
+    });
+    
     const sortedResults = allResults.slice(0, limit);
 
     return NextResponse.json({ results: sortedResults });
