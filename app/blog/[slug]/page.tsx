@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { headers } from 'next/headers';
 import { Calendar, ChevronRight, Clock } from 'lucide-react';
 import { getBlogPostImage, decodeHtmlEntities, getCachedBlogPostBySlug } from '../../../lib/wordpress';
@@ -126,10 +127,13 @@ export default async function BlogPostPage({ params }: Props) {
 
           {imageUrl && (
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl mb-8">
-              <img
+              <Image
                 src={imageUrl}
                 alt={decodeHtmlEntities(post.title.rendered)}
-                className="w-full h-full object-cover"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 800px"
+                className="object-cover"
               />
             </div>
           )}

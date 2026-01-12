@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 
 export function NewsletterSection() {
@@ -13,9 +14,11 @@ export function NewsletterSection() {
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="p-12 lg:p-16 flex flex-col justify-center">
               <div className="mb-6">
-                <img
+                <Image
                   src="/1.png"
                   alt="Live Love Las Cruces"
+                  width={200}
+                  height={64}
                   className="h-16 w-auto"
                 />
               </div>
@@ -33,10 +36,12 @@ export function NewsletterSection() {
             </div>
 
             <div className="relative hidden md:block h-full min-h-[400px]">
-              <img
+              <Image
                 src="/FarmersMarket.png"
                 alt="Las Cruces Farmers Market"
-                className="w-full h-full object-cover"
+                fill
+                sizes="50vw"
+                className="object-cover"
               />
             </div>
           </div>

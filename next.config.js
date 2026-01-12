@@ -11,6 +11,15 @@ const nextConfig = {
         hostname: 'images.pexels.com',
       },
     ],
+    localPatterns: [
+      {
+        pathname: '/api/image-proxy',
+        search: '?url=*',
+      },
+      {
+        pathname: '/**',
+      },
+    ],
   },
   env: {
     NEXT_PUBLIC_WORDPRESS_API_URL: process.env.NEXT_PUBLIC_WORDPRESS_API_URL,

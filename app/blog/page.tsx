@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Calendar, BookOpen, ChevronRight } from 'lucide-react';
 import { getBlogPostImage, decodeHtmlEntities, getCachedBlogPosts } from '../../lib/wordpress';
 import type { Metadata } from 'next';
@@ -74,10 +75,12 @@ export default async function BlogPage() {
                     className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
                   >
                     <div className="relative h-56 overflow-hidden">
-                      <img
+                      <Image
                         src={imageUrl}
                         alt={decodeHtmlEntities(post.title.rendered)}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                     </div>
                     <div className="p-6">

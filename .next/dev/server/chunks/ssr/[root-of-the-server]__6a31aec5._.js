@@ -23,6 +23,16 @@ __turbopack_context__.s([
     ()=>getAllListingImages,
     "getBlogPostImage",
     ()=>getBlogPostImage,
+    "getCachedArchiveData",
+    ()=>getCachedArchiveData,
+    "getCachedBlogPostBySlug",
+    ()=>getCachedBlogPostBySlug,
+    "getCachedBlogPosts",
+    ()=>getCachedBlogPosts,
+    "getCachedHomePageData",
+    ()=>getCachedHomePageData,
+    "getCachedListingBySlug",
+    ()=>getCachedListingBySlug,
     "getListingImage",
     ()=>getListingImage,
     "isListingClaimed",
@@ -32,9 +42,12 @@ __turbopack_context__.s([
     "wordpressAPI",
     ()=>wordpressAPI
 ]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react.js [app-rsc] (ecmascript)");
+;
 const WP_API_BASE = "https://dir.lascrucesdirectory.com/wp-json/geodir/v2";
 const WP_POSTS_API = "https://dir.lascrucesdirectory.com/wp-json/wp/v2";
 const WP_GRAPHQL_API = "https://dir.lascrucesdirectory.com/graphql";
+const CACHE_REVALIDATE = 3600;
 async function fetchWp(url, options = {}) {
     // For server-side rendering, bypass the proxy and fetch directly
     // The CORS restriction only applies to browser requests
@@ -527,6 +540,77 @@ const wordpressAPI = {
         }
     }
 };
+const getCachedListingBySlug = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(async (type, slug)=>{
+    return wordpressAPI.getListingBySlug(type, slug);
+});
+const getCachedBlogPostBySlug = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(async (slug)=>{
+    return wordpressAPI.getBlogPostBySlug(slug);
+});
+const getCachedHomePageData = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(async ()=>{
+    const fetchWithTimeout = async (promise, timeoutMs = 5000)=>{
+        const timeout = new Promise((resolve)=>setTimeout(()=>resolve(null), timeoutMs));
+        return Promise.race([
+            promise,
+            timeout
+        ]);
+    };
+    const [featuredListings, blogPosts, categoryCounts] = await Promise.all([
+        fetchWithTimeout(wordpressAPI.getFeaturedListings(3)).then((r)=>r || []),
+        fetchWithTimeout(wordpressAPI.getBlogPosts(3)).then((r)=>r || []),
+        fetchWithTimeout(wordpressAPI.getCategoryCounts()).then((r)=>r || {
+                restaurants: 0,
+                businesses: 0,
+                accommodations: 0,
+                places: 0
+            })
+    ]);
+    return {
+        featuredListings,
+        blogPosts,
+        categoryCounts
+    };
+});
+const getCachedArchiveData = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(async (type, category, search)=>{
+    let listings = [];
+    let categories = [];
+    try {
+        switch(type){
+            case "restaurant":
+                [listings, categories] = await Promise.all([
+                    wordpressAPI.getRestaurants(100, category, search),
+                    wordpressAPI.getRestaurantCategories()
+                ]);
+                break;
+            case "business":
+                [listings, categories] = await Promise.all([
+                    wordpressAPI.getBusinesses(100, category, search),
+                    wordpressAPI.getBusinessCategories()
+                ]);
+                break;
+            case "accommodation":
+                [listings, categories] = await Promise.all([
+                    wordpressAPI.getAccommodations(100, category, search),
+                    wordpressAPI.getAccommodationCategories()
+                ]);
+                break;
+            case "places":
+                [listings, categories] = await Promise.all([
+                    wordpressAPI.getPlaces(100, category, search),
+                    wordpressAPI.getPlaceCategories()
+                ]);
+                break;
+        }
+    } catch (error) {
+        console.error(`Error fetching ${type}:`, error);
+    }
+    return {
+        listings,
+        categories
+    };
+});
+const getCachedBlogPosts = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(async (limit = 50)=>{
+    return wordpressAPI.getBlogPosts(limit);
+});
 }),
 "[project]/app/components/ArchiveFilters.tsx [app-rsc] (client reference proxy) <module evaluation>", ((__turbopack_context__) => {
 "use strict";
@@ -606,10 +690,10 @@ __turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$c
 __turbopack_context__.s([
     "default",
     ()=>ArchivePage,
-    "dynamic",
-    ()=>dynamic,
     "generateMetadata",
-    ()=>generateMetadata
+    ()=>generateMetadata,
+    "revalidate",
+    ()=>revalidate
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.react-server.js [app-rsc] (ecmascript)");
@@ -630,7 +714,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$Listing
 ;
 ;
 ;
-const dynamic = 'force-dynamic';
+const revalidate = 3600;
 const typeConfig = {
     restaurant: {
         title: 'Restaurants',
@@ -680,38 +764,7 @@ async function ArchivePage({ params, searchParams }) {
     if (!config) {
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
     }
-    let listings = [];
-    let categories = [];
-    try {
-        switch(type){
-            case 'restaurant':
-                [listings, categories] = await Promise.all([
-                    __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["wordpressAPI"].getRestaurants(100, category, search),
-                    __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["wordpressAPI"].getRestaurantCategories()
-                ]);
-                break;
-            case 'business':
-                [listings, categories] = await Promise.all([
-                    __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["wordpressAPI"].getBusinesses(100, category, search),
-                    __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["wordpressAPI"].getBusinessCategories()
-                ]);
-                break;
-            case 'accommodation':
-                [listings, categories] = await Promise.all([
-                    __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["wordpressAPI"].getAccommodations(100, category, search),
-                    __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["wordpressAPI"].getAccommodationCategories()
-                ]);
-                break;
-            case 'places':
-                [listings, categories] = await Promise.all([
-                    __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["wordpressAPI"].getPlaces(100, category, search),
-                    __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["wordpressAPI"].getPlaceCategories()
-                ]);
-                break;
-        }
-    } catch (error) {
-        console.error(`Error fetching ${type}:`, error);
-    }
+    const { listings, categories } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$wordpress$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getCachedArchiveData"])(type, category, search);
     const IconComponent = config.icon;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Fragment"], {
         children: [
@@ -729,14 +782,14 @@ async function ArchivePage({ params, searchParams }) {
                                     children: "Home"
                                 }, void 0, false, {
                                     fileName: "[project]/app/[type]/page.tsx",
-                                    lineNumber: 111,
+                                    lineNumber: 80,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                     className: "w-4 h-4"
                                 }, void 0, false, {
                                     fileName: "[project]/app/[type]/page.tsx",
-                                    lineNumber: 114,
+                                    lineNumber: 83,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -744,13 +797,13 @@ async function ArchivePage({ params, searchParams }) {
                                     children: config.title
                                 }, void 0, false, {
                                     fileName: "[project]/app/[type]/page.tsx",
-                                    lineNumber: 115,
+                                    lineNumber: 84,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/[type]/page.tsx",
-                            lineNumber: 110,
+                            lineNumber: 79,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -762,12 +815,12 @@ async function ArchivePage({ params, searchParams }) {
                                         className: "w-10 h-10 text-white"
                                     }, void 0, false, {
                                         fileName: "[project]/app/[type]/page.tsx",
-                                        lineNumber: 120,
+                                        lineNumber: 89,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/[type]/page.tsx",
-                                    lineNumber: 119,
+                                    lineNumber: 88,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -777,7 +830,7 @@ async function ArchivePage({ params, searchParams }) {
                                             children: config.title
                                         }, void 0, false, {
                                             fileName: "[project]/app/[type]/page.tsx",
-                                            lineNumber: 123,
+                                            lineNumber: 92,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -785,19 +838,19 @@ async function ArchivePage({ params, searchParams }) {
                                             children: config.description
                                         }, void 0, false, {
                                             fileName: "[project]/app/[type]/page.tsx",
-                                            lineNumber: 124,
+                                            lineNumber: 93,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/[type]/page.tsx",
-                                    lineNumber: 122,
+                                    lineNumber: 91,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/[type]/page.tsx",
-                            lineNumber: 118,
+                            lineNumber: 87,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -811,7 +864,7 @@ async function ArchivePage({ params, searchParams }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/[type]/page.tsx",
-                                    lineNumber: 129,
+                                    lineNumber: 98,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -822,24 +875,24 @@ async function ArchivePage({ params, searchParams }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/[type]/page.tsx",
-                                    lineNumber: 132,
+                                    lineNumber: 101,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/[type]/page.tsx",
-                            lineNumber: 128,
+                            lineNumber: 97,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/[type]/page.tsx",
-                    lineNumber: 109,
+                    lineNumber: 78,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/[type]/page.tsx",
-                lineNumber: 108,
+                lineNumber: 77,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -852,7 +905,7 @@ async function ArchivePage({ params, searchParams }) {
                             type: type
                         }, void 0, false, {
                             fileName: "[project]/app/[type]/page.tsx",
-                            lineNumber: 141,
+                            lineNumber: 110,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ListingsGrid$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["ListingsGrid"], {
@@ -864,18 +917,18 @@ async function ArchivePage({ params, searchParams }) {
                             }
                         }, void 0, false, {
                             fileName: "[project]/app/[type]/page.tsx",
-                            lineNumber: 143,
+                            lineNumber: 112,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/[type]/page.tsx",
-                    lineNumber: 140,
+                    lineNumber: 109,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/[type]/page.tsx",
-                lineNumber: 139,
+                lineNumber: 108,
                 columnNumber: 7
             }, this)
         ]

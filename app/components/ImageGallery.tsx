@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ImageGalleryProps {
@@ -42,10 +43,13 @@ export default function ImageGallery({ images, altText }: ImageGalleryProps) {
     <div className="space-y-4">
       <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-slate-100 group">
         <div className="relative h-[500px]">
-          <img
+          <Image
             src={images[currentIndex]}
             alt={`${altText} - Image ${currentIndex + 1}`}
-            className="w-full h-full object-cover"
+            fill
+            sizes="(max-width: 1024px) 100vw, 66vw"
+            className="object-cover"
+            priority={currentIndex === 0}
           />
 
           {images.length > 1 && (
@@ -86,10 +90,12 @@ export default function ImageGallery({ images, altText }: ImageGalleryProps) {
                   : 'hover:ring-2 hover:ring-slate-300 opacity-70 hover:opacity-100'
               }`}
             >
-              <img
+              <Image
                 src={image}
                 alt={`Thumbnail ${index + 1}`}
-                className="w-full h-full object-cover"
+                fill
+                sizes="100px"
+                className="object-cover"
               />
             </button>
           ))}

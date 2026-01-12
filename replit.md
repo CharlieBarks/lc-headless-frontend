@@ -8,6 +8,11 @@ A Next.js 16 community directory website for Las Cruces, featuring local busines
 - **React cache()**: Cached functions in `lib/wordpress.ts` deduplicate API calls within render cycles
 - **Next.js fetch caching**: All WordPress API calls use `next: { revalidate: 3600 }` for automatic deduplication
 
+## Image Optimization
+- **Next.js Image**: All images use the optimized `<Image>` component for automatic resizing, lazy loading, and modern formats (WebP)
+- **Image Proxy**: WordPress images route through `/api/image-proxy` to handle CORS; configured in `next.config.js` via `localPatterns`
+- **Remote Patterns**: WordPress (`dir.lascrucesdirectory.com`) and Pexels domains are whitelisted for remote image optimization
+
 ## Project Structure
 - `app/` - Next.js App Router pages and components
   - `[type]/` - Dynamic routes for listing types (restaurants, businesses, etc.)

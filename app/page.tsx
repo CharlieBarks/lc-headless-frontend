@@ -1,5 +1,6 @@
 import { UtensilsCrossed, Building2, Bed, Landmark, Calendar, CheckCircle, Star } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getListingImage, getBlogPostImage, decodeHtmlEntities, isListingClaimed, isListingFeatured, getCachedHomePageData } from '../lib/wordpress';
 import type { Metadata } from 'next';
 
@@ -84,10 +85,13 @@ export default async function HomePage() {
     <>
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="/hero-las-cruces.jpg"
             alt="Las Cruces cityscape with Organ Mountains"
-            className="w-full h-full object-cover"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/50 to-slate-900/80"></div>
         </div>
@@ -165,10 +169,12 @@ export default async function HomePage() {
                   className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
                 >
                   <div className="relative h-56 overflow-hidden">
-                    <img
+                    <Image
                       src={imageUrl}
                       alt={decodeHtmlEntities(listing.title.rendered)}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div className="absolute top-4 left-4 flex gap-2">
                       {isListingClaimed(listing) && (
@@ -235,10 +241,12 @@ export default async function HomePage() {
                   className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
                 >
                   <div className="relative h-48 overflow-hidden">
-                    <img
+                    <Image
                       src={imageUrl}
                       alt={decodeHtmlEntities(post.title.rendered)}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
                   <div className="p-6">
