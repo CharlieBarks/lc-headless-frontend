@@ -8,6 +8,45 @@ import type { Metadata } from 'next';
 
 export const revalidate = 3600;
 
+const SOCIAL_DOMAINS = [
+  'facebook.com',
+  'twitter.com',
+  'x.com',
+  'instagram.com',
+  'linkedin.com',
+  'youtube.com',
+  'tiktok.com',
+  'pinterest.com',
+  'snapchat.com',
+  'reddit.com',
+];
+
+function addReferrerToContent(html: string): string {
+  if (!html) return html;
+  
+  return html.replace(
+    /<a\s+([^>]*href=["'])([^"']+)(["'][^>]*)>/gi,
+    (match, before, url, after) => {
+      try {
+        const urlObj = new URL(url);
+        const isSocialDomain = SOCIAL_DOMAINS.some(domain => 
+          urlObj.hostname.includes(domain)
+        );
+        const isInternal = urlObj.hostname.includes('lascrucesdirectory.com') || 
+                          urlObj.hostname.includes('localhost');
+        
+        if (!isSocialDomain && !isInternal) {
+          urlObj.searchParams.set('referrer', 'lascrucesdirectory.com');
+          return `<a ${before}${urlObj.toString()}${after}>`;
+        }
+      } catch {
+        // Invalid URL, return as-is
+      }
+      return match;
+    }
+  );
+}
+
 type Props = {
   params: Promise<{ slug: string }>;
 };
@@ -156,8 +195,8 @@ export default async function BlogPostPage({ params }: Props) {
 
         {post.content && (
           <div
-        className="wp-content"      
-            dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+            className="wp-content"      
+            dangerouslySetInnerHTML={{ __html: addReferrerToContent(post.content.rendered) }}
           />
         )}
 
