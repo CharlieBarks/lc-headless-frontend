@@ -3,7 +3,8 @@ import { ArrowRight } from 'lucide-react';
 
 export function NewsletterSection() {
   return (
-    <section id="newsletter" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-white to-slate-50">
+    <section id="newsletter" className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-100 via-slate-50 to-emerald-50">
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-400"></div>
       <div className="max-w-5xl mx-auto">
         <a
           href="https://livelovelascruces.com/subscribe"
