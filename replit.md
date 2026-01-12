@@ -3,6 +3,11 @@
 ## Overview
 A Next.js 16 community directory website for Las Cruces, featuring local businesses, restaurants, accommodations, and places. The app connects to a WordPress API backend and uses Supabase for data storage.
 
+## Caching Strategy
+- **ISR (Incremental Static Regeneration)**: All pages use `revalidate = 3600` (1 hour cache)
+- **React cache()**: Cached functions in `lib/wordpress.ts` deduplicate API calls within render cycles
+- **Next.js fetch caching**: All WordPress API calls use `next: { revalidate: 3600 }` for automatic deduplication
+
 ## Project Structure
 - `app/` - Next.js App Router pages and components
   - `[type]/` - Dynamic routes for listing types (restaurants, businesses, etc.)
