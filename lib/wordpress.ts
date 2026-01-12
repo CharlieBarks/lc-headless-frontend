@@ -220,10 +220,8 @@ const DEFAULT_IMAGES = {
 function proxyImageUrl(url: string): string {
   if (!url) return url;
 
-  if (url.startsWith("https://dir.lascrucesdirectory.com/")) {
-    return `/api/image-proxy?url=${encodeURIComponent(url)}`;
-  }
-
+  // Return the direct URL - Next.js Image component can optimize remote images
+  // since dir.lascrucesdirectory.com is in remotePatterns in next.config.js
   return url;
 }
 
