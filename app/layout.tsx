@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { MapPin, Building2 } from 'lucide-react';
 import { GlobalSearch } from './components/GlobalSearch';
 import { ExploreDropdown } from './components/ExploreDropdown';
+import { MobileMenu } from './components/MobileMenu';
 import { NewsletterSection } from './components/NewsletterSection';
 import { generateWebsiteSchema, JsonLdScript } from '../lib/seo';
 
@@ -112,6 +113,7 @@ export default function RootLayout({
                   >
                     Subscribe
                   </a>
+                  <MobileMenu />
                 </div>
               </div>
             </div>
