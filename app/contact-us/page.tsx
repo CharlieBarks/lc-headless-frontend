@@ -41,7 +41,7 @@ export default function ContactPage() {
         <div className="mt-12 p-6 bg-emerald-50 rounded-xl border border-emerald-100">
           <h3 className="font-semibold text-slate-900 mb-2">Business Inquiries</h3>
           <p className="text-slate-600">
-            Want to add your business to our directory? Contact us to learn about our listing options
+            Want to <a href="mailto:support@lascrucesdirectory.com?subject=New Business Listing Request" className="font-bold text-emerald-600 hover:text-emerald-700">add your business</a> to our directory? Contact us to learn about our listing options
             and how we can help showcase your business to the Las Cruces community.
           </p>
         </div>
