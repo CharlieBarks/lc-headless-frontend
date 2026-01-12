@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Link from 'next/link';
-import { MapPin, Building2 } from 'lucide-react';
+import { MapPin, Building2, Facebook, Instagram } from 'lucide-react';
 import { GlobalSearch } from './components/GlobalSearch';
 import { ExploreDropdown } from './components/ExploreDropdown';
 import { MobileMenu } from './components/MobileMenu';
@@ -139,6 +139,26 @@ export default function RootLayout({
                   <p className="text-slate-400 text-sm leading-relaxed">
                     Your complete guide to local businesses, restaurants, and places in Las Cruces.
                   </p>
+                  <div className="flex space-x-3 pt-2">
+                    <a
+                      href="https://www.facebook.com/lascrucesdirectory"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Follow us on Facebook"
+                      className="w-10 h-10 bg-slate-800 hover:bg-emerald-600 rounded-lg flex items-center justify-center transition-colors"
+                    >
+                      <Facebook className="w-5 h-5" aria-hidden="true" />
+                    </a>
+                    <a
+                      href="https://www.instagram.com/lascrucesdirectory"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Follow us on Instagram"
+                      className="w-10 h-10 bg-slate-800 hover:bg-emerald-600 rounded-lg flex items-center justify-center transition-colors"
+                    >
+                      <Instagram className="w-5 h-5" aria-hidden="true" />
+                    </a>
+                  </div>
                 </div>
 
                 <div>
