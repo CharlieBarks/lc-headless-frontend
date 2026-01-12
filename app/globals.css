@@ -76,7 +76,9 @@
   @apply w-full max-w-full;
 }
 .wp-content iframe {
-  @apply my-10 mx-auto block w-full max-w-full aspect-video rounded-xl shadow-lg;
+  @apply my-10 mx-auto block w-full max-w-full rounded-xl shadow-lg;
+  aspect-ratio: 16 / 9 !important;
+  height: auto !important;
 }
 .wp-content figcaption {
   @apply text-center text-sm text-slate-600 mt-3 italic;

@@ -1663,7 +1663,6 @@ img, video {
 }
 
 .wp-content iframe {
-  aspect-ratio: 16 / 9;
   --tw-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
   width: 100%;
@@ -1672,6 +1671,8 @@ img, video {
   border-radius: .75rem;
   margin: 2.5rem auto;
   display: block;
+  aspect-ratio: 16 / 9 !important;
+  height: auto !important;
 }
 
 .wp-content figcaption {
