@@ -123,53 +123,53 @@ export function GlobalSearch() {
         </form>
 
         {isOpen && results.length > 0 && (
-          <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-50 max-h-[70vh] overflow-y-auto">
-            <div className="p-2">
+          <div className="absolute top-full right-0 mt-2 w-[420px] bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-50 max-h-[70vh] overflow-y-auto">
+            <div className="p-3">
               {results.map((result) => (
                 <Link
                   key={`${result.type}-${result.id}`}
                   href={`/${result.type}/${result.slug}`}
                   onClick={handleResultClick}
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                  className="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                 >
                   {result.image ? (
-                    <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+                    <div className="relative w-14 h-14 rounded-lg overflow-hidden flex-shrink-0">
                       <Image
                         src={result.image}
                         alt=""
                         fill
-                        sizes="48px"
+                        sizes="56px"
                         className="object-cover"
                       />
                     </div>
                   ) : (
-                    <div className="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-5 h-5 text-slate-400" aria-hidden="true" />
+                    <div className="w-14 h-14 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-6 h-6 text-slate-400" aria-hidden="true" />
                     </div>
                   )}
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-slate-900 truncate group-hover:text-emerald-600 transition-colors">
+                    <p className="font-semibold text-slate-900 group-hover:text-emerald-600 transition-colors text-base">
                       {result.title}
                     </p>
-                    <div className="flex items-center gap-2 mt-0.5">
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${typeColors[result.type] || 'bg-slate-100 text-slate-600'}`}>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${typeColors[result.type] || 'bg-slate-100 text-slate-600'}`}>
                         {result.typeLabel}
                       </span>
                       {result.city && (
-                        <span className="text-xs text-slate-500">{result.city}</span>
+                        <span className="text-sm text-slate-500">{result.city}</span>
                       )}
                     </div>
                   </div>
                 </Link>
               ))}
             </div>
-            <div className="border-t border-slate-100 p-2">
+            <div className="border-t border-slate-100 p-3">
               <button
                 onClick={() => {
                   setIsOpen(false);
                   router.push(`/search?q=${encodeURIComponent(query.trim())}`);
                 }}
-                className="w-full text-center py-2 text-sm text-emerald-600 hover:text-emerald-700 font-medium hover:bg-emerald-50 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                className="w-full text-center py-3 text-sm text-emerald-600 hover:text-emerald-700 font-semibold hover:bg-emerald-50 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
               >
                 View all results for "{query}"
               </button>
@@ -178,7 +178,7 @@ export function GlobalSearch() {
         )}
 
         {isOpen && query.length >= 2 && results.length === 0 && !isLoading && (
-          <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 p-6 text-center z-50">
+          <div className="absolute top-full right-0 mt-2 w-[420px] bg-white rounded-xl shadow-2xl border border-slate-200 p-6 text-center z-50">
             <p className="text-slate-500">No results found for "{query}"</p>
           </div>
         )}

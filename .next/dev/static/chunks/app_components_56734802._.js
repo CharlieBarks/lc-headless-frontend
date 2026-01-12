@@ -166,22 +166,22 @@ function GlobalSearch() {
                         columnNumber: 9
                     }, this),
                     isOpen && results.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-50 max-h-[70vh] overflow-y-auto",
+                        className: "absolute top-full right-0 mt-2 w-[420px] bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-50 max-h-[70vh] overflow-y-auto",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "p-2",
+                                className: "p-3",
                                 children: results.map((result)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                         href: `/${result.type}/${result.slug}`,
                                         onClick: handleResultClick,
-                                        className: "flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500",
+                                        className: "flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500",
                                         children: [
                                             result.image ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0",
+                                                className: "relative w-14 h-14 rounded-lg overflow-hidden flex-shrink-0",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                     src: result.image,
                                                     alt: "",
                                                     fill: true,
-                                                    sizes: "48px",
+                                                    sizes: "56px",
                                                     className: "object-cover"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/GlobalSearch.tsx",
@@ -193,9 +193,9 @@ function GlobalSearch() {
                                                 lineNumber: 136,
                                                 columnNumber: 21
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0",
+                                                className: "w-14 h-14 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__["MapPin"], {
-                                                    className: "w-5 h-5 text-slate-400",
+                                                    className: "w-6 h-6 text-slate-400",
                                                     "aria-hidden": "true"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/GlobalSearch.tsx",
@@ -211,7 +211,7 @@ function GlobalSearch() {
                                                 className: "flex-1 min-w-0",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "font-medium text-slate-900 truncate group-hover:text-emerald-600 transition-colors",
+                                                        className: "font-semibold text-slate-900 group-hover:text-emerald-600 transition-colors text-base",
                                                         children: result.title
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/GlobalSearch.tsx",
@@ -219,10 +219,10 @@ function GlobalSearch() {
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "flex items-center gap-2 mt-0.5",
+                                                        className: "flex items-center gap-2 mt-1",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: `text-xs px-2 py-0.5 rounded-full font-medium ${typeColors[result.type] || 'bg-slate-100 text-slate-600'}`,
+                                                                className: `text-xs px-2.5 py-1 rounded-full font-medium ${typeColors[result.type] || 'bg-slate-100 text-slate-600'}`,
                                                                 children: result.typeLabel
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/GlobalSearch.tsx",
@@ -230,7 +230,7 @@ function GlobalSearch() {
                                                                 columnNumber: 23
                                                             }, this),
                                                             result.city && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "text-xs text-slate-500",
+                                                                className: "text-sm text-slate-500",
                                                                 children: result.city
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/GlobalSearch.tsx",
@@ -261,13 +261,13 @@ function GlobalSearch() {
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "border-t border-slate-100 p-2",
+                                className: "border-t border-slate-100 p-3",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>{
                                         setIsOpen(false);
                                         router.push(`/search?q=${encodeURIComponent(query.trim())}`);
                                     },
-                                    className: "w-full text-center py-2 text-sm text-emerald-600 hover:text-emerald-700 font-medium hover:bg-emerald-50 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500",
+                                    className: "w-full text-center py-3 text-sm text-emerald-600 hover:text-emerald-700 font-semibold hover:bg-emerald-50 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500",
                                     children: [
                                         'View all results for "',
                                         query,
@@ -290,7 +290,7 @@ function GlobalSearch() {
                         columnNumber: 11
                     }, this),
                     isOpen && query.length >= 2 && results.length === 0 && !isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 p-6 text-center z-50",
+                        className: "absolute top-full right-0 mt-2 w-[420px] bg-white rounded-xl shadow-2xl border border-slate-200 p-6 text-center z-50",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                             className: "text-slate-500",
                             children: [
