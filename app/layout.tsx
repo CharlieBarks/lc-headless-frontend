@@ -106,7 +106,7 @@ export default function RootLayout({
                 <div className="flex items-center space-x-3">
                   <GlobalSearch />
                   <a
-                    href="https://livelovelascruces.beehiiv.com/subscribe"
+                    href="https://livelovelascruces.com/subscribe"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hidden sm:block bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-5 py-2 rounded-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all transform hover:scale-105 font-medium text-sm"

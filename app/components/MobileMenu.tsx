@@ -54,7 +54,7 @@ function MobileMenuContent({ isOpen, onClose }: { isOpen: boolean; onClose: () =
 
         <div className="p-4 border-t border-slate-100">
           <a
-            href="https://livelovelascruces.beehiiv.com/subscribe"
+            href="https://livelovelascruces.com/subscribe"
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full text-center bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-6 py-3 rounded-xl font-medium hover:shadow-lg transition-all"
