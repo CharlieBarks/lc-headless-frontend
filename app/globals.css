@@ -150,7 +150,16 @@
   @apply relative my-10 w-full max-w-full mx-auto;
 }
 .wp-content .wp-block-embed__wrapper {
-  @apply relative pb-[56.25%] h-0 overflow-hidden max-w-full;
+  @apply relative w-full overflow-hidden max-w-full;
+  padding-bottom: 56.25%;
+}
+.wp-content .wp-block-embed__wrapper iframe {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
 }
 .wp-content .alignleft img,
 .wp-content .alignright img,
