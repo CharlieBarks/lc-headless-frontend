@@ -4,10 +4,12 @@ import { ArrowRight } from 'lucide-react';
 export function NewsletterSection() {
   return (
     <section id="newsletter" className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-100 via-slate-50 to-emerald-50">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl px-4 sm:px-6 lg:px-8 flex items-center">
-        <div className="w-12 h-1 bg-gradient-to-r from-transparent to-emerald-500 rounded-l-full"></div>
-        <div className="flex-1 h-1 bg-emerald-500"></div>
-        <div className="w-12 h-1 bg-gradient-to-l from-transparent to-emerald-500 rounded-r-full"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl px-4 sm:px-6 lg:px-8 flex items-center gap-2">
+        <div className="w-8 h-1 bg-gradient-to-r from-transparent to-emerald-500 rounded-full"></div>
+        <div className="flex-1 h-1 bg-emerald-500 rounded-full"></div>
+        <div className="w-3 h-1 bg-emerald-400 rounded-full"></div>
+        <div className="flex-1 h-1 bg-emerald-500 rounded-full"></div>
+        <div className="w-8 h-1 bg-gradient-to-l from-transparent to-emerald-500 rounded-full"></div>
       </div>
       <div className="max-w-5xl mx-auto">
         <a

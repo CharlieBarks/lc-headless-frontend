@@ -945,16 +945,6 @@ img, video {
   border-radius: .75rem;
 }
 
-.rounded-l-full {
-  border-top-left-radius: 9999px;
-  border-bottom-left-radius: 9999px;
-}
-
-.rounded-r-full {
-  border-top-right-radius: 9999px;
-  border-bottom-right-radius: 9999px;
-}
-
 .rounded-bl-xl {
   border-bottom-left-radius: .75rem;
 }
