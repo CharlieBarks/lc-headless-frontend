@@ -39,7 +39,7 @@ export function MobileMenu() {
             aria-hidden="true"
           />
           <nav 
-            className="fixed top-0 right-0 h-full w-72 bg-white shadow-2xl z-50 overflow-y-auto"
+            className="fixed inset-y-0 right-0 w-72 bg-white shadow-2xl z-50 overflow-y-auto"
             aria-label="Mobile navigation"
           >
             <div className="p-4 border-b border-slate-100 flex justify-between items-center">

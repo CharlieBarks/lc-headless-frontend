@@ -798,7 +798,7 @@ function MobileMenu() {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-                        className: "fixed top-0 right-0 h-full w-72 bg-white shadow-2xl z-50 overflow-y-auto",
+                        className: "fixed inset-y-0 right-0 w-72 bg-white shadow-2xl z-50 overflow-y-auto",
                         "aria-label": "Mobile navigation",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
