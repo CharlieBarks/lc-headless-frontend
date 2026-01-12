@@ -39,6 +39,13 @@ All pages include these security headers (configured in `next.config.js`):
 - **Screen Reader Support**: Decorative icons marked with `aria-hidden="true"`, meaningful alt text on images
 - **Keyboard Navigation**: Image gallery supports arrow keys, all interactive elements are focusable
 
+## Search Functionality
+- **Global Search**: Header search bar with autocomplete suggestions across all listing types
+- **Search API**: `/api/search` endpoint queries restaurants, businesses, accommodations, and places simultaneously
+- **Results Diversity**: Autocomplete returns a balanced mix from all listing categories
+- **Search Results Page**: `/search` page displays grouped results by category with SEO metadata
+- **Mobile Support**: Responsive search with full-screen mobile overlay
+
 ## Project Structure
 - `app/` - Next.js App Router pages and components
   - `[type]/` - Dynamic routes for listing types (restaurants, businesses, etc.)
