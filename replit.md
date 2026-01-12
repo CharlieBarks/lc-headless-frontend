@@ -23,6 +23,15 @@ A Next.js 16 community directory website for Las Cruces, featuring local busines
   - BreadcrumbList schema for navigation context
 - **SEO Functions** (`lib/seo.ts`): Cached functions for fetching RankMath data and generating schema markup
 
+## Security Headers
+All pages include these security headers (configured in `next.config.js`):
+- `Strict-Transport-Security` - Forces HTTPS with 2-year max-age
+- `X-Frame-Options: SAMEORIGIN` - Prevents clickjacking
+- `X-Content-Type-Options: nosniff` - Prevents MIME sniffing
+- `X-XSS-Protection` - Legacy XSS protection
+- `Referrer-Policy: strict-origin-when-cross-origin` - Controls referrer data
+- `Permissions-Policy` - Disables camera, microphone, geolocation
+
 ## Project Structure
 - `app/` - Next.js App Router pages and components
   - `[type]/` - Dynamic routes for listing types (restaurants, businesses, etc.)
