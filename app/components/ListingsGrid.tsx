@@ -69,7 +69,7 @@ export function ListingsGrid({ listings, type, config }: ListingsGridProps) {
                     </div>
                   )}
                 </div>
-                {listing.rating && (
+                {listing.rating && parseFloat(listing.rating) > 0 && (
                   <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-bold text-slate-900">
                     ⭐ {typeof listing.rating === 'number' ? listing.rating.toFixed(1) : parseFloat(listing.rating).toFixed(1)}
                   </div>
