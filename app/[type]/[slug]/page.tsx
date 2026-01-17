@@ -136,7 +136,7 @@ export default async function ListingPage({ params }: Props) {
     telephone: listing.phone,
     email: listing.email,
     url: listing.website,
-    aggregateRating: listing.rating ? {
+    aggregateRating: (listing.rating && listing.rating >= 1 && listing.rating <= 5) ? {
       ratingValue: listing.rating,
       reviewCount: listing.rating_count || 1,
     } : undefined,

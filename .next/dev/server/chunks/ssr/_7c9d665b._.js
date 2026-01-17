@@ -445,11 +445,16 @@ function generateLocalBusinessSchema(data) {
         schema.url = data.url;
     }
     if (data.aggregateRating && data.aggregateRating.ratingValue) {
-        schema.aggregateRating = {
-            "@type": "AggregateRating",
-            "ratingValue": data.aggregateRating.ratingValue,
-            "reviewCount": data.aggregateRating.reviewCount || 1
-        };
+        const ratingValue = data.aggregateRating.ratingValue;
+        if (ratingValue >= 1 && ratingValue <= 5) {
+            schema.aggregateRating = {
+                "@type": "AggregateRating",
+                "ratingValue": ratingValue,
+                "bestRating": 5,
+                "worstRating": 1,
+                "reviewCount": data.aggregateRating.reviewCount || 1
+            };
+        }
     }
     return schema;
 }
