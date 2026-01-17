@@ -22,6 +22,7 @@ A Next.js 16 community directory website for Las Cruces, featuring local busines
   - LocalBusiness/Restaurant/LodgingBusiness schema on listings with address, geo, ratings
   - BreadcrumbList schema for navigation context
 - **SEO Functions** (`lib/seo.ts`): Cached functions for fetching RankMath data and generating schema markup
+- **Google Analytics**: GA4 tag (G-V8G0RVBK49) added to all pages via root layout
 
 ## Security Headers
 All pages include these security headers (configured in `next.config.js`):

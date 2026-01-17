@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import './globals.css';
 import Link from 'next/link';
 import { MapPin, Building2, Facebook, Instagram } from 'lucide-react';
@@ -67,6 +68,20 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-V8G0RVBK49"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-V8G0RVBK49');
+          `}
+        </Script>
+      </head>
       <body>
         <JsonLdScript data={websiteSchema} />
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50">
