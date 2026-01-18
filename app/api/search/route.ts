@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const WP_API_BASE = "https://dir.lascrucesdirectory.com/wp-json/geodir/v2";
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+const MAX_CACHE_SIZE = 100;
 
 interface SearchResult {
   id: number;
@@ -13,6 +15,32 @@ interface SearchResult {
   image?: string;
 }
 
+interface CacheEntry {
+  results: SearchResult[];
+  timestamp: number;
+}
+
+const searchCache = new Map<string, CacheEntry>();
+
+function getCacheKey(query: string, limit: number): string {
+  return `${query.toLowerCase().trim()}:${limit}`;
+}
+
+function cleanupCache(): void {
+  const now = Date.now();
+  for (const [key, entry] of searchCache.entries()) {
+    if (now - entry.timestamp > CACHE_TTL_MS) {
+      searchCache.delete(key);
+    }
+  }
+  if (searchCache.size > MAX_CACHE_SIZE) {
+    const oldest = [...searchCache.entries()]
+      .sort((a, b) => a[1].timestamp - b[1].timestamp)
+      .slice(0, searchCache.size - MAX_CACHE_SIZE);
+    oldest.forEach(([key]) => searchCache.delete(key));
+  }
+}
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const query = searchParams.get('q');
@@ -22,7 +50,16 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ results: [] });
   }
 
+  const cacheKey = getCacheKey(query, limit);
+  const cached = searchCache.get(cacheKey);
+  
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
+    return NextResponse.json({ results: cached.results });
+  }
+
   try {
+    cleanupCache();
+    
     const endpoints = [
       { type: 'restaurant', label: 'Restaurant', url: `${WP_API_BASE}/restaurant?search=${encodeURIComponent(query)}&per_page=${limit}` },
       { type: 'business', label: 'Business', url: `${WP_API_BASE}/business?search=${encodeURIComponent(query)}&per_page=${limit}` },
@@ -60,6 +97,11 @@ export async function GET(request: NextRequest) {
     });
     
     const sortedResults = allResults.slice(0, limit);
+
+    searchCache.set(cacheKey, {
+      results: sortedResults,
+      timestamp: Date.now(),
+    });
 
     return NextResponse.json({ results: sortedResults });
   } catch (error) {
