@@ -57,9 +57,17 @@ All pages include these security headers (configured in `next.config.js`):
 - `app/` - Next.js App Router pages and components
   - `[type]/` - Dynamic routes for listing types (restaurants, businesses, etc.)
   - `blog/` - Blog pages
-  - `api/` - API routes (image proxy, WordPress proxy)
+  - `api/` - API routes (search, WordPress proxy)
   - `components/` - Shared React components
-- `lib/` - Utility functions (WordPress API, SEO helpers)
+- `lib/` - Utility functions
+  - `wordpress/` - Modular WordPress API integration
+    - `types.ts` - TypeScript interfaces (Listing, BlogPost, Category, etc.)
+    - `utils.ts` - Utility functions (decodeHtmlEntities, isListingClaimed, etc.)
+    - `images.ts` - Image handling functions (getListingImage, getBlogPostImage)
+    - `api.ts` - WordPress API client methods
+    - `cache.ts` - React cache wrappers for data fetching
+    - `index.ts` - Re-exports all modules
+  - `seo.ts` - SEO helpers and schema generation
 - `public/` - Static assets
 
 ## Development
