@@ -86,10 +86,10 @@ function decodeHtmlEntities(text: string): string {
 
 function getListingImage(listing: any): string | undefined {
   if (listing.featured_image?.src) {
-    return `/api/image-proxy?url=${encodeURIComponent(listing.featured_image.src)}`;
+    return listing.featured_image.src;
   }
   if (listing.images?.[0]?.src) {
-    return `/api/image-proxy?url=${encodeURIComponent(listing.images[0].src)}`;
+    return listing.images[0].src;
   }
   return undefined;
 }
