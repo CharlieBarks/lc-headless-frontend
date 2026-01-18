@@ -10,8 +10,8 @@ A Next.js 16 community directory website for Las Cruces, featuring local busines
 
 ## Image Optimization
 - **Next.js Image**: All images use the optimized `<Image>` component for automatic resizing, lazy loading, and modern formats (WebP)
-- **Image Proxy**: WordPress images route through `/api/image-proxy` to handle CORS; configured in `next.config.js` via `localPatterns`
-- **Remote Patterns**: WordPress (`dir.lascrucesdirectory.com`) and Pexels domains are whitelisted for remote image optimization
+- **Direct Loading**: WordPress images load directly through Next.js image optimization (no proxy needed)
+- **Remote Patterns**: WordPress (`dir.lascrucesdirectory.com`) and Pexels domains are whitelisted in `next.config.js` for remote image optimization
 
 ## SEO Implementation
 - **RankMath Integration**: SEO metadata (title, description, OG, Twitter) is fetched from WordPress pages with RankMath
