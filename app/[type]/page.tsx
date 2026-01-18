@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { UtensilsCrossed, Building2, Bed, Landmark, ChevronRight } from 'lucide-react';
+import { UtensilsCrossed, Building2, Bed, Landmark, ChevronRight, LucideIcon } from 'lucide-react';
 import { getCachedArchiveData } from '../../lib/wordpress';
 import type { Metadata } from 'next';
 import { ArchiveFilters } from '../components/ArchiveFilters';
@@ -13,7 +13,7 @@ type Props = {
   searchParams: Promise<{ search?: string; category?: string }>;
 };
 
-const typeConfig: Record<string, { title: string; icon: any; description: string }> = {
+const typeConfig: Record<string, { title: string; icon: LucideIcon; description: string }> = {
   restaurant: {
     title: 'Restaurants',
     icon: UtensilsCrossed,

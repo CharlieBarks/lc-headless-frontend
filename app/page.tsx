@@ -1,7 +1,7 @@
 import { UtensilsCrossed, Building2, Bed, Landmark, Calendar, CheckCircle, Star } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getListingImage, getBlogPostImage, decodeHtmlEntities, isListingClaimed, isListingFeatured, getCachedHomePageData } from '../lib/wordpress';
+import { getListingImage, getBlogPostImage, decodeHtmlEntities, isListingClaimed, isListingFeatured, getCachedHomePageData, Listing, Category } from '../lib/wordpress';
 import type { Metadata } from 'next';
 
 export const revalidate = 3600;
@@ -49,7 +49,7 @@ export default async function HomePage() {
     }
   ];
 
-  const getCategoryType = (listing: any): string => {
+  const getCategoryType = (listing: Listing): string => {
     const url = listing.link || '';
     if (url.includes('/restaurant/')) return 'restaurant';
     if (url.includes('/business/')) return 'business';
@@ -58,11 +58,11 @@ export default async function HomePage() {
     return 'business';
   };
 
-  const getDefaultCategoryName = (listing: any): string => {
+  const getDefaultCategoryName = (listing: Listing): string => {
     if (listing.post_category && listing.post_category.length > 0) {
       const defaultCatId = listing.default_category;
       if (defaultCatId) {
-        const defaultCat = listing.post_category.find((cat: any) => cat.id === parseInt(defaultCatId));
+        const defaultCat = listing.post_category.find((cat: Category) => cat.id === parseInt(defaultCatId));
         if (defaultCat) {
           return decodeHtmlEntities(defaultCat.name);
         }

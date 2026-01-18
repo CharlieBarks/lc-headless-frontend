@@ -45,26 +45,20 @@ export function decodeHtmlEntities(text: string): string {
   return text.replace(/&[#a-z0-9]+;/gi, (match) => entities[match] || match);
 }
 
-export function isListingClaimed(listing: any): boolean {
-  if (typeof listing.claimed === "boolean") return listing.claimed;
-  if (typeof listing.claimed === "object" && listing.claimed?.raw) {
-    return (
-      listing.claimed.raw === "1" ||
-      listing.claimed.raw === 1 ||
-      listing.claimed.raw === true
-    );
+export function isListingClaimed(listing: Pick<Listing, 'claimed'>): boolean {
+  const claimed = listing.claimed;
+  if (typeof claimed === "boolean") return claimed;
+  if (typeof claimed === "object" && claimed?.raw) {
+    return claimed.raw === "1" || claimed.raw === "true";
   }
-  return (
-    listing.claimed === "1" || listing.claimed === 1 || listing.claimed === true
-  );
+  if (typeof claimed === "string") return claimed === "1";
+  if (typeof claimed === "number") return claimed === 1;
+  return false;
 }
 
-export function isListingFeatured(listing: any): boolean {
-  return (
-    listing.featured === true ||
-    listing.featured === 1 ||
-    listing.featured === "1"
-  );
+export function isListingFeatured(listing: Pick<Listing, 'featured'>): boolean {
+  const featured = listing.featured;
+  return featured === true;
 }
 
 export interface Category {

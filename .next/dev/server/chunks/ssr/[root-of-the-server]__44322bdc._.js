@@ -85,14 +85,18 @@ function decodeHtmlEntities(text) {
     return text.replace(/&[#a-z0-9]+;/gi, (match)=>entities[match] || match);
 }
 function isListingClaimed(listing) {
-    if (typeof listing.claimed === "boolean") return listing.claimed;
-    if (typeof listing.claimed === "object" && listing.claimed?.raw) {
-        return listing.claimed.raw === "1" || listing.claimed.raw === 1 || listing.claimed.raw === true;
+    const claimed = listing.claimed;
+    if (typeof claimed === "boolean") return claimed;
+    if (typeof claimed === "object" && claimed?.raw) {
+        return claimed.raw === "1" || claimed.raw === "true";
     }
-    return listing.claimed === "1" || listing.claimed === 1 || listing.claimed === true;
+    if (typeof claimed === "string") return claimed === "1";
+    if (typeof claimed === "number") return claimed === 1;
+    return false;
 }
 function isListingFeatured(listing) {
-    return listing.featured === true || listing.featured === 1 || listing.featured === "1";
+    const featured = listing.featured;
+    return featured === true;
 }
 const DEFAULT_IMAGES = {
     restaurant: "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=800",
