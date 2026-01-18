@@ -314,6 +314,23 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 ;
 const WP_BASE_URL = "https://dir.lascrucesdirectory.com";
+const SITE_NAME = "Las Cruces Directory";
+const DEFAULT_DESCRIPTION = "Discover the best local businesses, restaurants, accommodations, and places in Las Cruces, New Mexico.";
+function getDefaultSEOMetadata(title, description) {
+    const finalTitle = title || SITE_NAME;
+    const finalDescription = description || DEFAULT_DESCRIPTION;
+    return {
+        title: finalTitle,
+        description: finalDescription,
+        ogTitle: finalTitle,
+        ogDescription: finalDescription,
+        ogType: 'website',
+        twitterCard: 'summary_large_image',
+        twitterTitle: finalTitle,
+        twitterDescription: finalDescription,
+        twitterSite: '@lascrucesbizdir'
+    };
+}
 function extractMetaContent(html, property) {
     const patterns = [
         new RegExp(`<meta[^>]*property=["']${property}["'][^>]*content=["']([^"']+)["']`, 'i'),
@@ -352,7 +369,8 @@ function extractJsonLd(html) {
     }
     return jsonLdArray;
 }
-async function fetchWordPressPageSEO(path) {
+async function fetchWordPressPageSEO(path, fallbackTitle) {
+    const defaults = getDefaultSEOMetadata(fallbackTitle);
     try {
         const url = `${WP_BASE_URL}${path}`;
         const response = await fetch(url, {
@@ -364,13 +382,13 @@ async function fetchWordPressPageSEO(path) {
             }
         });
         if (!response.ok) {
-            console.error(`Failed to fetch SEO for ${path}: ${response.status}`);
-            return {};
+            console.error(`Failed to fetch SEO for ${path}: ${response.status}, using defaults`);
+            return defaults;
         }
         const html = await response.text();
         const headMatch = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i);
         const headHtml = headMatch ? headMatch[1] : html;
-        return {
+        const fetched = {
             title: extractTitle(headHtml),
             description: extractMetaContent(headHtml, 'description'),
             ogTitle: extractMetaContent(headHtml, 'og:title'),
@@ -388,9 +406,13 @@ async function fetchWordPressPageSEO(path) {
             robots: extractMetaContent(headHtml, 'robots'),
             jsonLd: extractJsonLd(headHtml)
         };
+        return {
+            ...defaults,
+            ...Object.fromEntries(Object.entries(fetched).filter(([_, v])=>v !== undefined))
+        };
     } catch (error) {
         console.error(`Error fetching SEO for ${path}:`, error);
-        return {};
+        return defaults;
     }
 }
 const getCachedBlogPostSEO = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(async (slug)=>{

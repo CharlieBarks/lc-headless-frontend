@@ -2,6 +2,24 @@ import { cache } from "react";
 import React from "react";
 
 const WP_BASE_URL = "https://dir.lascrucesdirectory.com";
+const SITE_NAME = "Las Cruces Directory";
+const DEFAULT_DESCRIPTION = "Discover the best local businesses, restaurants, accommodations, and places in Las Cruces, New Mexico.";
+
+function getDefaultSEOMetadata(title?: string, description?: string): SEOMetadata {
+  const finalTitle = title || SITE_NAME;
+  const finalDescription = description || DEFAULT_DESCRIPTION;
+  return {
+    title: finalTitle,
+    description: finalDescription,
+    ogTitle: finalTitle,
+    ogDescription: finalDescription,
+    ogType: 'website',
+    twitterCard: 'summary_large_image',
+    twitterTitle: finalTitle,
+    twitterDescription: finalDescription,
+    twitterSite: '@lascrucesbizdir',
+  };
+}
 
 export interface SEOMetadata {
   title?: string;
@@ -104,7 +122,9 @@ function extractJsonLd(html: string): object[] {
   return jsonLdArray;
 }
 
-async function fetchWordPressPageSEO(path: string): Promise<SEOMetadata> {
+async function fetchWordPressPageSEO(path: string, fallbackTitle?: string): Promise<SEOMetadata> {
+  const defaults = getDefaultSEOMetadata(fallbackTitle);
+  
   try {
     const url = `${WP_BASE_URL}${path}`;
     const response = await fetch(url, {
@@ -115,15 +135,15 @@ async function fetchWordPressPageSEO(path: string): Promise<SEOMetadata> {
     });
     
     if (!response.ok) {
-      console.error(`Failed to fetch SEO for ${path}: ${response.status}`);
-      return {};
+      console.error(`Failed to fetch SEO for ${path}: ${response.status}, using defaults`);
+      return defaults;
     }
     
     const html = await response.text();
     const headMatch = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i);
     const headHtml = headMatch ? headMatch[1] : html;
     
-    return {
+    const fetched: SEOMetadata = {
       title: extractTitle(headHtml),
       description: extractMetaContent(headHtml, 'description'),
       ogTitle: extractMetaContent(headHtml, 'og:title'),
@@ -141,9 +161,14 @@ async function fetchWordPressPageSEO(path: string): Promise<SEOMetadata> {
       robots: extractMetaContent(headHtml, 'robots'),
       jsonLd: extractJsonLd(headHtml),
     };
+    
+    return {
+      ...defaults,
+      ...Object.fromEntries(Object.entries(fetched).filter(([_, v]) => v !== undefined)),
+    };
   } catch (error) {
     console.error(`Error fetching SEO for ${path}:`, error);
-    return {};
+    return defaults;
   }
 }
 
