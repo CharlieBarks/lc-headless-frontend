@@ -4,31 +4,49 @@
 User-agent: Googlebot
 Allow: /
 Allow: /_next/static/
+Allow: /_next/data/  # Consider this if dynamic indexing is desired; otherwise, revert to Disallow
 Disallow: /api/
-Disallow: /_next/data/
 
 User-agent: Bingbot
 Allow: /
 Allow: /_next/static/
+Allow: /_next/data/  # Same as above
 Disallow: /api/
-Disallow: /_next/data/
+
+User-agent: DuckDuckBot
+Allow: /
+Allow: /_next/static/
+Allow: /_next/data/
+Disallow: /api/
+
+User-agent: YandexBot
+Allow: /
+Allow: /_next/static/
+Allow: /_next/data/
+Disallow: /api/
 
 User-agent: Amazonbot
 Disallow: /
 
 User-agent: AhrefsBot
-Crawl-delay: 10
+Crawl-delay: 10  # Retain if load is a concern; otherwise, remove
 Allow: /
+Allow: /_next/static/
+Allow: /_next/data/
 Disallow: /api/
 
 User-agent: AhrefsSiteAudit
 Crawl-delay: 10
 Allow: /
+Allow: /_next/static/
+Allow: /_next/data/
 Disallow: /api/
 
 User-agent: MJ12bot
 Crawl-delay: 10
 Allow: /
+Allow: /_next/static/
+Allow: /_next/data/
 Disallow: /api/
 
 User-agent: Nutch
@@ -37,7 +55,7 @@ Disallow: /
 User-agent: *
 Allow: /
 Allow: /_next/static/
+Allow: /_next/data/
 Disallow: /api/
-Disallow: /_next/data/
 
 Sitemap: https://lascrucesdirectory.com/sitemap.xml
