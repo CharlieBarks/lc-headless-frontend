@@ -285,9 +285,8 @@ const DEFAULT_IMAGES = {
 };
 function proxyImageUrl(url) {
     if (!url) return url;
-    if (url.startsWith("https://dir.lascrucesdirectory.com/")) {
-        return `/api/image-proxy?url=${encodeURIComponent(url)}`;
-    }
+    // Return the direct URL - Next.js Image component can optimize remote images
+    // since dir.lascrucesdirectory.com is in remotePatterns in next.config.js
     return url;
 }
 function getAllListingImages(listing, defaultType = "business") {
@@ -937,7 +936,7 @@ function ListingsGrid({ listings, type, config }) {
                                             lineNumber: 58,
                                             columnNumber: 17
                                         }, this),
-                                        listing.rating && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        listing.rating && parseFloat(listing.rating) > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-bold text-slate-900",
                                             children: [
                                                 "⭐ ",
