@@ -335,6 +335,32 @@ export function generateWebsiteSchema(): object {
   };
 }
 
+export function generateOrganizationSchema(): object {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Las Cruces Directory",
+    "url": "https://lascrucesdirectory.com",
+    "logo": "https://lascrucesdirectory.com/icon-512x512.png",
+    "description": "Your complete guide to local businesses, restaurants, accommodations, and places in Las Cruces, New Mexico.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Las Cruces",
+      "addressRegion": "NM",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      "https://www.facebook.com/lascrucesdirectory",
+      "https://www.instagram.com/lascrucesdirectory"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "support@lascrucesdirectory.com",
+      "contactType": "customer service"
+    }
+  };
+}
+
 export function JsonLdScript({ data }: { data: object | object[] }): React.ReactElement {
   const jsonString = JSON.stringify(Array.isArray(data) ? data : [data]);
   return React.createElement('script', {

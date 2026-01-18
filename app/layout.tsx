@@ -7,7 +7,7 @@ import { GlobalSearch } from './components/GlobalSearch';
 import { ExploreDropdown } from './components/ExploreDropdown';
 import { MobileMenu } from './components/MobileMenu';
 import { NewsletterSection } from './components/NewsletterSection';
-import { generateWebsiteSchema, JsonLdScript } from '../lib/seo';
+import { generateWebsiteSchema, generateOrganizationSchema, JsonLdScript } from '../lib/seo';
 
 export const metadata: Metadata = {
   title: {
@@ -65,10 +65,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const websiteSchema = generateWebsiteSchema();
+  const organizationSchema = generateOrganizationSchema();
 
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://dir.lascrucesdirectory.com" />
+        <link rel="dns-prefetch" href="https://dir.lascrucesdirectory.com" />
+        <link
+          rel="search"
+          type="application/opensearchdescription+xml"
+          title="Las Cruces Directory"
+          href="/opensearch.xml"
+        />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-V8G0RVBK49"
           strategy="afterInteractive"
@@ -83,7 +92,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body>
-        <JsonLdScript data={websiteSchema} />
+        <JsonLdScript data={[websiteSchema, organizationSchema]} />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-emerald-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-emerald-600"

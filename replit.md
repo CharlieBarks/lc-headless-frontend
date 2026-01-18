@@ -18,12 +18,15 @@ A Next.js 16 community directory website for Las Cruces, featuring local busines
 - **Next.js Metadata API**: All pages use `generateMetadata()` with proper titles, descriptions, OG tags, and Twitter cards
 - **JSON-LD Structured Data**:
   - WebSite schema on all pages (global in layout) with SearchAction for Google search box
+  - Organization schema with logo, address, social links, and contact info
   - Article schema on blog posts with headline, author, datePublished
   - LocalBusiness/Restaurant/LodgingBusiness schema on listings with address, geo, ratings
   - BreadcrumbList schema for navigation context
 - **SEO Functions** (`lib/seo.ts`): Cached functions for fetching RankMath data and generating schema markup
 - **Google Analytics**: GA4 tag (G-V8G0RVBK49) added to all pages via root layout
 - **robots.txt**: Configured with proper allow/disallow rules for crawlers, sitemap reference
+- **OpenSearch**: Browser search discovery via `/opensearch.xml`
+- **Preconnect**: DNS prefetch and preconnect to WordPress API domain for faster loading
 
 ## Security Headers
 All pages include these security headers (configured in `next.config.js`):
