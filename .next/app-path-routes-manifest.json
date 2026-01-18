@@ -1,0 +1,18 @@
+{
+  "/[type]/[slug]/page": "/[type]/[slug]",
+  "/[type]/page": "/[type]",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about-us/page": "/about-us",
+  "/api/image-proxy/route": "/api/image-proxy",
+  "/api/search/route": "/api/search",
+  "/api/wp-proxy/route": "/api/wp-proxy",
+  "/blog/[slug]/page": "/blog/[slug]",
+  "/blog/page": "/blog",
+  "/contact-us/page": "/contact-us",
+  "/page": "/",
+  "/privacy-policy/page": "/privacy-policy",
+  "/search/page": "/search",
+  "/sitemap.xml/route": "/sitemap.xml",
+  "/terms-and-conditions/page": "/terms-and-conditions"
+}

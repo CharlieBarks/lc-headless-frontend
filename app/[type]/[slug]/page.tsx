@@ -98,9 +98,10 @@ export default async function ListingPage({ params }: Props) {
     if (typeof listing.business_hours === 'string') return listing.business_hours;
     if (typeof listing.business_hours === 'object' && listing.business_hours.rendered) {
       const hoursData = listing.business_hours.rendered;
-      if (hoursData.days) {
+      if (typeof hoursData === 'string') return hoursData;
+      if (typeof hoursData === 'object' && hoursData.days) {
         return Object.entries(hoursData.days)
-          .map(([day, info]: [string, any]) => {
+          .map(([day, info]) => {
             const dayName = info.day || day;
             const slots = info.slots || [];
             const range = slots[0]?.range || 'Closed';

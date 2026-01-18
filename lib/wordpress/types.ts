@@ -66,7 +66,12 @@ export interface Listing {
     raw?: string;
     rendered?: string;
   };
-  business_hours?: string | { raw?: string; rendered?: string };
+  business_hours?: string | { 
+    raw?: string; 
+    rendered?: string | { 
+      days?: Record<string, { day?: string; slots?: Array<{ range?: string }> }> 
+    }; 
+  };
   takeout?: boolean;
   drive_thru?: boolean;
   facebook?: string;
