@@ -17,12 +17,13 @@ A Next.js 16 community directory website for Las Cruces, featuring local busines
 - **RankMath Integration**: SEO metadata (title, description, OG, Twitter) is fetched from WordPress pages with RankMath
 - **Next.js Metadata API**: All pages use `generateMetadata()` with proper titles, descriptions, OG tags, and Twitter cards
 - **JSON-LD Structured Data**:
-  - WebSite schema on all pages (global in layout)
+  - WebSite schema on all pages (global in layout) with SearchAction for Google search box
   - Article schema on blog posts with headline, author, datePublished
   - LocalBusiness/Restaurant/LodgingBusiness schema on listings with address, geo, ratings
   - BreadcrumbList schema for navigation context
 - **SEO Functions** (`lib/seo.ts`): Cached functions for fetching RankMath data and generating schema markup
 - **Google Analytics**: GA4 tag (G-V8G0RVBK49) added to all pages via root layout
+- **robots.txt**: Configured with proper allow/disallow rules for crawlers, sitemap reference
 
 ## Security Headers
 All pages include these security headers (configured in `next.config.js`):
@@ -40,11 +41,15 @@ All pages include these security headers (configured in `next.config.js`):
 - Requests to any other WordPress endpoints return a 403 Forbidden response
 
 ## Accessibility
+- **Skip to Content**: Skip link for keyboard users to bypass navigation
 - **Semantic HTML**: Proper use of `<main>`, `<nav>`, `<article>`, `<section>`, `<footer>` elements
 - **ARIA Labels**: Navigation, breadcrumbs, interactive elements, and icon-only buttons have descriptive ARIA labels
 - **Focus States**: All interactive elements (links, buttons, cards) have visible focus indicators for keyboard navigation
 - **Screen Reader Support**: Decorative icons marked with `aria-hidden="true"`, meaningful alt text on images
 - **Keyboard Navigation**: Image gallery supports arrow keys, all interactive elements are focusable
+- **Search Accessibility**: Combobox ARIA pattern with listbox results for screen readers
+- **Mobile Menu**: Focus trap, Escape key to close, and focus restoration to trigger button
+- **Image Gallery**: Live region announcements for slide changes
 
 ## Search Functionality
 - **Global Search**: Header search bar with autocomplete suggestions across all listing types
