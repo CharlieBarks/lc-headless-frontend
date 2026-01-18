@@ -1,26 +1,43 @@
-User-agent: Amazonbot
-Disallow: /
+# Las Cruces Directory - Robots.txt
+# https://lascrucesdirectory.com
 
 User-agent: Googlebot
 Allow: /
-Disallow: /nogooglebot/
+Allow: /_next/static/
+Disallow: /api/
+Disallow: /_next/data/
+
+User-agent: Bingbot
+Allow: /
+Allow: /_next/static/
+Disallow: /api/
+Disallow: /_next/data/
+
+User-agent: Amazonbot
+Disallow: /
 
 User-agent: AhrefsBot
 Crawl-delay: 10
-Disallow: /login/
+Allow: /
+Disallow: /api/
 
 User-agent: AhrefsSiteAudit
 Crawl-delay: 10
-Disallow: /login/
+Allow: /
+Disallow: /api/
 
 User-agent: MJ12bot
 Crawl-delay: 10
-Disallow: /login/
+Allow: /
+Disallow: /api/
 
 User-agent: Nutch
 Disallow: /
 
 User-agent: *
-Disallow: /login/
+Allow: /
+Allow: /_next/static/
+Disallow: /api/
+Disallow: /_next/data/
 
 Sitemap: https://lascrucesdirectory.com/sitemap.xml

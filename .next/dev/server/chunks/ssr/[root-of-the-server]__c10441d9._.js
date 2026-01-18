@@ -122,6 +122,7 @@ function GlobalSearch() {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                         onSubmit: handleSubmit,
                         className: "relative",
+                        role: "search",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__["Search"], {
                                 className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4",
@@ -138,6 +139,10 @@ function GlobalSearch() {
                                 onChange: (e)=>setQuery(e.target.value),
                                 placeholder: "Search listings...",
                                 "aria-label": "Search listings",
+                                "aria-expanded": isOpen && results.length > 0,
+                                "aria-controls": "search-results",
+                                "aria-autocomplete": "list",
+                                role: "combobox",
                                 className: "w-48 lg:w-56 pl-10 pr-10 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:bg-white transition-all text-sm"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/GlobalSearch.tsx",
@@ -154,19 +159,19 @@ function GlobalSearch() {
                                     "aria-hidden": "true"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/GlobalSearch.tsx",
-                                    lineNumber: 117,
+                                    lineNumber: 121,
                                     columnNumber: 17
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
                                     className: "w-4 h-4",
                                     "aria-hidden": "true"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/GlobalSearch.tsx",
-                                    lineNumber: 119,
+                                    lineNumber: 123,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/GlobalSearch.tsx",
-                                lineNumber: 110,
+                                lineNumber: 114,
                                 columnNumber: 13
                             }, this)
                         ]
@@ -176,6 +181,9 @@ function GlobalSearch() {
                         columnNumber: 9
                     }, this),
                     isOpen && results.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        id: "search-results",
+                        role: "listbox",
+                        "aria-label": "Search results",
                         className: "absolute top-full right-0 mt-2 w-[420px] bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-50 max-h-[70vh] overflow-y-auto",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -183,6 +191,7 @@ function GlobalSearch() {
                                 children: results.map((result)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                         href: `/${result.type}/${result.slug}`,
                                         onClick: handleResultClick,
+                                        role: "option",
                                         className: "flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500",
                                         children: [
                                             result.image ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -195,12 +204,12 @@ function GlobalSearch() {
                                                     className: "object-cover"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                    lineNumber: 137,
+                                                    lineNumber: 147,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                lineNumber: 136,
+                                                lineNumber: 146,
                                                 columnNumber: 21
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "w-14 h-14 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0",
@@ -209,12 +218,12 @@ function GlobalSearch() {
                                                     "aria-hidden": "true"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                    lineNumber: 147,
+                                                    lineNumber: 157,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                lineNumber: 146,
+                                                lineNumber: 156,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -225,7 +234,7 @@ function GlobalSearch() {
                                                         children: result.title
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                        lineNumber: 151,
+                                                        lineNumber: 161,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -236,7 +245,7 @@ function GlobalSearch() {
                                                                 children: result.typeLabel
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                                lineNumber: 155,
+                                                                lineNumber: 165,
                                                                 columnNumber: 23
                                                             }, this),
                                                             result.city && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -244,30 +253,30 @@ function GlobalSearch() {
                                                                 children: result.city
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                                lineNumber: 159,
+                                                                lineNumber: 169,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                        lineNumber: 154,
+                                                        lineNumber: 164,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                lineNumber: 150,
+                                                lineNumber: 160,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, `${result.type}-${result.id}`, true, {
                                         fileName: "[project]/app/components/GlobalSearch.tsx",
-                                        lineNumber: 129,
+                                        lineNumber: 138,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/app/components/GlobalSearch.tsx",
-                                lineNumber: 127,
+                                lineNumber: 136,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -285,18 +294,18 @@ function GlobalSearch() {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/GlobalSearch.tsx",
-                                    lineNumber: 167,
+                                    lineNumber: 177,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/GlobalSearch.tsx",
-                                lineNumber: 166,
+                                lineNumber: 176,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/GlobalSearch.tsx",
-                        lineNumber: 126,
+                        lineNumber: 130,
                         columnNumber: 11
                     }, this),
                     isOpen && query.length >= 2 && results.length === 0 && !isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -310,12 +319,12 @@ function GlobalSearch() {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/GlobalSearch.tsx",
-                            lineNumber: 182,
+                            lineNumber: 192,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/components/GlobalSearch.tsx",
-                        lineNumber: 181,
+                        lineNumber: 191,
                         columnNumber: 11
                     }, this)
                 ]
@@ -333,12 +342,12 @@ function GlobalSearch() {
                     "aria-hidden": "true"
                 }, void 0, false, {
                     fileName: "[project]/app/components/GlobalSearch.tsx",
-                    lineNumber: 192,
+                    lineNumber: 202,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/components/GlobalSearch.tsx",
-                lineNumber: 187,
+                lineNumber: 197,
                 columnNumber: 7
             }, this),
             showMobileSearch && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -347,17 +356,20 @@ function GlobalSearch() {
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "bg-white p-4",
                     onClick: (e)=>e.stopPropagation(),
+                    role: "dialog",
+                    "aria-label": "Search",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                             onSubmit: handleSubmit,
                             className: "relative",
+                            role: "search",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__["Search"], {
                                     className: "absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5",
                                     "aria-hidden": "true"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/GlobalSearch.tsx",
-                                    lineNumber: 199,
+                                    lineNumber: 209,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -366,11 +378,15 @@ function GlobalSearch() {
                                     onChange: (e)=>setQuery(e.target.value),
                                     placeholder: "Search listings...",
                                     "aria-label": "Search listings",
+                                    "aria-expanded": results.length > 0,
+                                    "aria-controls": "mobile-search-results",
+                                    "aria-autocomplete": "list",
+                                    role: "combobox",
                                     autoFocus: true,
                                     className: "w-full pl-12 pr-12 py-4 bg-slate-100 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 text-base"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/GlobalSearch.tsx",
-                                    lineNumber: 200,
+                                    lineNumber: 210,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -383,25 +399,29 @@ function GlobalSearch() {
                                         "aria-hidden": "true"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/GlobalSearch.tsx",
-                                        lineNumber: 215,
+                                        lineNumber: 229,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/GlobalSearch.tsx",
-                                    lineNumber: 209,
+                                    lineNumber: 223,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/GlobalSearch.tsx",
-                            lineNumber: 198,
+                            lineNumber: 208,
                             columnNumber: 13
                         }, this),
                         results.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            id: "mobile-search-results",
+                            role: "listbox",
+                            "aria-label": "Search results",
                             className: "mt-4 max-h-[60vh] overflow-y-auto",
                             children: results.map((result)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                     href: `/${result.type}/${result.slug}`,
                                     onClick: handleResultClick,
+                                    role: "option",
                                     className: "flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors",
                                     children: [
                                         result.image ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -414,12 +434,12 @@ function GlobalSearch() {
                                                 className: "object-cover"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                lineNumber: 230,
+                                                lineNumber: 245,
                                                 columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/GlobalSearch.tsx",
-                                            lineNumber: 229,
+                                            lineNumber: 244,
                                             columnNumber: 23
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0",
@@ -428,12 +448,12 @@ function GlobalSearch() {
                                                 "aria-hidden": "true"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                lineNumber: 240,
+                                                lineNumber: 255,
                                                 columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/GlobalSearch.tsx",
-                                            lineNumber: 239,
+                                            lineNumber: 254,
                                             columnNumber: 23
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -444,7 +464,7 @@ function GlobalSearch() {
                                                     children: result.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                    lineNumber: 244,
+                                                    lineNumber: 259,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -455,7 +475,7 @@ function GlobalSearch() {
                                                             children: result.typeLabel
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                            lineNumber: 246,
+                                                            lineNumber: 261,
                                                             columnNumber: 25
                                                         }, this),
                                                         result.city && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -463,30 +483,30 @@ function GlobalSearch() {
                                                             children: result.city
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                            lineNumber: 250,
+                                                            lineNumber: 265,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/components/GlobalSearch.tsx",
-                                                    lineNumber: 245,
+                                                    lineNumber: 260,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/GlobalSearch.tsx",
-                                            lineNumber: 243,
+                                            lineNumber: 258,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, `${result.type}-${result.id}`, true, {
                                     fileName: "[project]/app/components/GlobalSearch.tsx",
-                                    lineNumber: 222,
+                                    lineNumber: 236,
                                     columnNumber: 19
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/app/components/GlobalSearch.tsx",
-                            lineNumber: 220,
+                            lineNumber: 234,
                             columnNumber: 15
                         }, this),
                         query.length >= 2 && results.length === 0 && !isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -500,23 +520,23 @@ function GlobalSearch() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/GlobalSearch.tsx",
-                                lineNumber: 261,
+                                lineNumber: 276,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/components/GlobalSearch.tsx",
-                            lineNumber: 260,
+                            lineNumber: 275,
                             columnNumber: 15
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/components/GlobalSearch.tsx",
-                    lineNumber: 197,
+                    lineNumber: 207,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/components/GlobalSearch.tsx",
-                lineNumber: 196,
+                lineNumber: 206,
                 columnNumber: 9
             }, this)
         ]
@@ -742,9 +762,44 @@ const menuLinks = [
 ];
 function MobileMenuContent({ isOpen, onClose }) {
     const [mounted, setMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const menuRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const firstLinkRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         setMounted(true);
     }, []);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (isOpen && firstLinkRef.current) {
+            firstLinkRef.current.focus();
+        }
+    }, [
+        isOpen
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (!isOpen) return;
+        const handleKeyDown = (e)=>{
+            if (e.key === 'Escape') {
+                onClose();
+                return;
+            }
+            if (e.key === 'Tab' && menuRef.current) {
+                const focusableElements = menuRef.current.querySelectorAll('a[href], button:not([disabled])');
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return ()=>document.removeEventListener('keydown', handleKeyDown);
+    }, [
+        isOpen,
+        onClose
+    ]);
     if (!mounted || !isOpen) return null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$dom$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["createPortal"])(/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
         children: [
@@ -754,28 +809,33 @@ function MobileMenuContent({ isOpen, onClose }) {
                 "aria-hidden": "true"
             }, void 0, false, {
                 fileName: "[project]/app/components/MobileMenu.tsx",
-                lineNumber: 28,
+                lineNumber: 66,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
+                ref: menuRef,
+                id: "mobile-menu",
                 className: "fixed top-20 right-0 w-72 bg-white shadow-2xl z-[9999] overflow-y-auto rounded-bl-xl",
                 "aria-label": "Mobile navigation",
+                role: "dialog",
+                "aria-modal": "true",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "py-4",
-                        children: menuLinks.map((link)=>{
+                        children: menuLinks.map((link, index)=>{
                             const Icon = link.icon;
                             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                 href: link.href,
                                 onClick: onClose,
-                                className: "flex items-center gap-3 px-6 py-4 text-slate-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors focus:outline-none focus-visible:bg-emerald-50",
+                                ref: index === 0 ? firstLinkRef : undefined,
+                                className: "flex items-center gap-3 px-6 py-4 text-slate-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors focus:outline-none focus-visible:bg-emerald-50 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-500",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Icon, {
                                         className: "w-5 h-5",
                                         "aria-hidden": "true"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/MobileMenu.tsx",
-                                        lineNumber: 48,
+                                        lineNumber: 91,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -783,19 +843,19 @@ function MobileMenuContent({ isOpen, onClose }) {
                                         children: link.label
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/MobileMenu.tsx",
-                                        lineNumber: 49,
+                                        lineNumber: 92,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, link.href, true, {
                                 fileName: "[project]/app/components/MobileMenu.tsx",
-                                lineNumber: 42,
+                                lineNumber: 84,
                                 columnNumber: 15
                             }, this);
                         })
                     }, void 0, false, {
                         fileName: "[project]/app/components/MobileMenu.tsx",
-                        lineNumber: 38,
+                        lineNumber: 80,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -808,18 +868,18 @@ function MobileMenuContent({ isOpen, onClose }) {
                             children: "Subscribe to Newsletter"
                         }, void 0, false, {
                             fileName: "[project]/app/components/MobileMenu.tsx",
-                            lineNumber: 56,
+                            lineNumber: 99,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/components/MobileMenu.tsx",
-                        lineNumber: 55,
+                        lineNumber: 98,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/MobileMenu.tsx",
-                lineNumber: 33,
+                lineNumber: 71,
                 columnNumber: 7
             }, this)
         ]
@@ -827,46 +887,54 @@ function MobileMenuContent({ isOpen, onClose }) {
 }
 function MobileMenu() {
     const [isOpen, setIsOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const triggerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const handleClose = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
+        setIsOpen(false);
+        triggerRef.current?.focus();
+    }, []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "md:hidden",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                ref: triggerRef,
                 onClick: ()=>setIsOpen(!isOpen),
                 className: "p-2 text-slate-600 hover:text-emerald-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg",
                 "aria-label": isOpen ? 'Close menu' : 'Open menu',
                 "aria-expanded": isOpen,
+                "aria-haspopup": "dialog",
+                "aria-controls": "mobile-menu",
                 children: isOpen ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
                     className: "w-6 h-6",
                     "aria-hidden": "true"
                 }, void 0, false, {
                     fileName: "[project]/app/components/MobileMenu.tsx",
-                    lineNumber: 83,
+                    lineNumber: 135,
                     columnNumber: 11
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
                     className: "w-6 h-6",
                     "aria-hidden": "true"
                 }, void 0, false, {
                     fileName: "[project]/app/components/MobileMenu.tsx",
-                    lineNumber: 85,
+                    lineNumber: 137,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/components/MobileMenu.tsx",
-                lineNumber: 76,
+                lineNumber: 125,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(MobileMenuContent, {
                 isOpen: isOpen,
-                onClose: ()=>setIsOpen(false)
+                onClose: handleClose
             }, void 0, false, {
                 fileName: "[project]/app/components/MobileMenu.tsx",
-                lineNumber: 89,
+                lineNumber: 141,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/MobileMenu.tsx",
-        lineNumber: 75,
+        lineNumber: 124,
         columnNumber: 5
     }, this);
 }

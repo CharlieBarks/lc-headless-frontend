@@ -324,6 +324,14 @@ export function generateWebsiteSchema(): object {
       "name": "Las Cruces Directory",
       "url": "https://lascrucesdirectory.com",
     },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://lascrucesdirectory.com/search?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
   };
 }
 

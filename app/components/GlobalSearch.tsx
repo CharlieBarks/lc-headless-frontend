@@ -95,7 +95,7 @@ export function GlobalSearch() {
   return (
     <>
       <div ref={containerRef} className="relative hidden md:block">
-        <form onSubmit={handleSubmit} className="relative">
+        <form onSubmit={handleSubmit} className="relative" role="search">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" aria-hidden="true" />
           <input
             ref={inputRef}
@@ -104,6 +104,10 @@ export function GlobalSearch() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search listings..."
             aria-label="Search listings"
+            aria-expanded={isOpen && results.length > 0}
+            aria-controls="search-results"
+            aria-autocomplete="list"
+            role="combobox"
             className="w-48 lg:w-56 pl-10 pr-10 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:bg-white transition-all text-sm"
           />
           {query && (
@@ -123,13 +127,19 @@ export function GlobalSearch() {
         </form>
 
         {isOpen && results.length > 0 && (
-          <div className="absolute top-full right-0 mt-2 w-[420px] bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-50 max-h-[70vh] overflow-y-auto">
+          <div
+            id="search-results"
+            role="listbox"
+            aria-label="Search results"
+            className="absolute top-full right-0 mt-2 w-[420px] bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-50 max-h-[70vh] overflow-y-auto"
+          >
             <div className="p-3">
               {results.map((result) => (
                 <Link
                   key={`${result.type}-${result.id}`}
                   href={`/${result.type}/${result.slug}`}
                   onClick={handleResultClick}
+                  role="option"
                   className="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                 >
                   {result.image ? (
@@ -194,8 +204,8 @@ export function GlobalSearch() {
 
       {showMobileSearch && (
         <div className="fixed inset-0 bg-black/50 z-50 md:hidden" onClick={() => setShowMobileSearch(false)}>
-          <div className="bg-white p-4" onClick={(e) => e.stopPropagation()}>
-            <form onSubmit={handleSubmit} className="relative">
+          <div className="bg-white p-4" onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Search">
+            <form onSubmit={handleSubmit} className="relative" role="search">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" aria-hidden="true" />
               <input
                 type="text"
@@ -203,6 +213,10 @@ export function GlobalSearch() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search listings..."
                 aria-label="Search listings"
+                aria-expanded={results.length > 0}
+                aria-controls="mobile-search-results"
+                aria-autocomplete="list"
+                role="combobox"
                 autoFocus
                 className="w-full pl-12 pr-12 py-4 bg-slate-100 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 text-base"
               />
@@ -217,12 +231,13 @@ export function GlobalSearch() {
             </form>
 
             {results.length > 0 && (
-              <div className="mt-4 max-h-[60vh] overflow-y-auto">
+              <div id="mobile-search-results" role="listbox" aria-label="Search results" className="mt-4 max-h-[60vh] overflow-y-auto">
                 {results.map((result) => (
                   <Link
                     key={`${result.type}-${result.id}`}
                     href={`/${result.type}/${result.slug}`}
                     onClick={handleResultClick}
+                    role="option"
                     className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors"
                   >
                     {result.image ? (

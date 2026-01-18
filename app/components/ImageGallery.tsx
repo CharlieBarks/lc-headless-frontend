@@ -79,12 +79,14 @@ export default function ImageGallery({ images, altText }: ImageGalleryProps) {
 
   return (
     <div className="space-y-4">
-      <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-slate-200 group">
+      <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+        Viewing image {currentIndex + 1} of {images.length}: {altText}
+      </div>
+      <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-slate-200 group" role="region" aria-label="Image gallery" aria-roledescription="carousel">
         <div className="relative h-[500px]">
-          {/* Render current image */}
           <Image
             src={images[currentIndex]}
-            alt={`${altText} - Image ${currentIndex + 1}`}
+            alt={`${altText} - Image ${currentIndex + 1} of ${images.length}`}
             fill
             sizes="(max-width: 1024px) 100vw, 66vw"
             className="object-cover"

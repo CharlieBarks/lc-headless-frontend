@@ -84,6 +84,12 @@ export default function RootLayout({
       </head>
       <body>
         <JsonLdScript data={websiteSchema} />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-emerald-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-emerald-600"
+        >
+          Skip to main content
+        </a>
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50">
           <nav aria-label="Main navigation" className="bg-white/80 backdrop-blur-md border-b border-slate-200/50 sticky top-0 z-50 shadow-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -134,7 +140,7 @@ export default function RootLayout({
             </div>
           </nav>
 
-          <main>{children}</main>
+          <main id="main-content">{children}</main>
 
           <NewsletterSection />
 
